@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Having everything namespaced for multitenancy is great, but not if it's a pain to set up.
+# Luckily, with a few lines of kinda scary ssh config, it's pretty easy to use your config when you ssh into a machine (interactively) but not when anyone else SSHs in
+
+# In order for this to be truly multi-tenant, it's important to check if the multitenant suffix is the same suffix as the one that is currently being used.
+# This is... kinda ugly. I'm using {suffix here} as the place to insert the actual suffix (because if this script is called by me, I'll insert -james, but if it were called by someone else, it should insert their suffix instead)
+# To make matters worse, I can't wrap $MULTITENANT_SUFFIX in quotation marks because ssh gives me errors if I do, so I have to prepend it and the suffix with a character to ensure I don't end up writing something malformed like "&&  == -james" when MULTITENANT_SUFFIX isn't set
+read -r -d '' SSH_CONFIG_NEEDED << 'EOF'
+Match exec "[[ $(ps h o args p $PPID | sed 's~ ~\n~g' | grep -v '^\-' | wc -l) -eq 2 && _$MULTITENANT_SUFFIX == _{suffix here} ]]"
+    RemoteCommand [ -d $HOME/.config/zsh{suffix here} ] && ZDOTDIR=$HOME/.config/zsh{suffix here} zsh || bash
+    RequestTTY yes
+EOF
+
+# Replace the placeholder with the actual suffix
+SSH_CONFIG_NEEDED="$(echo "$SSH_CONFIG_NEEDED" | sed "s~{suffix here}~$MULTITENANT_SUFFIX~g")"
+
+# If the config needed is not there, then add it
+if [[ ! -s ~/.ssh/config || `cat ~/.ssh/config` != *"$SSH_CONFIG_NEEDED"* ]]; then
+	# First, ensure .ssh/config exists and has the right permissions
+	mkdir -p ~/.ssh
+	chmod 0700 ~/.ssh
+	touch ~/.ssh/config
+	chmod -R 0600 ~/.ssh/*
+	# Add a blank line if the file has content already
+	[[ -s ~/.ssh/config ]] && echo >> ~/.ssh/config
+	echo "$SSH_CONFIG_NEEDED" >> ~/.ssh/config
+fi

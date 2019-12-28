@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+git gc --aggressive && git repack -Ad && git prune

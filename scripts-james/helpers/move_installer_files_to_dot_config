@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# When using my install-nixos script, the installer will clone a repo to /etc/nixos in hopes of being usable by others; however, this is not exactly what I want.
+# Really, I want all of those files to end up in ~/.config - this file achieves that, and this file is run by setup.sh when using my install-nixos script
+mkdir -p /mnt/home/james/.config
+# Move all files from /mnt/etc/nixos (from the initial git clone) to $HOME/.config, where they belong.
+# But in order to do that, first recreate the directory structure
+find . -type d -exec mkdir -p /mnt/home/james/.config/{} \;
+# Now do the actual moving (excluding .nix files)
+find . -type f -not -name "*.nix" -exec mv {} /mnt/home/james/.config/{} \;

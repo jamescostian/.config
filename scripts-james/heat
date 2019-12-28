@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# USAGE: heat [0+]
+# The optional number parameter says how many threads to use (defaults to 0, which means one for each CPU)
+set -eo pipefail
+clear
+cd "$(dirname "$0")"
+
+if [ ! -f $HOME/.cache/heat.mkv ]; then
+  mkdir -p $HOME/.cache
+  echo "You are missing the video file needed, so I will download it first"
+  curl http://jell.yfish.us/media/jellyfish-3-mbps-hd-h264.mkv > $HOME/.cache/heat.mkv
+fi
+
+NUM_HEAT_THREADS="$1"
+if [ -z "$1" ]; then
+  NUM_HEAT_THREADS="0"
+fi
+
+tput setaf 1
+COLS=$(tput cols)
+ROWS=$(tput lines)
+TXT="Heating you up 💞"
+TXTCOLS=${#TXT}
+tput cup $((($ROWS/2)-1)) $((($COLS-$TXTCOLS)/2))
+printf "$TXT"
+if hash iStats 2>/dev/null; then
+  TXT="$NUM_HEAT_THREADS th, $(iStats cpu temp --value-only -f | awk '{print $1}')°F"
+elif hash sensors 2>/dev/null; then
+  TXT="$NUM_HEAT_THREADS th, $(sensors -f | grep -oP '(Package|Physical).*?\+\K[0-9.]+')°F"
+else
+  TXT="$NUM_HEAT_THREADS th, Unknown Temp!"
+fi
+TXTCOLS=${#TXT}
+tput cup $((($ROWS/2))) $((($COLS-$TXTCOLS)/2))
+tput setaf 5
+printf "$TXT"
+tput cup $((($ROWS/2)+1)) $(($COLS/2))
+tput sgr0
+
+ffmpeg -i $HOME/.cache/heat.mkv -to 00:02 -f matroska -threads $NUM_HEAT_THREADS - > /dev/null 2>&1
+./heat $NUM_HEAT_THREADS

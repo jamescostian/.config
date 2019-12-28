@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+npm ls -g --depth=0 --parseable | awk -F '/' '{if($NF != "lib" && $NF != "npm") print $NF}'

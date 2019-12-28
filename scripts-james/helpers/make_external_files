@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# I wish ~/.config was all I needed to check in to git, but it's not. Some things have be installed elsewhere
+# You can pass this a prefix, e.g. /mnt, if using this in an installer. This takes care of all the files that are needed outside of ~/.config
+touch "$1/home/james/.hushlogin"
+# Why Konsole puts its rc file in ~/.config but the rest of its config in ~/.local/share is beyond me
+mkdir -p "$1/home/james/.local/share"
+cd "$1/home/james/.local/share"
+rm -Rf konsole
+ln -s ../../.config/konsole
+
+if [[ "$1" == "/mnt" ]]; then
+	# This is being run from the NixOS installer.
+	# My setup script that gets run by install-nixos runs _before_ rebooting - I'd like the setup script to also run after rebooting, so that it can do stuff like copy wifi secrets
+	echo "/home/james/.config/setup.sh" > /home/james/.zshrc
+else
+	# Allows me to put my zsh config in ~/.config
+	echo 'ZDOTDIR=$HOME/.config/zsh'"$MULTITENANT_SUFFIX" > /home/james/.zshenv
+	~/.config/scripts-james/helpers/make_ssh_use_my_config
+fi

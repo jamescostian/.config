@@ -1,0 +1,76 @@
+#!/usr/bin/env sh
+# Different distros and container images have different package managers, and some are even missing some coreutils
+# This function is for saying "install X, Y, and Z if they aren't already installed" and not worrying about details
+
+# First, identify which of the programs are actually missing
+MISSING_DEPENDENCIES=""
+for PROGRAM in $@; do
+	if ! hash "$PROGRAM" 2> /dev/null; then
+		if [ "$PROGRAM" = "fd" ] && hash "fdfind" 2> /dev/null; then
+			echo "You have 'fd' installed as 'fdfind' - keep that in mind"
+		else
+			MISSING_DEPENDENCIES="$PROGRAM $MISSING_DEPENDENCIES"
+		fi
+	fi
+done
+if [ -z "$MISSING_DEPENDENCIES" ]; then
+	exit
+fi
+
+# Now that we've narrowed down the missing dependencies, we can write the correct installer command based on the package manager available
+
+# A package name is not always the same as a program name. For example, I want to use rg, but that means installing ripgrep
+aka () {
+	awk "{for (i = 1; i <= NF; i++) { if (\$i == \"$1\") printf \"$2 \"; else printf \$i \" \";}}"
+}
+MISSING_DEPENDENCIES="$(echo $MISSING_DEPENDENCIES | aka rg ripgrep | aka ssh openssh)"
+
+if hash nix-env 2> /dev/null; then
+	MISSING_DEPENDENCIES="$(echo $MISSING_DEPENDENCIES | aka bash bashInteractive)"
+	# No need for root here
+	nix-env -i $MISSING_DEPENDENCIES
+	exit $?
+elif hash pacman 2> /dev/null; then
+	INSTALL_CMD="pacman -Sy && pacman --noconfirm -S $MISSING_DEPENDENCIES"
+elif hash dnf 2> /dev/null || hash yum 2> /dev/null; then
+	if ! hash dnf 2> /dev/null; then
+		INSTALL_CMD="yum install -y dnf;"
+		# ripgrep on centos 7 requires a copr
+		if echo " rg " | grep " $PACKAGE_ONLY_IN_TESTING " > /dev/null; then
+			sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
+		fi
+	fi
+	MISSING_DEPENDENCIES="$(echo $MISSING_DEPENDENCIES | aka fd fd-find)"
+	INSTALL_CMD="$INSTALL_CMD dnf install $MISSING_DEPENDENCIES"
+elif hash yum 2> /dev/null; then
+	MISSING_DEPENDENCIES="$(echo $MISSING_DEPENDENCIES | aka fd fd-find)"
+	INSTALL_CMD="yum install $MISSING_DEPENDENCIES"
+elif hash apk 2> /dev/null; then
+	# Some packages are only available in testing, so they have special installation instructions
+	for PACKAGE_ONLY_IN_TESTING in ripgrep bat; do
+		if echo " $MISSING_DEPENDENCIES " | grep " $PACKAGE_ONLY_IN_TESTING " > /dev/null; then
+			INSTALL_CMD="$INSTALL_CMD apk add "$PACKAGE_ONLY_IN_TESTING" --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted &&"
+		fi
+	done
+	INSTALL_CMD="$INSTALL_CMD apk add $MISSING_DEPENDENCIES"
+elif hash apt-get 2> /dev/null; then
+	MISSING_DEPENDENCIES="$(echo $MISSING_DEPENDENCIES | aka fd fd-find)"
+	INSTALL_CMD="apt-get update"
+	# Some docker containers are missing locales. Not sure if this is actually necessary or not
+	# INSTALL_CMD="$INSTALL_CMD; if hash unminimize 2> /dev/null && ! hash locale-gen; then"
+	# INSTALL_CMD="$INSTALL_CMD; sudo apt-get install -yq locales"
+	# INSTALL_CMD="$INSTALL_CMD; locale-gen en_US.UTF-8"
+	# INSTALL_CMD="$INSTALL_CMD; sudo localedef -i en_US -f UTF-8 en_US.UTF-8"
+	# INSTALL_CMD="$INSTALL_CMD; fi"
+	INSTALL_CMD="$INSTALL_CMD; apt-get install -yq $MISSING_DEPENDENCIES"
+fi
+
+# Finally, install. Avoid using sudo unless necessary, because sometimes (particularly in containers) sudo is not installed
+
+if [ "$(id -u)" -eq 0 ]; then
+	eval "$INSTALL_CMD"
+else
+	sudo sh -c "$INSTALL_CMD"
+fi
+
+exit $?

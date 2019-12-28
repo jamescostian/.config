@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+ssh-copy-id $@
+ssh -t $@ 'sh -c "`curl -L https://jami.am || wget -qO - https://jami.am`"'

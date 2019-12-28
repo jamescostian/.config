@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+ZOOM_LEVEL="$(echo $QT_SCREEN_SCALE_FACTORS | awk -F ';' '{print $1}')"
+if echo $ZOOM_LEVEL | grep = > /dev/null; then
+	ZOOM_LEVEL="$(echo $ZOOM_LEVEL | awk -F '=' '{print $2}')"
+fi
+for pref in ~/.mozilla/firefox/*default*/prefs.js; do
+	# Zoom
+	if grep layout.css.devPixelsPerPx $pref; then
+		sed -i 's/user_pref("layout.css.devPixelsPerPx", "\([0-9\.]\+\)")/user_pref\("layout.css.devPixelsPerPx", "'"$ZOOM_LEVEL"'")/' $pref
+	else
+		echo "user_pref(\"layout.css.devPixelsPerPx\", \"$ZOOM_LEVEL\");" >> $pref
+	fi
+
+	# Disable pocket
+	if grep extensions.pocket.enabled $pref;
+		sed -i 's/user_pref("extensions.pocket.enabled", "\([A-Za-z]\+\)")/user_pref\("extensions.pocket.enabled", "false")/' $pref
+	else
+		echo 'user_pref("extensions.pocket.enabled", false);' >> $pref
+	fi
+done

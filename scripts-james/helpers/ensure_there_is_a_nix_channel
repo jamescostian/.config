@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+if [[ "$(sudo nix-channel --list | wc -l)" == "0" ]]; then
+	NIXOS_CHANNEL_VERSION=`grep system.stateVersion /etc/nixos/configuration.nix | awk -F'"' '{ print $2 }'`
+	sudo nix-channel --add "https://nixos.org/channels/nixos-$NIXOS_CHANNEL_VERSION" nixos
+fi

@@ -1,0 +1,2 @@
+[General]
+exclude folders[$e]=$HOME/.local/,$HOME/.cache/

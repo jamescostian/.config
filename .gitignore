@@ -1,0 +1,72 @@
+.op/
+DB Browser for SQLiterc
+GIMP/
+Mullvad VPN/
+Signal/
+/VSCodium/*
+!/VSCodium/User
+/VSCodium/User/*
+!VSCodium/User/keybindings.json
+!VSCodium/User/settings.json
+!VSCodium/User/extensions
+VirtualBox/
+VirtualBoxVMrc
+VirtualBoxrc
+asciinema/install-id
+autokey/autokey.json~
+bluedevilglobalrc
+configstore/update-notifier-npm.json
+deluge
+emaildefaults
+freerdp
+google-chrome-beta/
+google-chrome/
+gtk-2.0/gtkfilechooser.ini
+glib-2.0/settings/keyfile
+gtkrc-2.0
+gtkrc
+libreoffice/
+menus/
+opera/
+pavucontrol.ini
+plasma-localerc
+plex.tv/plexmediaplayer.conf
+print-manager
+pulse/
+remmina/
+session/
+skypeforlinux/
+sqlitebrowser/
+startupconfig
+startupconfigfiles
+startupconfigkeys
+sublime-merge/
+sublime-text-3
+!sublime-text-3/Packages/User/Package Control.sublime-settings
+!sublime-text-3/Packages/User/Preferences.sublime-settings
+syncthing/
+thefuck/
+tizonia/
+user-dirs.locale
+vlc/
+vokoscreen/
+
+# KDE stuff
+akregatorrc
+arkrc
+kdeconnect/
+k*rc
+kcm*
+ksysguardrc
+partitionmanagerrc
+plasma-nm
+spectaclerc
+systemmonitorrc
+systemsettingsrc
+trashrc
+QtProject.conf
+# Why did Qt pick this file name?
+Trolltech.conf
+
+# Not yet sure if this is a good idea or not, will find out later
+!kactivity*

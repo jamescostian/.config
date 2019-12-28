@@ -1,0 +1,12 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Nix",
+		"One Half Color Schemes",
+		"Package Control"
+	]
+}

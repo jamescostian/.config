@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+TIZONIA_CONFIG=$HOME/.config/tizonia
+mkdir -p $TIZONIA_CONFIG
+chmod 0777 $TIZONIA_CONFIG
+
+#USER_ID=$(id -u);
+#GROUP_ID=$(id -g);
+
+docker run -it --rm \
+    -e PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native \
+    --volume $XDG_RUNTIME_DIR/pulse:$XDG_RUNTIME_DIR/pulse \
+    --volume $TIZONIA_CONFIG:/home/tizonia/.config/tizonia \
+    --volume $HOME/.config/pulse/cookie:/home/tizonia/.config/pulse/cookie \
+    --name tizonia \
+    tizonia/docker-tizonia "$@"

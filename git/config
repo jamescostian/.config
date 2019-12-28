@@ -1,0 +1,46 @@
+[user]
+	name = James Costian
+	email = james@jamescostian.com
+	signkey = 50F99DFD
+[commit]
+	gpgsign = true
+[core]
+	pager = diff-so-fancy | less --tabs=4 -R
+	excludesfile = ~/.config/git/ignore_global
+	editor = vim +startinsert
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+[diff]
+	indentHeuristic = on
+	colorMoved = default
+[color]
+	ui = true
+[color "diff"]
+	meta = 227
+	frag = magenta bold
+	commit = 227 bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[includeIf "gitdir:~/code/qliqweb/"]
+	path = ~/.config/git/config_qliq
+[includeIf "gitdir:~/code/botengine/"]
+	path = .config/git/config_qliq
+[url "git@github.com:jamescostian/"]
+    insteadOf = my:
+[url "https://github.com/"]
+    insteadOf = gh:
+[url "git@github.com:"]
+    pushInsteadOf = gh:
+[url "https://gitlab.com/"]
+    insteadOf = gl:
+[url "git@gitlab.com:"]
+    pushInsteadOf = gl:

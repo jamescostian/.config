@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if [[ ! -s ~/.config/configuration.nix ]]; then
+	echo "YOU CANNOT APPLY A NIXOS CONFIGURATION WHEN YOU HAVE NO NIXOS CONFIGURATION!"
+	exit 1
+fi
+sudo cp ~/.config/configuration.nix /etc/nixos/configuration.nix
+sudo nixos-rebuild switch

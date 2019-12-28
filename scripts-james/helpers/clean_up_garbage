@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Syncthing likes to make ~/Sync initially, which I hate. So if it exists and is empty, delete it!
+if [[ -d ~/Sync && -z "$(ls -A ~/Sync)" ]]; then
+	rmdir ~/Sync
+fi
+
+# I only ever use bash for testing purposes, so I don't see the need for it to clutter my $HOME
+rm -f ~/.bash_history
+
+# I use VS Code on my machines, and rarely use vim outside of multitenant situations; stay out of my $HOME!
+rm -f ~/.viminfo

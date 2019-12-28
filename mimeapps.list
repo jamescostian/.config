@@ -1,0 +1,5 @@
+
+[Default Applications]
+text/html=google-chrome-beta.desktop
+x-scheme-handler/sgnl=signal-desktop.desktop
+x-scheme-handler/mailto=google-chrome-beta.desktop
