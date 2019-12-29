@@ -114,7 +114,7 @@ if ! hash fzf 2> /dev/null; then
 	zplugin load junegunn/fzf-bin
 fi
 if ! hash bat 2> /dev/null; then
-	zplugin ice wait"1" from"gh-r" as"program" lucid
+	zplugin ice wait"1" from"gh-r" as"program" mv"bat* -> bat" lucid
 	zplugin load sharkdp/bat
 fi
 if ! hash fd 2> /dev/null; then
@@ -126,7 +126,7 @@ if ! hash fd 2> /dev/null; then
 	fi
 fi
 if ! hash exa 2> /dev/null; then
-	zplugin ice wait"1" from"gh-r" as"program" lucid
+	zplugin ice wait"1" from"gh-r" as"program" mv"exa* -> exa" lucid
 	zplugin load ogham/exa
 fi
 
