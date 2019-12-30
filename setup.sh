@@ -1,18 +1,20 @@
 #!/usr/bin/env sh
 URL_TO_CLONE="https://github.com/jamescostian/.config.git"
 export MULTITENANT_SUFFIX="-james"
-USER_FOR_NIXOS_INSTALLER="james" # Only used when installing nixos; provide your username here
+MY_USER_NAME="james"
 
 main () {
 	# If this is being run from install-nixos then allow certain things to be run - see https://github.com/jamescostian/install-nixos
 	# If this is being run in a multi-tenant situation,
 	# If this is being run from an already-installed-to NixOS with my dotfiles, other things need to run
 	if [ ! -z "$RUNNING_FROM_NIXOS_INSTALLER" ]; then
-		# The installer has the files in /mnt/etc/nixos instead of /mnt/home/james/.config
-		cd "/mnt/home/$USER_FOR_NIXOS_INSTALLER/.config"
+		# The installer has the files in /mnt/etc/nixos instead of /mnt/home/$MY_USER_NAME/.config
+		cd "/mnt/etc/nixos/scripts$MULTITENANT_SUFFIX"
 		./move_installer_files_to_dot_config
+		cd "/mnt/home/$MY_USER_NAME/.config"
 		./make_external_files "/mnt"
-	elif [ -f "/etc/NIXOS" ] && [ "$USER" = "james" ]; then
+		./make_machine.nix_file
+	elif [ -f "/etc/NIXOS" ] && [ "$USER" = "$MY_USER_NAME" ]; then
 		# This is one of *my machines* running NixOS!
 		cd "$HOME/.config/scripts$MULTITENANT_SUFFIX/helpers"
 		./ensure_there_is_a_nix_channel

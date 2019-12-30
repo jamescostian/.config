@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+echo -e "{ config, lib, pkgs, ... }:\n{" > /mnt/etc/nixos/machine.nix
+
+# At the time of writing, NixOS puts some hardware-specific configuration in configuration.nix by default
+# See https://github.com/NixOS/nixpkgs/issues/73595
+# Since this is only going to be run by setup.sh when using my NixOS installer, I know it will be in a different path: default-configuration.nix
+# So I just gotta take those lines and move them to a new file.
+
+cat /mnt/etc/nixos/default-configuration.nix | grep networking | grep useDHCP >> /mnt/etc/nixos/machine.nix
+
+# In addition, I also want to choose my hostname
+while [[ -z "$NIXOS_HOSTNAME" ]]; do
+	read -p "What would you like your hostname to be? " NIXOS_HOSTNAME
+done
+echo "  networking.hostName = \"$NIXOS_HOSTNAME\";" >> /mnt/etc/nixos/machine.nix
+
+# Also, I want to be able to set cpuFreqGovernor
+echo "Which cpuFreqGovernor is best for this machine?"
+read -p "ondemand, powersave, or performance? " CPU_FREQ_GOVERNOR
+
+echo "  powerManagement.cpuFreqGovernor = \"$CPU_FREQ_GOVERNOR\";" >> /mnt/etc/nixos/machine.nix
+
+if [[ "$ENABLE_ENCRYPTION" == "y" ]]; then
+	echo "  boot.initrd.luks.devices = [{" >> /mnt/etc/nixos/machine.nix
+	echo "    name = \"nixos\";" >> /mnt/etc/nixos/machine.nix
+    echo "    device = \"$ENCRYPTED_PARTITION\";" >> /mnt/etc/nixos/machine.nix
+    echo "    preLVM = true;" >> /mnt/etc/nixos/machine.nix
+    echo "  }];" >> /mnt/etc/nixos/machine.nix
+fi
+
+echo "}" >> /mnt/etc/nixos/machine.nix

@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./machine.nix
 
     # VS Code Live Share plugin patch for NixOS
     (builtins.fetchTarball {
