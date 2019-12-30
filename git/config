@@ -7,7 +7,7 @@
 [core]
 	pager = diff-so-fancy | less --tabs=4 -R
 	excludesfile = ~/.config/git/ignore_global
-	editor = vim +startinsert
+	editor = vim -Nu ~/.config/vimrc-james +startinsert
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
