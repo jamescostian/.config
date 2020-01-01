@@ -23,9 +23,9 @@ echo "  powerManagement.cpuFreqGovernor = \"$CPU_FREQ_GOVERNOR\";" >> /mnt/etc/n
 if [[ "$ENABLE_ENCRYPTION" == "y" ]]; then
 	echo "  boot.initrd.luks.devices = [{" >> /mnt/etc/nixos/machine.nix
 	echo "    name = \"nixos\";" >> /mnt/etc/nixos/machine.nix
-    echo "    device = \"$ENCRYPTED_PARTITION\";" >> /mnt/etc/nixos/machine.nix
-    echo "    preLVM = true;" >> /mnt/etc/nixos/machine.nix
-    echo "  }];" >> /mnt/etc/nixos/machine.nix
+	echo "    device = \"$ENCRYPTED_PARTITION\";" >> /mnt/etc/nixos/machine.nix
+	echo "    preLVM = true;" >> /mnt/etc/nixos/machine.nix
+	echo "  }];" >> /mnt/etc/nixos/machine.nix
 fi
 
 echo "}" >> /mnt/etc/nixos/machine.nix

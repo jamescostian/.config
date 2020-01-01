@@ -4,6 +4,6 @@
 mkdir -p /mnt/home/james/.config
 # Move all files from /mnt/etc/nixos (from the initial git clone) to $HOME/.config, where they belong.
 # But in order to do that, first recreate the directory structure
-find . -type d -exec mkdir -p /mnt/home/james/.config/{} \;
+find /mnt/etc/nixos -type d -exec mkdir -p /mnt/home/james/.config/{} \;
 # Now do the actual moving (excluding .nix files)
-find . -type f -not -name "*.nix" -exec mv {} /mnt/home/james/.config/{} \;
+find /mnt/etc/nixos -type f -not -name "*.nix" -exec mv {} /mnt/home/james/.config/{} \;

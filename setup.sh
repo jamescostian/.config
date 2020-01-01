@@ -9,8 +9,8 @@ main () {
 	# If this is being run from an already-installed-to NixOS with my dotfiles, other things need to run
 	if [ ! -z "$RUNNING_FROM_NIXOS_INSTALLER" ]; then
 		# The installer has the files in /mnt/etc/nixos instead of /mnt/home/$MY_USER_NAME/.config
-		cd "/mnt/etc/nixos/scripts$MULTITENANT_SUFFIX"
-		./move_installer_files_to_dot_config
+		/mnt/etc/nixos/scripts$MULTITENANT_SUFFIX/helpers/move_installer_files_to_dot_config
+		mkdir -p "/mnt/home/$MY_USER_NAME/.config"
 		cd "/mnt/home/$MY_USER_NAME/.config"
 		./make_external_files "/mnt"
 		./make_machine.nix_file

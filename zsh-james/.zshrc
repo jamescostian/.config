@@ -201,6 +201,8 @@ alias junk="unset HISTFILE"
 alias je="junk; exit"
 
 # Alternatives I like
+alias kc="kubectl"
+alias mk="minikube"
 alias nr="npm run --silent"
 alias npmi="npm i"
 alias npmig="npm i -g"

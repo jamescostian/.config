@@ -93,7 +93,7 @@
 
     # Misc
     _1password # CLI for 1Password. Use 1Password X on browsers
-    ecryptfs ecryptfs-helper # Encryption, but not FDE
+    ecryptfs ecryptfs-helper cryptsetup # Encryption
     p7zip unrar unzip # Open archives
     lame libvorbis ffmpeg-full youtube-dl # Simple audio/video tasks
     xclip # Copy + paste from terminal - replace this when switching from X11 to Wayland

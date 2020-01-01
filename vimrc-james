@@ -7,6 +7,8 @@ set viminfo+=n~/.cache/viminfo
 set t_Co=256
 syntax on
 set cursorline
+cmap w!! w !sudo tee > /dev/null %
+cmap Wq wq
 
 " Install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -22,6 +24,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'scrooloose/syntastic'
+Plug 'LnL7/vim-nix'
 Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
