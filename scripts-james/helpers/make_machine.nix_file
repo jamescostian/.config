@@ -20,7 +20,9 @@ read -p "ondemand, powersave, or performance? " CPU_FREQ_GOVERNOR
 
 echo "  powerManagement.cpuFreqGovernor = \"$CPU_FREQ_GOVERNOR\";" >> /mnt/etc/nixos/machine.nix
 
+# Move the FDE mounting details from configuration.nix (which I check into git) to machine.nix
 if [[ "$ENABLE_ENCRYPTION" == "y" ]]; then
+	sed -i '/boot.initrd.luks.devices\s*=/,+4d' /mnt/etc/nixos/configuration.nix
 	echo "  boot.initrd.luks.devices = [{" >> /mnt/etc/nixos/machine.nix
 	echo "    name = \"nixos\";" >> /mnt/etc/nixos/machine.nix
 	echo "    device = \"$ENCRYPTED_PARTITION\";" >> /mnt/etc/nixos/machine.nix

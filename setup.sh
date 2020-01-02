@@ -17,7 +17,7 @@ main () {
 		cd "/mnt/home/$MY_USER_NAME/.config/scripts$MULTITENANT_SUFFIX/helpers"
 		./make_external_files "/mnt"
 		./make_machine.nix_file
-		chown -R 1000:100 /mnt/home/$MY_USER_NAME # Restore permissions - the folders didn't have these permissions
+		chown -R $MY_USER_ID:100 /mnt/home/$MY_USER_NAME # Restore permissions - the folders didn't have these permissions
 	elif [ -f "/etc/NIXOS" ] && [ "$USER" = "$MY_USER_NAME" ]; then
 		# This is one of *my machines* running NixOS!
 		cd "$HOME/.config/scripts$MULTITENANT_SUFFIX/helpers"

@@ -3,5 +3,5 @@ if [[ ! -s ~/.config/VSCodium/User/extensions ]]; then
 	echo "YOU CANNOT APPLY VSCODE EXTENSIONS WHEN YOU HAVE NO VSCODE EXTENSIONS!"
 	exit 1
 fi
-diff --old-line-format="" --unchanged-line-format="" <(code --list-extensions) ~/.config/VSCodium/User/extensions | xargs -rL 1 code --install-extension
-diff --new-line-format="" --unchanged-line-format="" <(code --list-extensions) ~/.config/VSCodium/User/extensions | xargs -rL 1 code --uninstall-extension
+diff --old-line-format="" --unchanged-line-format="" <(codium --list-extensions) ~/.config/VSCodium/User/extensions | xargs -rL 1 codium --install-extension
+diff --new-line-format="" --unchanged-line-format="" <(codium --list-extensions) ~/.config/VSCodium/User/extensions | xargs -rL 1 codium --uninstall-extension
