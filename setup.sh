@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 URL_TO_CLONE="https://github.com/jamescostian/.config.git"
 export MULTITENANT_SUFFIX="-james"
+# The following 2 variables are only needed by the NixOS installer
 MY_USER_NAME="james"
+MY_USER_ID="1000" # aka UID - defaults to 1000
+
 
 main () {
 	# If this is being run from install-nixos then allow certain things to be run - see https://github.com/jamescostian/install-nixos
@@ -9,11 +12,12 @@ main () {
 	# If this is being run from an already-installed-to NixOS with my dotfiles, other things need to run
 	if [ ! -z "$RUNNING_FROM_NIXOS_INSTALLER" ]; then
 		# The installer has the files in /mnt/etc/nixos instead of /mnt/home/$MY_USER_NAME/.config
-		/mnt/etc/nixos/scripts$MULTITENANT_SUFFIX/helpers/move_installer_files_to_dot_config
 		mkdir -p "/mnt/home/$MY_USER_NAME/.config"
-		cd "/mnt/home/$MY_USER_NAME/.config"
+		/mnt/etc/nixos/scripts$MULTITENANT_SUFFIX/helpers/move_installer_files_to_dot_config
+		cd "/mnt/home/$MY_USER_NAME/.config/scripts$MULTITENANT_SUFFIX/helpers"
 		./make_external_files "/mnt"
 		./make_machine.nix_file
+		chown -R 1000:100 /mnt/home/$MY_USER_NAME # Restore permissions - the folders didn't have these permissions
 	elif [ -f "/etc/NIXOS" ] && [ "$USER" = "$MY_USER_NAME" ]; then
 		# This is one of *my machines* running NixOS!
 		cd "$HOME/.config/scripts$MULTITENANT_SUFFIX/helpers"

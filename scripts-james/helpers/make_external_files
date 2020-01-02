@@ -13,8 +13,8 @@ if [[ "$1" == "/mnt" ]]; then
 	# My setup script that gets run by install-nixos runs _before_ rebooting - I'd like the setup script to also run after rebooting, so that it can do stuff like copy wifi secrets
 	mv /mnt/home/james/.config/zsh-james/.zshrc /mnt/home/james/.config/zsh-james/real.zshrc
 	echo "/home/james/.config/setup.sh" > /mnt/home/james/.config/zsh-james/.zshrc
-	echo "source /home/james/.config/zsh-james/real.zshrc" >> /mnt/home/james/.config/zsh-james
-	echo "mv /home/james/.config/zsh-james/real.zshrc /home/james/.config/zsh-james/.zshrc" >> /mnt/home/james/.config/zsh-james
+	echo "source /home/james/.config/zsh-james/real.zshrc" >> /mnt/home/james/.config/zsh-james/.zshrc
+	echo "mv /home/james/.config/zsh-james/real.zshrc /home/james/.config/zsh-james/.zshrc" >> /mnt/home/james/.config/zsh-james/.zshrc
 else
 	~/.config/scripts-james/helpers/make_ssh_use_my_config
 fi

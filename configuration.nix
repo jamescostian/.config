@@ -200,14 +200,13 @@
 
   # Create default user accounts
   users.users.james = {
-    initialPassword = "test";
+    uid = 1000;
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [ "adbusers" "audio" "docker" "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINPSXnK4t2JLa7A9ziIVNt28g2lvSvPK/jSf+kFQINpD ssh@jam" ];
   };
   users.users.victoria = {
-    initialPassword = "test";
     isNormalUser = true;
     extraGroups = [ "audio" "networkmanager" ];
   };
