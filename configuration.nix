@@ -5,10 +5,10 @@
     ./machine.nix
 
     # VS Code Live Share plugin patch for NixOS
-    (builtins.fetchTarball {
-      url = "https://github.com/msteen/nixos-vsliveshare/archive/e6ea0b04de290ade028d80d20625a58a3603b8d7.tar.gz";
-      sha256 = "12riba9dlchk0cvch2biqnikpbq4vs22gls82pr45c3vzc3vmwq9";
-    })
+    # (builtins.fetchTarball {
+    #   url = "https://github.com/msteen/nixos-vsliveshare/archive/e6ea0b04de290ade028d80d20625a58a3603b8d7.tar.gz";
+    #   sha256 = "12riba9dlchk0cvch2biqnikpbq4vs22gls82pr45c3vzc3vmwq9";
+    # })
   ];
 
   #  _____           _                                    _____                 _               
@@ -31,14 +31,15 @@
   # Not being used: services.flatpak.enable = true;
   programs.adb.enable = true; # For Android
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
-  # programs.zsh.enable = true;
+  programs.zsh.enable = true; # https://unix.stackexchange.com/a/545315
   environment.shells = [ pkgs.zsh pkgs.bashInteractive ];
-  services.vsliveshare = {
-    enable = true;
-    enableWritableWorkaround = true;
-    enableDiagnosticsWorkaround = true;
-    extensionsDir = "/home/james/.vscode-oss/extensions";
-  };
+  # Enable the VS Code Live Share plugin patch for NixOS:
+  # services.vsliveshare = {
+  #   enable = true;
+  #   enableWritableWorkaround = true;
+  #   enableDiagnosticsWorkaround = true;
+  #   extensionsDir = "/home/james/.vscode-oss/extensions";
+  # };
   environment.systemPackages = with pkgs; [
     #   _____ _    _ _____     
     #  / ____| |  | |_   _|    
@@ -49,6 +50,7 @@
 
     # Browsers that I'm fine with being slightly out of date
     opera google-chrome google-chrome-beta tor-browser-bundle firefox-devedition-bin
+    chromium # Chromium is used for captive portals by NixOS
     # Open files
     gimp libreoffice kdeApplications.ark sqlitebrowser vlc
     # Screen capturing (damn, I miss Cmd+Shift+5 from macOS)
@@ -104,6 +106,7 @@
     rclone # Like scp but with support for "the cloud"
     libssh2 libusb # Not sure if I need these anymore - TODO: try building from scratch without them
     cifs-utils # For sharing between windows and linux
+    lshw usbutils pciutils # For seeing hardware details - provides lshw, lsusb, and lspci respectively
 
     # Things I installed, thought were cool, but don't really use at the moment:
     # asciinema diskus dpkg hexyl magic-wormhole moreutils ngrep nmap tldr
@@ -118,7 +121,7 @@
     mycli # mysql postgresql mysql-workbench
 
     # Bluetooth-by-hand
-    bluez bluez-tools blueman
+    # bluez bluez-tools blueman
 
     # To get the latest version of a specific package, you can use something like this:
     # (import (fetchFromGitHub {
@@ -152,6 +155,11 @@
     1714 1715 1716 1717 1718 1719 1720 1721 1722 1723 1724 1725 1726 1727 1728 1729 1730 1731 1732 1733 1734 1735 1736 1737 1738 1739 1740 1741 1742 1743 1744 1745 1746 1747 1748 1749 1750 1751 1752 1753 1754 1755 1756 1757 1758 1759 1760 1761 1762 1763 1764
   ];
   # networking.firewall.enable = false;
+
+  # Captive portals? More like maladaptive mortals
+  networking.hosts = {
+    "172.31.98.1" = ["treehouse.addisontexas.net"];
+  };
 
   # networking.wireless.enable = true; # wpa_supplicant
   networking.networkmanager.enable = true;
@@ -200,7 +208,7 @@
 
   # Create default user accounts
   users.users.james = {
-    uid = 1000;
+  	uid = 1000;
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [ "adbusers" "audio" "docker" "networkmanager" "wheel" ];

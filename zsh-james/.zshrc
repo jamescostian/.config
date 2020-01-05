@@ -117,6 +117,10 @@ if ! hash bat 2> /dev/null; then
 	zplugin ice wait"1" from"gh-r" as"program" mv"bat*/bat -> bat" lucid
 	zplugin load sharkdp/bat
 fi
+if ! hash delta 2> /dev/null; then
+	zplugin ice wait"1" from"gh-r" as"program" mv"delta*/delta -> delta" lucid
+	zplugin load dandavison/delta
+fi
 if ! hash fd 2> /dev/null; then
 	if hash fdfind 2> /dev/null; then
 		alias fd=fdfind
@@ -134,6 +138,9 @@ fi
 export BAT_THEME="OneHalfDark"
 export BAT_PAGER="less -R"
 export BAT_STYLE="plain"
+zplugin ice wait"1" as"program" pick"src/batgrep.sh" lucid
+zplugin light eth-p/bat-extras
+alias rg=batgrep.sh
 
 # Setup fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
@@ -164,6 +171,9 @@ GEOMETRY_STATUS_COLOR=$(geometry::hostcolor || echo 1)
 # Set up some more plugins
 zplugin ice from"gh" lucid
 zplugin load rupa/z
+if [[ "$(uname -m)" == "aarch64" ]]; then
+  unsetopt BG_NICE # Nix on Droid fix. It's heavy-handed but meh
+fi
 zplugin ice wait lucid
 zplugin load https://github.com/zsh-users/zsh-history-substring-search
 # Bind UP and DOWN keys
