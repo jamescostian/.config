@@ -1,5 +1,11 @@
-{ config, pkgs, ... }:
-{
+{ lib, config, pkgs, ... }:
+with lib;
+let
+  autostart-autokey = pkgs.makeAutostartItem {
+    name = "autokey-gtk";
+    package = pkgs.autokey;
+  };
+in {
   imports = [
     ./hardware-configuration.nix
     ./machine.nix
@@ -21,12 +27,12 @@
   #                            |___/                                                            
 
   nixpkgs.config.allowUnfree = true; # THE MOST IMPORTANT LINE IN THIS WHOLE FILE lol
+  hardware.enableAllFirmware = true;
   nix.gc = { automatic = true; dates = "05:00"; }; # Garbage collection at 5AM
   system.autoUpgrade.enable = true;
   virtualisation.docker = { enable = true; enableOnBoot = true; };
   virtualisation.virtualbox.host.enable = true;
   services.openssh = { enable = true; passwordAuthentication = false; };
-  services.logrotate.enable = true;
   security.pam.enableEcryptfs = true; # Encryption, but not FDE
   # Not being used: services.flatpak.enable = true;
   programs.adb.enable = true; # For Android
@@ -60,7 +66,7 @@
     # Programming
     vscodium sublime3 sublime-merge
     # Communication
-    skype signal-desktop pavucontrol # "pavucontrol" was needed to get skype to actually work with my mic
+    skype signal-desktop discord pavucontrol # "pavucontrol" was needed to get skype to actually work with my mic
     # Games
     minecraft steam (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib ]; nativeOnly = true; }).run
     # Misc
@@ -68,9 +74,10 @@
     baobab # Disk utilization break-down. Nix hardlinks give it angina :/
     libnotify # Provides `notify-send`
     anbox # Android Emulator-ish
-    autokey # Save some keystrokes
+    autokey autostart-autokey # Save some keystrokes
     partition-manager
     mullvad-vpn
+    nixos-grub2-theme
 
     #   _____ _      _____     
     #  / ____| |    |_   _|    
@@ -144,17 +151,16 @@
   #                          |___/   
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    # "KDE Connect uses dynamic ports in the range 1714-1764 for UDP and TCP"
-    1714 1715 1716 1717 1718 1719 1720 1721 1722 1723 1724 1725 1726 1727 1728 1729 1730 1731 1732 1733 1734 1735 1736 1737 1738 1739 1740 1741 1742 1743 1744 1745 1746 1747 1748 1749 1750 1751 1752 1753 1754 1755 1756 1757 1758 1759 1760 1761 1762 1763 1764
-    8080 # For testing things
-    22000 # Syncthing
-  ];
-  networking.firewall.allowedUDPPorts = [
-    # Also for KDE Connect
-    1714 1715 1716 1717 1718 1719 1720 1721 1722 1723 1724 1725 1726 1727 1728 1729 1730 1731 1732 1733 1734 1735 1736 1737 1738 1739 1740 1741 1742 1743 1744 1745 1746 1747 1748 1749 1750 1751 1752 1753 1754 1755 1756 1757 1758 1759 1760 1761 1762 1763 1764
-  ];
-  # networking.firewall.enable = false;
+  networking.firewall = {
+    allowedTCPPortRanges = [
+      { from = 1714; to = 1764; } # KDE Connect
+      { from = 8070; to = 8090; } # For testing web applications
+    ];
+    allowedUDPPortRanges = [
+      { from = 1714; to = 1764; } # KDE Connect
+    ];
+    # enable = false;
+  };
 
   # Captive portals? More like maladaptive mortals
   networking.hosts = {
@@ -208,7 +214,7 @@
 
   # Create default user accounts
   users.users.james = {
-  	uid = 1000;
+    uid = 1000;
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [ "adbusers" "audio" "docker" "networkmanager" "wheel" ];
@@ -221,16 +227,41 @@
   # users.defaultUserShell = pkgs.zsh;
   environment.variables.ZDOTDIR = "/home/james/.config/zsh-james";
 
+  boot.plymouth.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.extraConfig = "set theme=${pkgs.plasma5.breeze-grub}/grub/themes/breeze/theme.txt";
+  boot.loader.grub.splashImage = null;
   boot.supportedFilesystems = [ "ecryptfs" ];
 
   boot.kernel.sysctl = {
     "vm.swappiness" = 10;
     "vm.overcommit_memory" = 1; # For Redis
-    "fs.inotify.max_user_watches" = 9999999;
+    "fs.inotify.max_user_watches" = 99999999;
   };
 
   # Less writes to the SSD than normal, but not to the potentially bad extent of noatime
   fileSystems."/".options = [ "relatime" ];
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    group = "users";
+    user = "james";
+  };
+
+  services.logrotate = {
+    enable = true;
+    config = ''
+    /var/lib/docker/containers/*/*.log {
+      rotate 7
+      daily
+      compress
+      size=50M
+      missingok
+      delaycompress
+      copytruncate
+    }
+    '';
+  };
 }

@@ -117,5 +117,7 @@
         "erb",
         "javascript",
         "vue"
-    ]
+    ],
+    "diffEditor.ignoreTrimWhitespace": true,
+    "editor.minimap.enabled": false
 }

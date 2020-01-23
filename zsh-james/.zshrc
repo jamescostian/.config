@@ -145,6 +145,9 @@ alias rg=batgrep.sh
 # Setup fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
 FZF_CTRL_T_COMMAND='fd --hidden --follow --exclude ".git" . '
+if [ -n "${commands[fzf-share]}" ]; then
+	source "$(fzf-share)/key-bindings.zsh"
+fi
 if [[ -d "$HOME/result/sw/share/fzf" ]]; then
 	# auto-completion
 	[[ $- == *i* ]] && source "$HOME/result/sw/share/fzf/completion.zsh" 2> /dev/null
@@ -172,7 +175,7 @@ GEOMETRY_STATUS_COLOR=$(geometry::hostcolor || echo 1)
 zplugin ice from"gh" lucid
 zplugin load rupa/z
 if [[ "$(uname -m)" == "aarch64" ]]; then
-  unsetopt BG_NICE # Nix on Droid fix. It's heavy-handed but meh
+	unsetopt BG_NICE # Nix on Droid fix. It's heavy-handed but meh
 fi
 zplugin ice wait lucid
 zplugin load https://github.com/zsh-users/zsh-history-substring-search
@@ -220,6 +223,7 @@ alias v="vim"
 alias s="sudo "
 alias la="exa -la --git --sort=Name --color-scale" # ls -lA --color=always
 alias l="exa -l --git --sort=Name --color-scale" # ls -l --color=always
+alias fda="fd -E '\0'" # Use fd but without .gitignore getting in the way
 # I miss these aliases from oh-my-zsh
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -276,6 +280,9 @@ function 1p {
 		op list vaults > /dev/null 2>&1 || eval $(op signin costian)
 	fi
 	op "$@"
+}
+function help {
+	curl cht.sh/$1
 }
 
 # Global aliases for pipes

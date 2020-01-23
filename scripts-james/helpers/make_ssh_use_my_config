@@ -7,7 +7,7 @@
 # To make matters worse, I can't wrap $MULTITENANT_SUFFIX in quotation marks because ssh gives me errors if I do, so I have to prepend it and the suffix with a character to ensure I don't end up writing something malformed like "&&  == -james" when MULTITENANT_SUFFIX isn't set
 read -r -d '' SSH_CONFIG_NEEDED << 'EOF'
 Match exec "[[ $(ps h o args p $PPID | sed 's~ ~\n~g' | grep -v '^\-' | wc -l) -eq 2 && _$MULTITENANT_SUFFIX == _{suffix here} ]]"
-    RemoteCommand [ -d $HOME/.config/zsh{suffix here} ] && ZDOTDIR=$HOME/.config/zsh{suffix here} zsh || bash
+    RemoteCommand if [ -d $HOME/.config/zsh{suffix here} ]; then ZDOTDIR=$HOME/.config/zsh{suffix here} zsh; else bash; fi
     RequestTTY yes
 EOF
 

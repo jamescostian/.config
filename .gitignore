@@ -14,9 +14,12 @@ VirtualBoxVMrc
 VirtualBoxrc
 asciinema/install-id
 autokey/autokey.json~
+autostart/
 bluedevilglobalrc
+chromium/
 configstore/update-notifier-npm.json
-deluge
+deluge/
+discord/
 emaildefaults
 freerdp
 google-chrome-beta/

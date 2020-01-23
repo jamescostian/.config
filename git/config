@@ -32,7 +32,7 @@
 	newHighlight = green bold 22
 [includeIf "gitdir:~/code/qliqweb/"]
 	path = ~/.config/git/config_qliq
-[includeIf "gitdir:~/code/botengine/"]
+[includeIf "gitdir:~/code/qliqweb.botengine/"]
 	path = .config/git/config_qliq
 [url "git@github.com:jamescostian/"]
     insteadOf = my:
