@@ -93,3 +93,7 @@ Trolltech.conf
 
 # Checking this file in would tell multitenant installations to actually become non-multitenant installations
 NOT_MULTITENANT-james
+
+# Unique to dockerignore
+.git
+Dockerfile

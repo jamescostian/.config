@@ -1,7 +1,10 @@
-FROM alpine:edge
+FROM ubuntu:latest
 
 # Install my config
-RUN sh -c 'eval "$(wget -qO - https://jami.am)"'
+COPY setup.sh /
+COPY scripts-james/helpers/install-if-not-exists /
+COPY . /root/.config/cloned-config-james
+RUN ./setup.sh
 
 # Actually use my zsh config (which will cause the rest of my config to be used)
 ENV ZDOTDIR="/root/.config/zsh-james"
@@ -11,6 +14,6 @@ ENV ZDOTDIR="/root/.config/zsh-james"
 # In order to keep the interactiveness alive, you need to send commands, ideally ones with a 0 exit status, like true
 # That's why I use "yes true".
 # But you also need to kill the process (hence the timeout)
-RUN yes true | timeout -s KILL 40 zsh --interactive 2> /dev/null || true
+RUN yes true | timeout -s KILL 60 zsh --interactive 2> /dev/null || true
 
 CMD /bin/zsh

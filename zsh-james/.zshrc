@@ -48,7 +48,11 @@ else
 		alias cbp="wl-paste"
 	fi
 
-	alias update="sudo nixos-rebuild switch --upgrade"
+	if [[ -z "$USER" ]]; then
+		export USER="$(id -un)"
+	fi
+
+	alias update="sudo apt update && sudo apt upgrade"
 
 	# NixOS things
 	function nxr {
@@ -86,60 +90,66 @@ fi
 #                                                              __/ |
 #                                                             |___/
 
-if [[ ! -d ~/.zplugin ]]; then
-	mkdir ~/.zplugin
-	git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin
+if [[ ! -d ~/.zinit ]]; then
+	mkdir ~/.zinit
+	git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
+	# I'm using rupa/z which expects ~/.z to exist, so now is a great time to create it, since it seems none of the necessary zsh stuff exists
+	touch ~/.z
 fi
 
-source ~/.zplugin/bin/zplugin.zsh
+source ~/.zinit/bin/zinit.zsh
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=$HOME/.cache/zsh_history-james
 
 # Set up Oh-My-ZSH plugins and aliases
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
-zplugin ice wait"1" lucid
-zplugin snippet OMZ::plugins/docker/_docker
-zplugin ice wait lucid
-zplugin snippet https://raw.githubusercontent.com/akarzim/zsh-docker-aliases/3b7f40ed1c47c4e47bd2a2846c236cf91603b8c7/alias.zsh
+zinit ice wait lucid
+zinit snippet OMZ::plugins/git/git.plugin.zsh
+zinit ice wait lucid
+zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+zinit ice wait lucid
+zinit snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
+zinit ice wait"1" lucid
+zinit snippet OMZ::plugins/docker/_docker
+zinit ice wait lucid
+zinit snippet https://raw.githubusercontent.com/akarzim/zsh-docker-aliases/3b7f40ed1c47c4e47bd2a2846c236cf91603b8c7/alias.zsh
+zinit ice as"completion" wait lucid
+zinit snippet https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh
+zinit ice wait lucid
+zinit snippet https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh
 
 # Set up some programs
 if ! hash fzf 2> /dev/null; then
-	zplugin ice wait"1" from"gh-r" as"program" lucid
-	zplugin load junegunn/fzf-bin
+	zinit ice wait"1" from"gh-r" as"program" lucid
+	zinit load junegunn/fzf-bin
 fi
 if ! hash bat 2> /dev/null; then
-	zplugin ice wait"1" from"gh-r" as"program" mv"bat*/bat -> bat" lucid
-	zplugin load sharkdp/bat
+	zinit ice wait"1" from"gh-r" as"program" mv"bat*/bat -> bat" lucid
+	zinit load sharkdp/bat
 fi
 if ! hash delta 2> /dev/null; then
-	zplugin ice wait"1" from"gh-r" as"program" mv"delta*/delta -> delta" lucid
-	zplugin load dandavison/delta
+	zinit ice wait"1" from"gh-r" as"program" mv"delta*/delta -> delta" lucid
+	zinit load dandavison/delta
 fi
 if ! hash fd 2> /dev/null; then
 	if hash fdfind 2> /dev/null; then
 		alias fd=fdfind
 	else
-		zplugin ice wait"1" from"gh-r" as"program" lucid
-		zplugin load sharkdp/fd
+		zinit ice wait"1" from"gh-r" as"program" atclone"chown -R $USER ." mv"fd*/fd -> fd" lucid
+		zinit load sharkdp/fd
 	fi
 fi
 if ! hash exa 2> /dev/null; then
-	zplugin ice wait"1" from"gh-r" as"program" mv"exa* -> exa" lucid
-	zplugin load ogham/exa
+	zinit ice wait"1" from"gh-r" as"program" mv"exa* -> exa" lucid
+	zinit load ogham/exa
 fi
 
 # Bat config
 export BAT_THEME="OneHalfDark"
 export BAT_PAGER="less -R"
 export BAT_STYLE="plain"
-zplugin ice wait"1" as"program" pick"src/batgrep.sh" lucid
-zplugin light eth-p/bat-extras
+zinit ice wait"1" as"program" pick"src/batgrep.sh" lucid
+zinit light eth-p/bat-extras
 alias rg=batgrep.sh
 
 # Setup fzf
@@ -167,18 +177,18 @@ GEOMETRY_PATH_COLOR=5
 GEOMETRY_GIT_NO_COMMITS_MESSAGE="❄new❄ "
 
 PS1="$ " # Temporary prompt until the real one has loaded
-zplugin ice from"gh" lucid
-zplugin load geometry-zsh/geometry
+zinit ice from"gh" lucid
+zinit load geometry-zsh/geometry
 GEOMETRY_STATUS_COLOR=$(geometry::hostcolor || echo 1)
 
 # Set up some more plugins
-zplugin ice from"gh" lucid
-zplugin load rupa/z
+zinit ice from"gh" lucid
+zinit load rupa/z
 if [[ "$(uname -m)" == "aarch64" ]]; then
 	unsetopt BG_NICE # Nix on Droid fix. It's heavy-handed but meh
 fi
-zplugin ice wait lucid
-zplugin load https://github.com/zsh-users/zsh-history-substring-search
+zinit ice wait lucid
+zinit load https://github.com/zsh-users/zsh-history-substring-search
 # Bind UP and DOWN keys
 [[ ! -z "${terminfo[kcuu1]}" ]] && bindkey "${terminfo[kcuu1]}" history-substring-search-up
 [[ ! -z "${terminfo[kcud1]}" ]] && bindkey "${terminfo[kcud1]}" history-substring-search-down
@@ -187,21 +197,21 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # Moar completions!
-zplugin ice wait blockf lucid atpull'zplugin creinstall -q .'
-zplugin load https://github.com/zsh-users/zsh-completions
+zinit ice wait blockf lucid atpull'zinit creinstall -q .'
+zinit load https://github.com/zsh-users/zsh-completions
 
 # Moar plugins!
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-zplugin ice wait lucid atload"_zsh_autosuggest_start"
-zplugin load https://github.com/zsh-users/zsh-autosuggestions
+zinit ice wait lucid atload"_zsh_autosuggest_start"
+zinit load https://github.com/zsh-users/zsh-autosuggestions
 
-zplugin ice from"gh" wait"0" atinit"zpcompinit; zpcdreplay" lucid
-zplugin light zdharma/fast-syntax-highlighting
+zinit ice from"gh" wait"0" atinit"zpcompinit; zpcdreplay" lucid
+zinit light zdharma/fast-syntax-highlighting
 
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 #     /\   | (_)
 #    /  \  | |_  __ _ ___  ___  ___
@@ -233,12 +243,12 @@ function mkcd {
 	mkdir -p $1
 	cd $1
 }
-# I like to use autocd for my code directory, but I also like `code` to run VSCodium
+# I like to use autocd for my code directory, but I also like `code` to run VS Code
 function code {
 	if [[ -d "$PWD/code" && "$#" -eq 0 ]]; then
 		cd code
 	else
-		codium "$@"
+		command code "$@"
 	fi
 }
 alias shit='sudo $(fc -ln -1)'
@@ -277,7 +287,15 @@ function gcl {
 function 1p {
 	if [[ "$1" != "signin" && "$1" != "signout" && "$1" != "suspend" && "$1" != "reactivate" ]]; then
 		# Check if signed in by looking at vaults (takes the least time to load)
-		op list vaults > /dev/null 2>&1 || eval $(op signin costian)
+		if ! op list vaults > /dev/null 2>&1; then
+			# Not logged in. Try to log in if not already logged in
+			if [[ ! -d "$HOME/.op" ]]; then
+				# Oh wait, this machine has never been signed in on!
+				echo '/!\ Do not type your master password yet! /!\'
+				op signin costian jamescostian@gmail.com
+			fi
+			eval $(op signin costian)
+		fi
 	fi
 	op "$@"
 }
@@ -311,9 +329,15 @@ alias cat="bat --paging never"
 # |_|  |_|_|___/\___\___|_|_|\__,_|_| |_|\___|\___/ \__,_|___/
 
 export MULTITENANT_SUFFIX="-james"
-export EDITOR="codium"
+export EDITOR="code"
 export GPG_TTY=$(tty)
-export PATH="$HOME/bin:$HOME/.config/scripts-james:$PATH"
+export PATH="$HOME/bin:$HOME/.config/scripts-james:$HOME/.cargo/bin:$PATH"
+
+# Git config (can't rely on ~/.config/git/config being available in multitenant situations)
+export GIT_PAGER="delta --theme OneHalfDark --file-style box --tabs 2"
+export GIT_COMMITTER_NAME="James Costian"
+export GIT_COMMITTER_EMAIL="james@jamescostian.com"
+export GIT_EDITOR="vim -Nu ~/.config/vimrc-james +startinsert"
 
 # Config for file transfer things
 alias rx="wormhole rx --no-listen --accept-file"

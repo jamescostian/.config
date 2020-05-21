@@ -1,57 +1,78 @@
 #!/usr/bin/env sh
 URL_TO_CLONE="https://github.com/jamescostian/.config.git"
 export MULTITENANT_SUFFIX="-james"
-# The following 2 variables are only needed by the NixOS installer
-MY_USER_NAME="james"
-MY_USER_ID="1000" # aka UID - defaults to 1000
 
+install_git_if_not_installed () {
+	if hash git 2> /dev/null; then
+		return
+	fi
+	# Git isn't installed, so download the installer and run it, then clone with git
+	# If you always download the installer, you can't test changes you make to it locally. So allow using an installer if it already exists
+	if [ ! -f "install-if-not-exists" ]; then
+		cd # Go to home directory, where one has write privileges. RIP if there is no home directory for this user
+		# Download a generalized installer that works on many OSes using curl or wget, whichever works, and save to the same filename
+		curl -L "https://raw.githubusercontent.com/jamescostian/.config/master/scripts-james/helpers/install-if-not-exists" -o "install-if-not-exists" 2> /dev/null || wget -qO "install-if-not-exists" "https://raw.githubusercontent.com/jamescostian/.config/master/scripts-james/helpers/install-if-not-exists"
+	fi
+	# The generalized installer is ready, time to run it
+	sh "install-if-not-exists" git || exit 1
+	rm "install-if-not-exists"
+}
+
+run_script () {
+	if [ -f "$1" ]; then
+		./$1
+	elif [ -f "$1.zsh" ]; then
+		./$1.zsh
+	elif [ -f "$1.sh" ]; then
+		./$1.sh
+	fi
+}
 
 main () {
-	# If this is being run from install-nixos then allow certain things to be run - see https://github.com/jamescostian/install-nixos
-	# If this is being run in a multi-tenant situation,
-	# If this is being run from an already-installed-to NixOS with my dotfiles, other things need to run
-	if [ ! -z "$RUNNING_FROM_NIXOS_INSTALLER" ]; then
-		# The installer has the files in /mnt/etc/nixos instead of /mnt/home/$MY_USER_NAME/.config
-		mkdir -p "/mnt/home/$MY_USER_NAME/.config"
-		/mnt/etc/nixos/scripts$MULTITENANT_SUFFIX/helpers/move_installer_files_to_dot_config
-		cd "/mnt/home/$MY_USER_NAME/.config/scripts$MULTITENANT_SUFFIX/helpers"
-		./make_external_files "/mnt"
-		./make_machine.nix_file
-		chown -R $MY_USER_ID:100 /mnt/home/$MY_USER_NAME # Restore permissions - the folders didn't have these permissions
-	elif [ -f "/etc/NIXOS" ] && [ "$USER" = "$MY_USER_NAME" ]; then
-		# This is one of *my machines* running NixOS!
+	install_git_if_not_installed
+	if [ -f "$HOME/.config/NOT_MULTITENANT$MULTITENANT_SUFFIX" ]; then
+		# This has already been set up, and it's not a multitenant installation. Just update it
 		cd "$HOME/.config/scripts$MULTITENANT_SUFFIX/helpers"
-		./ensure_there_is_a_nix_channel
-		./make_external_files
-		./apply_vscode_extensions
-		./apply_nixos_configuration
-		./get_secrets
-		./clean_up_garbage
-	else
+		git pull && run_script setup-non-multitenant
+	elif [ -z "$NOT_MULTITENANT" ] && [ -z "$NMT" ]; then
 		# This is a multitenant setup - first install dependencies and clone my config if it's not already there
 		if [ ! -d "$HOME/.config/cloned-config$MULTITENANT_SUFFIX" ]; then
-			if ! hash git 2> /dev/null; then
-				# Allow a local copy of the file to be used - nice for testing in a docker container using COPY
-				if [ ! -f install_if_not_exists ]; then
-					cd # Go to home directory, where one has write privileges
-					curl -L https://raw.githubusercontent.com/jamescostian/.config/master/scripts-james/helpers/install_if_not_exists -o install_if_not_exists 2> /dev/null || wget -qO install_if_not_exists https://raw.githubusercontent.com/jamescostian/.config/master/scripts-james/helpers/install_if_not_exists
-				fi
-				sh install_if_not_exists git || exit 1
-				rm install_if_not_exists
-			fi
+			# My config hasn't been cloned before. I'd like to clone it, but what if git isn't even installed?
 			git clone "$URL_TO_CLONE" "$HOME/.config/cloned-config$MULTITENANT_SUFFIX" || exit 2
 		else
+			# This repo was already cloned, so just pull the latest changes
 			cd "$HOME/.config/cloned-config$MULTITENANT_SUFFIX/"
-			git pull || exit 3
+			# Only pull if there is a .git folder.
+			# This is important because the docker image will be built without the .git folder, so that the image can test the current code, not the very latest code
+			if [ -d ".git" ]; then
+				git pull || exit 3
+			fi
 		fi
 		# Symlink all multitenant-friendly files/folders
-		cd ~/.config
+		cd "$HOME/.config"
 		ln -s cloned-config$MULTITENANT_SUFFIX/*$MULTITENANT_SUFFIX . 2> /dev/null
 		cd "scripts$MULTITENANT_SUFFIX/helpers"
 		# Finally, execute the scripts that are fine on multitenant
-		./install_if_not_exists bash awk file sudo ssh curl zsh rsync rg
-		./make_ssh_use_my_config
-		./make_multitenant_uninstaller
+		run_script setup-multitenant
+	else
+		mkdir -p "$HOME/.config"
+		# Next time this script is run, keep in mind that it's not a multitenant situation
+		touch "$HOME/.config/NOT_MULTITENANT$MULTITENANT_SUFFIX"
+		# Clone the repo
+		git clone $URL_TO_CLONE $HOME/tmp-downloaded-config
+		# Move all files from tmp-downloaded-config (from the initial git clone) to $HOME/.config, where they belong.
+		# But in order to do that, first recreate the directory structure
+		cd "$HOME/tmp-downloaded-config"
+		find . -type d -exec mkdir -p ../.config/{} \;
+		# Now do the actual moving (excluding .nix files)
+		find . -type f -exec mv {} ../.config/{} \;
+		# Clean up the temporary directory
+		cd
+		rm -Rf tmp-downloaded-config
+		# And finally, run the non-multitenant setup
+		cd ".config/scripts$MULTITENANT_SUFFIX/helpers"
+		run_script setup-non-multitenant
+		echo "Hit Ctrl+D and start another shell"
 	fi
 }
 

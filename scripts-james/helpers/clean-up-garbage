@@ -8,6 +8,7 @@ fi
 # I only ever use bash for testing purposes, so I don't see the need for it to clutter my $HOME
 rm -f ~/.bash_history
 
+# Ensure that I'm using SSH for my own config repo, instead of HTTPS (it's cloned using HTTPS initially to make things easier)
 if cat ~/.config/.git/config | grep "https://github.com/" > /dev/null; then
 	sed -i 's~https://github.com/~git@github.com:~g' ~/.config/.git/config
 fi

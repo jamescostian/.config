@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -eo pipefail
+cd "$(dirname "$0")"
+if [[ ! -s ~/.config/apt-packages ]]; then
+	echo "YOU CANNOT INSTALL/UNINSTALL APT PACKAGES WHEN YOU HAVE NONE LISTED!"
+	exit 1
+fi
+# Don't bother if the list of programs is identical to what's locally installed
+if cmp <(./list-apt-packages) ~/.config/apt-packages; then
+	exit 0
+fi
+echo "Installing/uninstalling some apt packages..."
+if ! hash icdiff 2> /dev/null; then
+	sudo apt install icdiff > /dev/null
+fi
+icdiff <(./list-apt-packages) ~/.config/apt-packages
+
+# First goal, install the packages that are in the file but not locally installed
+# If it fails, run apt install -f and hope that works
+set +e
+if ! diff --old-line-format="" --unchanged-line-format="" <(./list-apt-packages) ~/.config/apt-packages | xargs -r sudo apt install -yq; then
+	set -e # If the next line has an error, that error should propogate up
+	sudo apt install -f
+else
+	set -e
+fi
+# Instead of actually uninstalling these packages, just mark them as auto installed, so that they will be removed later with `sudo apt autoremove` AS LONG AS they aren't being used by any other packages.
+# If you just uninstall a package that's no longer manually installed, then you could also be uninstalling packages that depend on it but which should be installed.
+diff --new-line-format="" --unchanged-line-format="" <(./list-apt-packages) ~/.config/apt-packages | xargs -r sudo apt-mark auto

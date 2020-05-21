@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# Usage: install-and-uninstall expected actual install_cmd uninstall_cmd [fix_bad_install_cmd] [xargs_args [...]]
+# The first two arguments are supposed to be paths
+# expected is the file with a list of things that should be installed
+# actual is the file with a list of things that are actually installed
+# install_cmd is a string like "sudo apt install" - missing programs will be added to this using xargs
+# uninstall_cmd is a string like "sudo apt remove" - programs that should be removed will be added to this using xargs
+# fix_bad_install_cmd (optional argument) is ran if the installation fails, e.g. "sudo apt install -f" - nothing will be added to this with xargs
+# [xargs_args...] is 0 or more arguments to pass to xargs. If none are passed, -r is assumed.
+set -e
+
+function install_and_uninstall {
+	local expected_installed=$1
+	shift
+	local actually_installed=$1
+	shift
+	local install_cmd=$1
+	shift
+	local uninstall_cmd=$1
+	shift
+	local fix_bad_install_cmd=$1
+	# The next parameter is optional, so allow for errors when shifting
+	set +e
+	shift
+	set -e
+	local xargs_args=$@
+	# Default xargs arguments
+	if [[ -z "$xargs_args" ]]; then
+		xargs_args="-r"
+	fi
+
+	# Ensure that the file does exist
+	if [[ ! -s "$expected_installed" ]]; then
+		echo "YOU CANNOT INSTALL/UNINSTALL WHEN THERE IS NO REFERENCE FILE TO COMPARE TO!"
+		echo "Missing file: $expected_installed"
+		exit 1
+	fi
+
+	# Don't bother if the list of programs is identical to what's locally installed
+	if cmp "$actually_installed" "$expected_installed" 2> /dev/null; then
+		exit 0
+	fi
+
+	echo "Installing/uninstalling packages to match $expected_installed"
+	if ! hash icdiff 2> /dev/null; then
+		sudo apt-get install -yq icdiff > /dev/null
+	fi
+	icdiff "$actually_installed" "$expected_installed"
+	echo "Press Ctrl+C to stop in the next 5 seconds"
+	sleep 5
+
+	# First goal, install the packages that are in the file but not locally installed.
+	# diff throws errors because these files are different, btw
+	set +e
+	if ! diff --old-line-format="" --unchanged-line-format="" "$actually_installed" "$expected_installed" | xargs $xargs_args $install_cmd; then
+		# Installation failed!
+		if [[ -z "$fix_bad_install_cmd" ]]; then
+			exit 52
+		else
+			# Try one more thing, but if it fails, give up
+			eval "$fix_bad_install_cmd" || exit 89
+		fi
+	fi
+
+	# Second goal: uninstall packages that are installed locally but aren't in the lsit of packages that should be installed
+	set -e
+	diff --new-line-format="" --unchanged-line-format="" "$actually_installed" "$expected_installed" | xargs $xargs_args $uninstall_cmd
+}
+install_and_uninstall "$@"
+set -e

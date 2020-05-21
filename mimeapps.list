@@ -1,5 +1,8 @@
-
 [Default Applications]
-text/html=google-chrome-beta.desktop
-x-scheme-handler/sgnl=signal-desktop.desktop
-x-scheme-handler/mailto=google-chrome-beta.desktop
+text/html=google-chrome.desktop
+x-scheme-handler/mailto=google-chrome.desktop
+x-scheme-handler/webcal=google-chrome.desktop
+x-scheme-handler/msteams=teams.desktop
+
+[Added Associations]
+text/plain=codium_codium.desktop;

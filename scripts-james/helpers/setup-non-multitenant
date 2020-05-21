@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -eo pipefail
+cd "$(dirname "$0")"
+# First, set up the apt sources so that all the apt packages can be downloaded
+./set-apt-sources
+# Next, install the apt packages
+# Don't use <(./...) because it's not always working for some reason.
+./list-apt-packages > tmp
+./install-and-uninstall ~/.config/apt-packages tmp "sudo apt-get install -yq" "sudo apt-mark auto" "sudo apt-get install -fyq"
+# Next, install snaps (has to come after apt, because apt may need to install snap)
+./list-snaps-installed > tmp
+./install-and-uninstall ~/.config/snaps-installed tmp "sudo snap install" "sudo snap remove" "" -rL 1
+# Next, install VS Code extensions (has to come after apt, because apt may need to install code)
+code --list-extensions > tmp
+./install-and-uninstall ~/.config/Code/User/extensions tmp "code --install-extension" "code --uninstall-extension" "" -rL 1
+rm tmp
+# And now install everything else that has custom installers
+./install-custom-packages
+
+./get-secrets
+./make-external-files
+./tweak-firefox
+./clean-up-garbage
+
+# Use zsh as the default shell for this user account
+chsh -s "$(which zsh)"
+# Needed to run docker without sudo
+if ! groups | grep docker > /dev/null; then
+	sudo usermod -aG docker "$USER"
+fi

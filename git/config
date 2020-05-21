@@ -5,7 +5,7 @@
 [commit]
 	gpgsign = true
 [core]
-	pager = diff-so-fancy | less --tabs=4 -R
+	pager = delta --theme OneHalfDark --file-style box --tabs 2
 	excludesfile = ~/.config/git/ignore_global
 	editor = vim -Nu ~/.config/vimrc-james +startinsert
 [filter "lfs"]
@@ -17,30 +17,18 @@
 	indentHeuristic = on
 	colorMoved = default
 [color]
-	ui = true
-[color "diff"]
-	meta = 227
-	frag = magenta bold
-	commit = 227 bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+	ui = auto
 [includeIf "gitdir:~/code/qliqweb/"]
 	path = ~/.config/git/config_qliq
 [includeIf "gitdir:~/code/qliqweb.botengine/"]
 	path = .config/git/config_qliq
 [url "git@github.com:jamescostian/"]
-    insteadOf = my:
+	insteadOf = my:
 [url "https://github.com/"]
-    insteadOf = gh:
+	insteadOf = gh:
 [url "git@github.com:"]
-    pushInsteadOf = gh:
+	pushInsteadOf = gh:
 [url "https://gitlab.com/"]
-    insteadOf = gl:
+	insteadOf = gl:
 [url "git@gitlab.com:"]
-    pushInsteadOf = gl:
+	pushInsteadOf = gl:

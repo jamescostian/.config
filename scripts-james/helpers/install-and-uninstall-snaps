@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -eo pipefail
+cd "$(dirname "$0")"
+if [[ ! -s ~/.config/snaps-installed ]]; then
+	echo "YOU CANNOT INSTALL/UNINSTALL SNAPS WHEN YOU HAVE NONE LISTED!"
+	exit 1
+fi
+# Don't bother if the list of programs is identical to what's locally installed
+if cmp <(./list-snaps-installed) ~/.config/snaps-installed; then
+	exit 0
+fi
+echo "Installing/uninstalling some snaps..."
+icdiff <(./list-snaps-installed) ~/.config/snaps-installed
+
+# First, install the snaps that are in the file but not locally installed
+diff --old-line-format="" --unchanged-line-format="" <(./list-snaps-installed) ~/.config/snaps-installed | xargs -r sudo snap install
+# Next, uninstall the snaps that aren't in the file but are locally installed
+diff --new-line-format="" --unchanged-line-format="" <(./list-snaps-installed) ~/.config/snaps-installed | xargs -r sudo snap remove

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# VS Codium > VS Code
-codium "$@"

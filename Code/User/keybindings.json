@@ -29,12 +29,22 @@
         "command": "workbench.action.terminal.focusPrevious",
         "when": "terminalFocus"
     },
-    // ctrl+` focuses terminal, meta+` focuses editor
+    // ctrl+` toggles focus between the terminal and the editor
     {
         "key": "ctrl+`",
         "command": "workbench.action.focusActiveEditorGroup",
         "when": "terminalFocus"
     },
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal"
+    },
+    // Make ctrl+shift+c always go to the docker view
     {
         "key": "ctrl+shift+c",
         "command": "-workbench.action.terminal.copySelection",
@@ -49,6 +59,33 @@
         "command": "-workbench.action.terminal.openNativeConsole",
         "when": "!terminalFocus"
     },
+    // ctrl+shift+t to reopen an editor tab, or open a new terminal
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.reopenClosedEditor",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "-workbench.action.reopenClosedEditor"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.terminal.newInActiveWorkspace",
+        "when": "terminalFocus"
+    },
+    // Stage selection with ctrl+alt+s, unstage the same selection with ctrl+shift+alt+s
+    {
+        "key": "ctrl+alt+s",
+        "command": "git.stageSelectedRanges",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+alt+s",
+        "command": "git.unstageSelectedRanges",
+        "when": "editorTextFocus"
+    },
+    // Bindings added by GitLens that I never touched
     {
         "key": "ctrl+shift+g g",
         "command": "-workbench.view.scm",
@@ -158,28 +195,5 @@
         "key": "ctrl+shift+g -",
         "command": "-gitlens.showLastQuickPick",
         "when": "gitlens:enabled && config.gitlens.keymap == 'chorded'"
-    },
-    {
-        "key": "ctrl+`",
-        "command": "workbench.action.terminal.toggleTerminal",
-        "when": "!terminalFocus"
-    },
-    {
-        "key": "ctrl+`",
-        "command": "-workbench.action.terminal.toggleTerminal"
-    },
-    {
-        "key": "ctrl+shift+t",
-        "command": "workbench.action.reopenClosedEditor",
-        "when": "!terminalFocus"
-    },
-    {
-        "key": "ctrl+shift+t",
-        "command": "-workbench.action.reopenClosedEditor"
-    },
-    {
-        "key": "ctrl+shift+t",
-        "command": "workbench.action.terminal.newInActiveWorkspace",
-        "when": "terminalFocus"
     }
 ]

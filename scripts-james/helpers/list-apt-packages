@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+apt list --manual-installed 2> /dev/null | cut -d/ -f1\
+	| grep -v "^Listing...$" \
+	| grep -v "^nvidia" \
+	| grep -v "^xserver-" \
+	| grep -v "^system76" \
+	| grep -v "^cryptsetup" \
+	| grep -v "^dmeventd$" \
+	| grep -v "^gnome-getting-started" \
+	| grep -v "^gnome-user-docs" \
+	| grep -v "^language-pack-" \
+	| grep -v "^screen-resolution" \
+	| grep -v "^linux-signed-generic$" \
+	| grep -v "^libicu63$" \
+	| grep -v "^minecraft-launcher$" \
+	| grep -v "^mullvad-vpn$" \
+	| grep -v "^steam-launcher$" \
+	| grep -v "^zoom$" \
+	| grep -v "^kubuntu-desktop$" \
+	| grep -v "^kubuntu-restricted-addons$" \
+	| grep -v "^kubuntu-wallpapers$" \
+	| grep -v "^language-pack-kde-en$" \
+	| grep -v "^grub$" \
+	| grep -v "^grub-" \
+	| grep -v "^grub2-" \
+	| grep -v "^fonts-indic$" \
+	| grep -v "^libdevmapper" \
+	| grep -v "^libkrb" \
+	| grep -v "^k3b" \
+	| grep -v "^libdebconfclient" \
+	| grep -v "^libgl1-mesa-glx" \
+	| grep -v "^ubuntu-system" \
+	| grep -v "^ubuntu-minimal$" \
+	| grep -v "^ubuntu-standard$"

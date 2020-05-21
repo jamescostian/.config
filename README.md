@@ -1,53 +1,37 @@
 # .config
 
-Like a [dotfiles repo](http://dotfiles.github.io/) for `$HOME/.config` instead of `$HOME`, and with some special goals
+Like a [dotfiles repo](http://dotfiles.github.io/) for `$HOME/.config` instead of `$HOME`, and with support for multitenancy, secrets, and declarative package management
 
 ## Install
 
-If you just want to install parts of setup on (almost) any linux machine, you can just run this:
+To try it out (multitenant mode), run this:
 
-```
+```bash
 sh -c "`curl -L https://jami.am || wget -qO - https://jami.am`"
+ZDOTDIR="$HOME/.config/zsh-james" zsh
 ```
 
-To save on typing, you can usually get away with just this:
-
-```
-curl -L https://jami.am|sh
-```
-
-If you're using [Nix-on-Droid](https://f-droid.org/en/packages/com.termux.nix/), you can run the above command after first running `nix-env -i curl busybox`
-
-To get everything (even the OS and things like WiFi passwords), use [my NixOS installer](https://github.com/jamescostian/install-nixos#install) and when asked about cloning a URL, type `y` and then `gh:jamescostian/.config` and hit ENTER. After restarting, connect to the internet (setup kwallet if asked to), and then open a terminal and let the last part finish
-
-## Try my shell setup
-
-```
-docker run --rm -it jamescostian/dotconfig
-```
+To install the full version (non-multitenant mode, which only makes sense for me, or for you if you fork and change this repo), run `export NOT_MULTITENANT=true` before running the `sh -c ...` part. You can also shorten this to `curl -L https://jami.am|NMT=y sh`
 
 ## Goals
 
-- **Allow me to set up a new machine** fully (assuming my NixOS installer already ran, and internet access is provided). Not just things like my [.zshrc](zsh-james/.zshrc), but also things like my SSH and GPG keys, and even wifi passwords I've saved (I store all these secrets in 1Password), and even install extensions in VS Codium, or configure `about:config` Firefox settings.
-- **Allow me to get a similar set up on a shared user account of an existing machine** - many people make their dotfiles under the assumption that they will have an account which is solely their's, which allows for some simplifications like putting their configuration files in the normal places. But sometimes you need to SSH into a machine and use an account that is shared by others. Having your own `.zshrc`, `.vimrc`, scripts, etc. in the `$HOME` of that shared user account affects others - it's better to allow everyone to have their own, different configurations, and [when each of you SSHs in, you can have your custom shell](scripts-james/helpers/make_ssh_use_my_config)
-- Do the above using **deterministic**, **idempotent** commands
+- **Allow me to set up a new machine** fully (assuming some Ubuntu or derivative OS, apt, snap, and internet access). Not just things like my [.zshrc](zsh-james/.zshrc), but also things like my SSH and GPG keys, and even wifi passwords I've saved (I store all these secrets in 1Password), and even install extensions in VS Codium, or configure `about:config` Firefox settings.
+- **Allow me to get a similar set up on a shared user account of an existing machine** - many people make their dotfiles under the assumption that they will have an account which is solely their's, which allows for some simplifications like putting their configuration files in the normal places. But sometimes you need to SSH into a machine and use an account that is shared by others. Having your own `.zshrc`, `.vimrc`, scripts, etc. in the `$HOME` of that shared user account affects others - it's better to allow everyone to have their own, different configurations, and [when each of you SSHs in, you can have your custom shell](scripts-james/helpers/make-ssh-use-my-config)
+- Do the above using **idempotent** scripts
+- Try to be **declarative** when possible, but not to the extent that it limits the capabilities (for example, NixOS allowed me to have a very declarative configuration, but it also got in my way frequently enough that it wasn't worth the troubles)
 
-Parts of this are not very feasible - for example, I've looked at [Chrome's CLI arguments](https://peter.sh/experiments/chromium-command-line-switches/) and determined that there's just no way I'm going to be able to set up Chrome Sync to make sure all my chrome settings, extensions, and history will be copied between machines. Instead, I'll just have to manually log into Chrome Sync
+Parts of this are not very feasible - for example, I've looked at [Chrome's CLI arguments](https://peter.sh/experiments/chromium-command-line-switches/) and determined that there's just no way I'm going to be able to set up Chrome Sync to make sure all my chrome settings, extensions, and history will be copied between machines. Instead, I'll just have to manually log into Chrome Sync :grimacing:
 
-But in order to get as close as possible, I'll be wiping my laptop every so often so I can notice the amount of manual work required, and use my desktop as a reference for how I like things.
+In addition, having the _exact_ same version of programs will is _not_ a goal of this project. This isn't a production system, it's my personal configuration. Breaking upgrades are fine, I can work around them.
 
 ## Conventions
 
 Top-level files/directories that end in `-james` will be symlinked to any machine you install this on, and they don't interfere with system defaults. The uninstaller created on machines for multi-tenant installations will remove those folders, however, it's not a complete uninstaller - that is not an official goal, after all.
 
-The goal is to keep this installer as multi-tenant as possible, but sometimes that can be hard, and in some situations it's much easier to add something which has no effect on most people, but is beneficial to me. For example, [zplugin](https://github.com/zdharma/zplugin) will be put in `~/.zplugin` instead of getting `-james` added to the end of it; this is fine for anyone else who wants to use zplugin, and has no effect on people who don't want to use it. As another example, when I'm logged a machine with a multitenant setup and I want to SSH into another machine with a multitenant setup, I want that to work effortlessly; `ssh othermachine` should give me my setup on that machine (if my setup is available) but not give others my setup. I do this by writing to the user-wide `~/.ssh/config`, but specifying in the `Match` clause to check if a certain environment variable is being set, so that only I am affected by this, keeping with the multi-tenant spirit.
+While multitenant support is a goal, it can be hard, and in some situations it's much easier to add something which has no effect on 95%+ of developers, but is beneficial to me. For example, [zinit](https://github.com/zdharma/zinit) will be put in `~/.zinit` instead of getting `-james` added to the end of it; this is fine for anyone else who wants to use zinit, and has no effect on people who don't want to use it. As another example, when I'm logged a machine with a multitenant setup and I want to SSH into another machine with a multitenant setup, I want that to work effortlessly; `ssh othermachine` should give me my setup on that machine (if my setup is available) but not give others my setup. I do this by writing to the user-wide `~/.ssh/config`, but specifying in the `Match` clause to check if a certain environment variable is being set, so that only I am affected by this, keeping with the multi-tenant spirit.
 
-There are other things I'd like to also go into user/global configuration files, but they *would* impact others, so they are not suitable for multi-tenant installations.
+There are other things I'd like to also go into user/global configuration files, but they *would* impact others (such as my whole `~/.config/git/config`), so they are not suitable for multi-tenant installations.
 
 ## Updating
 
-To update, simply re-run the installer. If it's not in multi-tenant mode, then `~/.config/setup.sh` can be ran directly, instead of the whole `sh -c ...` incantation. Idempotency is an explicit goal after all!
-
-## Forking
-
-Unless you like _my_ config, don't fork this; just steal [my `setup.sh`](setup.sh) and change the variables at the top, and the list of scripts I run in the top function, and steal a few of my [helper scripts](scripts-james/helpers)
+To update, simply re-run the installer. If it's not in multi-tenant mode, then `~/.config/setup.sh` can be ran directly as a shortcut.

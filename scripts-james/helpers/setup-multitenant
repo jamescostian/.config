@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
+./install-if-not-exists bash awk file sudo ssh curl zsh rsync rg unzip
+./make-ssh-use-my-config
+
 if [[ -z "$MULTITENANT_SUFFIX" ]]; then
 	echo "No multitenant suffix specified; this script is not made to be run by itself, instead setup.sh should call it"
 	exit 1
 fi
 cat <<EOF > "$HOME/.config/uninstall$MULTITENANT_SUFFIX"
 rm -Rf ~/.config/*$MULTITENANT_SUFFIX
-cat ~/.ssh/config | sed -e "/Match exec.*'"'$'"MULTITENANT_SUFFIX' == '-james'.*/,+3d" > ~/.ssh/config
+cat ~/.ssh/config | sed -e "/Match exec.*"'_$'"MULTITENANT_SUFFIX == _$MULTITENANT_SUFFIX.*/,+3d" > ~/.ssh/config-uninstalled
+mv ~/.ssh/config-uninstalled ~/.ssh/config
 EOF

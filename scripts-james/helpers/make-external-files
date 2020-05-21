@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# I wish ~/.config was all I needed to check in to git, but it's not. Some things have be installed elsewhere
+touch "$HOME/.hushlogin"
+# I hate Konsole for putting its rc file in ~/.config but the rest of its config in ~/.local/share
+mkdir -p "$HOME/.local/share"
+cd "$HOME/.local/share"
+rm -Rf konsole
+ln -s ../../.config/konsole
+# I'm using rupa/z which expects there to be a ~/.z file, so I'll just touch it:
+touch "$HOME/.z"
+
+# Set up zsh files that are needed
+echo "ZDOTDIR=$HOME/.config/zsh-james" > ~/.zshenv
+if ! grep "apps-bin-path" /etc/zsh/zprofile > /dev/null; then
+  echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" | sudo tee -a /etc/zsh/zprofile > /dev/null
+fi
+
+cd "$HOME/.config/scripts-james/helpers"
+./make-ssh-use-my-config

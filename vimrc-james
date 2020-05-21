@@ -24,7 +24,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'scrooloose/syntastic'
-Plug 'LnL7/vim-nix'
 Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()

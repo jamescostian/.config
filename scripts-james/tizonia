@@ -1,15 +1,39 @@
 #!/usr/bin/env bash
-TIZONIA_CONFIG=$HOME/.config/tizonia
-mkdir -p $TIZONIA_CONFIG
-chmod 0777 $TIZONIA_CONFIG
+export USER_ID=$(id -u)
+export GROUP_ID=$(id -g)
 
-#USER_ID=$(id -u);
-#GROUP_ID=$(id -g);
+if [[ -z "$2" ]]; then
+	cat << EOF
+Invalid usage. Please use one of the following:
 
+  tizonia tracks arg
+  tizonia artist arg
+  tizonia album arg
+  tizonia playlist arg
+
+Add -s to shuffle
+EOF
+	exit 1
+fi
+
+# The goal is to prepend --plex-audio- to (track|artist|album|playlist) but without messing up -s which could be at the front.
+# Step 1: move -s to the back if it's in the front
+ARGV=( $@ )
+if [[ "$1" == "-s" ]]; then
+	shift
+	ARGV=( $@ )
+	ARGV+=('-s')
+fi
+# Step 2: prepend --plex-audio-
+ARGV[0]="--plex-audio-${ARGV[0]}"
+
+# Step 3: there is no step 3!
+
+# Done! Just run tizonia:
 docker run -it --rm \
-    -e PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native \
-    --volume $XDG_RUNTIME_DIR/pulse:$XDG_RUNTIME_DIR/pulse \
-    --volume $TIZONIA_CONFIG:/home/tizonia/.config/tizonia \
-    --volume $HOME/.config/pulse/cookie:/home/tizonia/.config/pulse/cookie \
-    --name tizonia \
-    tizonia/docker-tizonia "$@"
+	-e PULSE_SERVER=unix:"${XDG_RUNTIME_DIR}/pulse/native" \
+	--volume "$XDG_RUNTIME_DIR/pulse":"$XDG_RUNTIME_DIR/pulse" \
+	--volume $HOME/.config/tizonia:/home/tizonia/.config/tizonia \
+	--volume $HOME/.config/pulse/cookie:/home/tizonia/.config/pulse/cookie \
+	--name tizonia \
+	tizonia/docker-tizonia "${ARGV[@]}"

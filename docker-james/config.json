@@ -1,3 +1,10 @@
 {
-  "detachKeys": "ctrl-u"
+	"auths": {
+		"https://index.docker.io/v1/": {}
+	},
+	"HttpHeaders": {
+		"User-Agent": "Docker-Client/19.03.6 (linux)"
+	},
+	"detachKeys": "ctrl-u",
+	"credsStore": "secretservice"
 }

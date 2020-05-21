@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+if snap list | grep "No snaps are installed yet." > /dev/null; then
+	exit 0
+else
+	snap list \
+	| awk '{if ($6 == "classic") print $1 " --classic"; else if ($6 != "base" && $6 != "core" && $6 != "snapd") print $1;}'  \
+	| grep -v '^Name$' \
+	| grep -v '^gnome-' \
+	| grep -v '^gtk[0-9]*-common'
+fi
