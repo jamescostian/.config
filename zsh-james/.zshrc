@@ -132,12 +132,8 @@ if ! hash delta 2> /dev/null; then
 	zinit load dandavison/delta
 fi
 if ! hash fd 2> /dev/null; then
-	if hash fdfind 2> /dev/null; then
-		alias fd=fdfind
-	else
-		zinit ice wait"1" from"gh-r" as"program" atclone"chown -R $USER ." mv"fd*/fd -> fd" lucid
-		zinit load sharkdp/fd
-	fi
+	zinit ice wait"1" from"gh-r" as"program" atclone"chown -R $USER ." mv"fd*/fd -> fd" lucid
+	zinit load sharkdp/fd
 fi
 if ! hash exa 2> /dev/null; then
 	zinit ice wait"1" from"gh-r" as"program" mv"exa* -> exa" lucid
