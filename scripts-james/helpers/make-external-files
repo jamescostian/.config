@@ -9,11 +9,24 @@ ln -s ../../.config/konsole
 # I'm using rupa/z which expects there to be a ~/.z file, so I'll just touch it:
 touch "$HOME/.z"
 
+# Allow my XDG dirs
+if grep "enabled=True" /etc/xdg/user-dirs.conf > /dev/null; then
+  sudo sed 's~enabled=True~enabled=False~' -i /etc/xdg/user-dirs.defaults
+  mkdir -p ~/Documents/Templates
+  set +e
+  rmdir ~/Templates
+  rmdir ~/Music
+  rmdir ~/Pictures
+  rmdir ~/Videos
+  set -e
+fi
+
 # Set up zsh files that are needed
 echo "ZDOTDIR=$HOME/.config/zsh-james" > ~/.zshenv
 if ! grep "apps-bin-path" /etc/zsh/zprofile > /dev/null; then
   echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" | sudo tee -a /etc/zsh/zprofile > /dev/null
 fi
 
+# Set up the SSH config
 cd "$HOME/.config/scripts-james/helpers"
 ./make-ssh-use-my-config
