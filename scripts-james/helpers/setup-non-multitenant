@@ -25,6 +25,16 @@ rm tmp
 # Use zsh as the default shell for this user account
 chsh -s "$(which zsh)"
 # Needed to run docker without sudo
+set +e
 if ! groups | grep docker > /dev/null; then
 	sudo usermod -aG docker "$USER"
+fi
+
+# Also, we need to set up some connections
+# TODO: set up a declarative connect/disconnect script and a list of connections
+if snap connections | grep remmina:password-manager-service > /dev/null; then
+	sudo snap connect remmina:avahi-observe :avahi-observe
+	sudo snap connect remmina:cups-control :cups-control
+	sudo snap connect remmina:mount-observe :mount-observe
+	sudo snap connect remmina:password-manager-service :password-manager-service
 fi
