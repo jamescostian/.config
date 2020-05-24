@@ -20,6 +20,7 @@ rm tmp
 ./get-secrets
 ./make-external-files
 ./tweak-firefox
+./tweak-kernel-params
 ./clean-up-garbage
 
 # Use zsh as the default shell for this user account
