@@ -5,4 +5,4 @@ x-scheme-handler/webcal=google-chrome.desktop
 x-scheme-handler/msteams=teams.desktop
 
 [Added Associations]
-text/plain=codium_codium.desktop;
+text/plain=code.desktop;
