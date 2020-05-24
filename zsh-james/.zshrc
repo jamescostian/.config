@@ -92,6 +92,7 @@ fi
 
 if [[ ! -d ~/.zinit ]]; then
 	mkdir ~/.zinit
+	chmod 0700 ~/.zinit
 	git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
 	# I'm using rupa/z which expects ~/.z to exist, so now is a great time to create it, since it seems none of the necessary zsh stuff exists
 	touch ~/.z
