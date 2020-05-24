@@ -140,6 +140,10 @@ if ! hash exa 2> /dev/null; then
 	zinit ice wait"1" from"gh-r" as"program" mv"exa* -> exa" lucid
 	zinit load ogham/exa
 fi
+if ! hash rg 2> /dev/null; then
+	zinit ice wait"1" from"gh-r" as"program" mv"*/rg -> rg" lucid
+	zinit load BurntSushi/ripgrep
+fi
 
 # Bat config
 export BAT_THEME="OneHalfDark"
