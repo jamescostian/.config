@@ -26,7 +26,9 @@ rm tmp
 dconf load /desktop/ibus/ < ~/.config/ibus.dconf
 
 # Use zsh as the default shell for this user account
-chsh -s "$(which zsh)"
+if ! getent passwd $LOGNAME | cut -d: -f7 | grep "$(which zsh)" > /dev/null; then
+	chsh -s "$(which zsh)"
+fi
 # Needed to run docker without sudo
 set +e
 if ! groups | grep docker > /dev/null; then
