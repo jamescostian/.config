@@ -4,7 +4,6 @@ apt-transport-https
 baobab
 base-passwd
 bash
-bat
 bc
 ca-certificates
 cmake
