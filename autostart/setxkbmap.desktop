@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=setxkbmap -option caps:escape -option shift:both_capslock
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=better-caps
