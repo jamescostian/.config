@@ -8,15 +8,15 @@ if [[ -z "$ZOOM_LEVEL" ]]; then
 fi
 for pref in ~/.mozilla/firefox/*default*/prefs.js; do
 	# Zoom
-	if grep layout.css.devPixelsPerPx $pref; then
-		sed -i 's/user_pref("layout.css.devPixelsPerPx", "\([0-9\.]\+\)")/user_pref\("layout.css.devPixelsPerPx", "'"$ZOOM_LEVEL"'")/' $pref > /dev/null
+	if grep layout.css.devPixelsPerPx $pref > /dev/null; then
+		sed -i 's/user_pref("layout.css.devPixelsPerPx", "\([0-9\.]\+\)")/user_pref\("layout.css.devPixelsPerPx", "'"$ZOOM_LEVEL"'")/' $pref > /dev/null 2> /dev/null
 	else
 		echo "user_pref(\"layout.css.devPixelsPerPx\", \"$ZOOM_LEVEL\");" >> $pref
 	fi
 
 	# Disable pocket
-	if grep extensions.pocket.enabled $pref; then
-		sed -i 's/user_pref("extensions.pocket.enabled", "\([A-Za-z]\+\)")/user_pref\("extensions.pocket.enabled", "false")/' $pref > /dev/null
+	if grep extensions.pocket.enabled $pref > /dev/null; then
+		sed -i 's/user_pref("extensions.pocket.enabled", "\([A-Za-z]\+\)")/user_pref\("extensions.pocket.enabled", "false")/' $pref > /dev/null 2> /dev/null
 	else
 		echo 'user_pref("extensions.pocket.enabled", false);' >> $pref
 	fi
