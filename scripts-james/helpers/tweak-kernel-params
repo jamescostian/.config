@@ -2,15 +2,15 @@
 
 # Avoid using swap too often
 if cat /etc/sysctl.conf | grep "^\s*vm.swappiness" > /dev/null; then
-	sudo sed '/^\s*vm.swappiness.*/d' /etc/sysctl.conf
+	sudo sed -i '/^\s*vm.swappiness.*/d' /etc/sysctl.conf > /dev/null
 fi
 echo "vm.swappiness = 10" | sudo tee -a /etc/sysctl.conf
 
 # Allow tons of watchers >:)
 if cat /etc/sysctl.conf | grep "^\s*fs.inotify.max_user_watches" > /dev/null; then
-	sudo sed '/^\s*fs.inotify.max_user_watches.*/d' /etc/sysctl.conf
+	sudo sed -i '/^\s*fs.inotify.max_user_watches.*/d' /etc/sysctl.conf > /dev/null
 fi
 echo "fs.inotify.max_user_watches = 999999999" | sudo tee -a /etc/sysctl.conf
 
 # Reload kernel parameters
-sudo sysctl -p
+sudo sysctl -p 2> /dev/null
