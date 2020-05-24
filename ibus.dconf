@@ -1,0 +1,10 @@
+[general]
+preload-engines=['xkb:us::eng']
+version='1.5.21'
+
+[general/hotkey]
+triggers=@as []
+
+[panel/emoji]
+hotkey=@as []
+unicode-hotkey=@as []

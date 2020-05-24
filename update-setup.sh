@@ -23,4 +23,6 @@ if [[ -s ~/.ssh/config ]]; then
 	op create document config --title "SSH Config"
 fi
 
+dconf dump /desktop/ibus/ > ~/ibus.dconf
+
 # TODO: export wifi networks

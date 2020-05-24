@@ -25,6 +25,7 @@ gtk-2.0/gtkfilechooser.ini
 glib-2.0/settings/keyfile
 gtkrc-2.0
 gtkrc
+ibus/
 libreoffice/
 menus/
 opera/

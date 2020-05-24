@@ -23,6 +23,8 @@ rm tmp
 ./tweak-kernel-params
 ./clean-up-garbage
 
+dconf load /desktop/ibus/ < ~/.config/ibus.dconf
+
 # Use zsh as the default shell for this user account
 chsh -s "$(which zsh)"
 # Needed to run docker without sudo
