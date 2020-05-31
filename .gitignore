@@ -95,5 +95,7 @@ Trolltech.conf
 !Code/User/settings.json
 !Code/User/extensions
 
+/Code - Insiders
+
 # Checking this file in would tell multitenant installations to actually become non-multitenant installations
 NOT_MULTITENANT-james
