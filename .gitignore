@@ -13,6 +13,7 @@ bluedevilglobalrc
 cef_user_data/Dictionaries
 chromium/
 configstore/nodemon.json
+configstore/gcs-resumable-upload.json
 configstore/update-notifier-*.json
 deluge/
 discord/
@@ -27,6 +28,7 @@ gtkrc
 ibus/
 libreoffice/
 menus/
+nextjs-nodejs/config.json
 opera/
 pavucontrol.ini
 plasma-localerc
@@ -46,11 +48,13 @@ sublime-text-3
 !sublime-text-3/Packages/User/Package Control.sublime-settings
 !sublime-text-3/Packages/User/Preferences.sublime-settings
 syncthing/
+teams/
 thefuck/
 tizonia/tizonia.conf
 user-dirs.locale
 vlc/
 vokoscreen/
+yarn/link
 
 # KDE stuff
 akregatorrc

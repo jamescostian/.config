@@ -22,7 +22,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "files.associations": {
         "*.vue": "vue",
@@ -138,5 +138,18 @@
     "terminal.integrated.enableBell": true,
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
-    "code-runner.enableAppInsights": false
+    "code-runner.enableAppInsights": false,
+    "yaml.schemas": {
+        "file:///home/james/.vscode/extensions/atlassian.atlascode-2.6.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    },
+    "jest.autoEnable": false,
+    "atlascode.bitbucket.enabled": false,
+    "atlascode.jira.statusbar.showUser": false,
+    "atlascode.jira.statusbar.showProduct": false,
+    "atlascode.jira.statusbar.showLogin": true,
+    "atlascode.jira.statusbar.enabled": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "eslint.format.enable": true,
+    "vscode-postgres.prettyPrintJSONfields": true
 }
