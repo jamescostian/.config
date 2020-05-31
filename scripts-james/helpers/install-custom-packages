@@ -19,7 +19,8 @@ if [[ ! -f ~/.nanorc ]]; then
 fi
 
 if ! hash mullvad 2> /dev/null; then
-	wget --content-disposition https://mullvad.net/en/download/deb/2020.3/ -O mullvad.deb
+	# This may not be the latest version, but running `update` in a terminal will fix that
+	wget --content-disposition https://mullvad.net/en/download/deb/2020.4/ -O mullvad.deb
 	sudo dpkg -i mullvad.deb && rm mullvad.deb
 fi
 
@@ -49,7 +50,7 @@ fi
 
 # Firefox Developer Edition... what a PITA
 # It updates frequently enough (not automatically) that it's worth just reinstalling every time, unless it's currently running
-if ! ps x | grep 'firefox-devedition' > /dev/null; then
+if ! pgrep 'firefox-devedition' > /dev/null; then
 	curl -L 'https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US' | sudo tar -xjC /opt
 	sudo rm -Rf /opt/firefox-devedition
 	sudo mv /opt/firefox /opt/firefox-devedition

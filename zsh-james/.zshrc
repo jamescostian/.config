@@ -52,7 +52,26 @@ else
 		export USER="$(id -un)"
 	fi
 
-	alias update="sudo apt update && sudo apt upgrade"
+	function update {
+		# Update apt packages, snaps, and rust
+		sudo apt update && sudo apt upgrade
+		snap refresh
+		rustup update
+		# Update FF dev edition. It gets updated really frequently!
+		# Might as well download the latest version every time update is called - so long as FF is not running!
+		if ! pgrep 'firefox-devedition' > /dev/null; then
+			curl -L 'https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US' | sudo tar -xjC /opt
+			sudo rm -Rf /opt/firefox-devedition
+			sudo mv /opt/firefox /opt/firefox-devedition
+			sudo mv /opt/firefox-devedition/firefox-bin /opt/firefox-devedition/firefox-devedition-bin
+			sudo mv /opt/firefox-devedition/firefox /opt/firefox-devedition/firefox-devedition
+		fi
+		# Update Mullvad
+		if [[ "$(mullvad --version)" != "mullvad 2020.4" ]]; then
+			wget --content-disposition https://mullvad.net/en/download/deb/2020.4/ -O mullvad.deb
+			sudo dpkg -i mullvad.deb && rm mullvad.deb
+		fi
+	}
 
 	# NixOS things
 	function nxr {
