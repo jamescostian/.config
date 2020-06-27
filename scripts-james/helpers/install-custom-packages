@@ -20,7 +20,7 @@ fi
 
 if ! hash mullvad 2> /dev/null; then
 	# This may not be the latest version, but running `update` in a terminal will fix that
-	wget --content-disposition https://mullvad.net/en/download/deb/2020.4/ -O mullvad.deb
+	wget --content-disposition https://mullvad.net/en/download/deb/2020.5/ -O mullvad.deb
 	sudo dpkg -i mullvad.deb && rm mullvad.deb
 fi
 

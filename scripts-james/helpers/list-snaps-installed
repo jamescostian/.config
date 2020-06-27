@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-if snap list | grep "No snaps are installed yet." > /dev/null; then
+set +e
+if snap list 2>&1 | grep "No snaps are installed yet." > /dev/null; then
+	set -e
 	exit 0
 else
+	set -e
 	snap list \
 	| awk '{if ($6 == "classic") print $1 " --classic"; else if ($6 != "base" && $6 != "core" && $6 != "snapd") print $1;}'  \
 	| grep -v '^Name$' \

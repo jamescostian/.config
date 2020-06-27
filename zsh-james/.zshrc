@@ -55,7 +55,7 @@ else
 	function update {
 		# Update apt packages, snaps, and rust
 		sudo apt update && sudo apt upgrade
-		snap refresh
+		sudo snap refresh
 		rustup update
 		# Update FF dev edition. It gets updated really frequently!
 		# Might as well download the latest version every time update is called - so long as FF is not running!
@@ -247,7 +247,7 @@ alias je="junk; exit"
 alias kc="kubectl"
 alias mk="minikube"
 alias nr="npm run --silent"
-alias yr="yarn run"
+alias y="yarn"
 alias npmi="npm i"
 alias npmig="npm i -g"
 alias v="vim"
@@ -303,6 +303,9 @@ function gcl {
 	if test -f "./configure"; then
 		./configure
 	fi
+}
+function grbf {
+  git fetch origin "$1" && git rebase -i "origin/$1"
 }
 
 function 1p {

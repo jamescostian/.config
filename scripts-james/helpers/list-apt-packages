@@ -14,7 +14,6 @@ apt list --manual-installed 2> /dev/null | cut -d/ -f1\
 	| grep -v "^libicu63$" \
 	| grep -v "^minecraft-launcher$" \
 	| grep -v "^mullvad-vpn$" \
-	| grep -v "^steam-launcher$" \
 	| grep -v "^zoom$" \
 	| grep -v "^kubuntu-desktop$" \
 	| grep -v "^kubuntu-restricted-addons$" \
@@ -23,6 +22,7 @@ apt list --manual-installed 2> /dev/null | cut -d/ -f1\
 	| grep -v "^grub$" \
 	| grep -v "^grub-" \
 	| grep -v "^grub2-" \
+	| grep -v "^gvfs-bin$" \
 	| grep -v "^fonts-indic$" \
 	| grep -v "^libdevmapper" \
 	| grep -v "^libkrb" \

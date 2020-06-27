@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# OMZ has a git plugin that provides git_current_branch and a couple of the ZSH aliases rely on git_current_branch, so this file makes them work
+git rev-parse --abbrev-ref HEAD

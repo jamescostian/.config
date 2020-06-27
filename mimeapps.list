@@ -3,6 +3,7 @@ text/html=google-chrome.desktop
 x-scheme-handler/mailto=google-chrome.desktop
 x-scheme-handler/webcal=google-chrome.desktop
 x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/sgnl=signal-desktop.desktop
 
 [Added Associations]
 text/plain=code.desktop;

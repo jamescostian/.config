@@ -22,7 +22,9 @@ if grep "enabled=True" /etc/xdg/user-dirs.conf > /dev/null; then
 fi
 
 # Set up zsh files that are needed
-echo "ZDOTDIR=$HOME/.config/zsh-james" > ~/.zshenv
+if [[ ! -f ~/.zshenv ]]; then
+  echo "ZDOTDIR=$HOME/.config/zsh-james" > ~/.zshenv
+fi
 if ! grep "apps-bin-path" /etc/zsh/zprofile > /dev/null; then
   echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" | sudo tee -a /etc/zsh/zprofile > /dev/null
 fi

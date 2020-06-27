@@ -19,7 +19,7 @@
     "terminal.integrated.fontSize": 13,
     "javascript.updateImportsOnFileMove.enabled": "always",
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[javascript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
@@ -32,7 +32,6 @@
     "[vue]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "prettier.disableLanguages": [],
     "peacock.favoriteColors": [
         {
             "name": "Angular Red",
@@ -102,10 +101,6 @@
     "gitlens.views.lineHistory.location": "gitlens",
     "gitlens.views.compare.location": "gitlens",
     "gitlens.views.search.location": "gitlens",
-    "ruby.useLanguageServer": true,
-    "ruby.intellisense": "rubyLocate",
-    "solargraph.checkGemVersion": false,
-    "ruby.useBundler": true,
     "workbench.colorCustomizations": {
         "highlightLogicalLine.background": "#66666620",
     },
@@ -121,7 +116,7 @@
     "editor.minimap.enabled": false,
     "todo-tree.tree.showScanModeButton": false,
     "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -130,7 +125,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[yaml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -140,9 +135,8 @@
     "telemetry.enableCrashReporter": false,
     "code-runner.enableAppInsights": false,
     "yaml.schemas": {
-        "file:///home/james/.vscode/extensions/atlassian.atlascode-2.6.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///home/james/.vscode/extensions/atlassian.atlascode-2.6.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
-    "jest.autoEnable": false,
     "atlascode.bitbucket.enabled": false,
     "atlascode.jira.statusbar.showUser": false,
     "atlascode.jira.statusbar.showProduct": false,
@@ -151,5 +145,13 @@
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "eslint.format.enable": true,
-    "vscode-postgres.prettyPrintJSONfields": true
+    "vscode-postgres.prettyPrintJSONfields": true,
+    "atlascode.jira.enabled": true,
+    "gitlens.advanced.telemetry.enabled": false,
+    "gitlab.showIssueLinkOnStatusBar": false,
+    "gitlab.showStatusBarLinks": false,
+    "terminal.integrated.allowChords": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "code-runner.showRunIconInEditorTitleMenu": false,
+    "hexdump.btnEnabled": false
 }

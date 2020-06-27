@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 # Next, install the apt packages
 # Don't use <(./...) because it's not always working for some reason.
 ./list-apt-packages > tmp
-./install-and-uninstall ~/.config/apt-packages tmp "sudo apt-get install -yq" "sudo apt-mark auto" "sudo apt-get install -fyq"
+./install-and-uninstall ~/.config/apt-packages tmp "sudo apt-get install -yq" "sudo apt-mark auto" "sudo sed -i 's~^deb~# deb~g' /etc/apt/sources.list.d/google-chrome.list; sudo apt-get install -fyq"
 # Next, install snaps (has to come after apt, because apt may need to install snap)
 ./list-snaps-installed > tmp
 ./install-and-uninstall ~/.config/snaps-installed tmp "sudo snap install" "sudo snap remove" "" -rL 1
@@ -34,6 +34,12 @@ set +e
 if ! groups | grep docker > /dev/null; then
 	sudo usermod -aG docker "$USER"
 fi
+# Needed for global node modules
+if ! groups | grep root > /dev/null; then
+	sudo usermod -aG root "$USER"
+fi
+chmod 0775 /usr/lib/node_modules
+chmod 0775 /usr/lib/bin
 
 # Also, we need to set up some connections
 # TODO: set up a declarative connect/disconnect script and a list of connections

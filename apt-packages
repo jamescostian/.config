@@ -17,6 +17,7 @@ dbus-x11
 deluge
 desktop-file-utils
 diffutils
+dkms
 docker-compose
 docker.io
 e2fsprogs
@@ -31,6 +32,7 @@ fonts-noto-color-emoji
 fonts-noto-mono
 fzf
 gconf-service
+gconf2
 git-lfs
 git
 gnome-keyring
@@ -51,6 +53,7 @@ init
 jq
 keyboard-configuration
 lame
+libdrm-dev
 libheif-examples
 liblvm2cmd2.03
 libmysqlclient-dev
@@ -86,6 +89,7 @@ poppler-data
 ppa-purge
 progress
 python-apt
+python-is-python2
 python3-distutils
 rclone
 redis
