@@ -1,3 +1,4 @@
+1password
 adb
 anbox
 apt-transport-https
@@ -89,9 +90,10 @@ pciutils
 peek
 pkg-config
 poppler-data
+postgresql-contrib
+postgresql
 ppa-purge
 progress
-python-apt
 python-is-python2
 python3-distutils
 rclone
@@ -102,6 +104,7 @@ signal-desktop
 snapd
 steam
 teams
+teamviewer
 thefuck
 thin-provisioning-tools
 tree

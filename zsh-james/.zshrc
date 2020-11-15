@@ -67,8 +67,8 @@ else
 			sudo mv /opt/firefox-devedition/firefox /opt/firefox-devedition/firefox-devedition
 		fi
 		# Update Mullvad
-		if [[ "$(mullvad --version)" != "mullvad 2020.4" ]]; then
-			wget --content-disposition https://mullvad.net/en/download/deb/2020.4/ -O mullvad.deb
+		if [[ "$(mullvad --version)" != "mullvad 2020.6" ]]; then
+			wget --content-disposition https://mullvad.net/en/download/deb/2020.6/ -O mullvad.deb
 			sudo dpkg -i mullvad.deb && rm mullvad.deb
 		fi
 	}
@@ -162,6 +162,10 @@ fi
 if ! hash rg 2> /dev/null; then
 	zinit ice wait"1" from"gh-r" as"program" mv"*/rg -> rg" lucid
 	zinit load BurntSushi/ripgrep
+fi
+if ! hash rga 2> /dev/null; then
+	zinit ice wait"1" from"gh-r" as"program" mv"*/rga -> rga" cp"*/rga-preproc -> rga-preproc" lucid
+	zinit load phiresky/ripgrep-all
 fi
 
 # Bat config

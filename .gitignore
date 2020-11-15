@@ -1,20 +1,27 @@
 .op/
+1Password/
 DB Browser for SQLiterc
 Cypress/
 GIMP/
+GPUCache/
 Microsoft/Microsoft Teams/
 Mullvad VPN/
+Ronin/
+QueryPie/
 Signal/
 VirtualBox/
 VirtualBoxVMrc
 VirtualBoxrc
 asciinema/install-id
+balena-etcher-electron/
 bluedevilglobalrc
 cef_user_data/Dictionaries
 chromium/
+configstore/firebase-tools.json
 configstore/nodemon.json
 configstore/gcs-resumable-upload.json
 configstore/update-notifier-*.json
+configstore/time-tracker-cli.json
 deluge/
 discord/
 emaildefaults
@@ -25,10 +32,12 @@ gtk-2.0/gtkfilechooser.ini
 glib-2.0/settings/keyfile
 gtkrc-2.0
 gtkrc
+htoprc
 ibus/
 libreoffice/
 menus/
 nextjs-nodejs/config.json
+notificationhelper
 opera/
 pavucontrol.ini
 plasma-localerc
@@ -49,12 +58,15 @@ sublime-text-3
 !sublime-text-3/Packages/User/Preferences.sublime-settings
 syncthing/
 teams/
+teams (deleted)/
+teamviewer/
 thefuck/
 tizonia/tizonia.conf
 user-dirs.locale
 vlc/
 vokoscreen/
 yarn/link
+zoomus.conf
 
 # KDE stuff
 QtProject.conf
@@ -96,6 +108,12 @@ gnome-initial-setup-done
 libaccounts-glib/
 /monitors.xml*
 xsettingsd.conf
+
+# Pop!_OS stuff
+dleyna-server-service.conf
+enchant/
+pop-shell/
+totem/
 
 # Why did Qt pick this file name?
 Trolltech.conf

@@ -32,6 +32,7 @@
     "[vue]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "terminal.integrated.localEchoLatencyThreshold": -1,
     "peacock.favoriteColors": [
         {
             "name": "Angular Red",
@@ -134,9 +135,6 @@
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
     "code-runner.enableAppInsights": false,
-    "yaml.schemas": {
-        "file:///home/james/.vscode/extensions/atlassian.atlascode-2.6.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
-    },
     "atlascode.bitbucket.enabled": false,
     "atlascode.jira.statusbar.showUser": false,
     "atlascode.jira.statusbar.showProduct": false,
