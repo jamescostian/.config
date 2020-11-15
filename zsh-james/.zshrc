@@ -358,7 +358,7 @@ alias cat="bat --paging never"
 # |_|  |_|_|___/\___\___|_|_|\__,_|_| |_|\___|\___/ \__,_|___/
 
 export MULTITENANT_SUFFIX="-james"
-export EDITOR="code"
+export EDITOR="code -w"
 export GPG_TTY=$(tty)
 export PATH="$HOME/bin:$HOME/.config/scripts-james:$HOME/.cargo/bin:$PATH"
 
