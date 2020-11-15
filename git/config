@@ -8,6 +8,10 @@
 	pager = delta --theme OneHalfDark --file-style box --tabs 2
 	excludesfile = ~/.config/git/ignore_global
 	editor = vim -Nu ~/.config/vimrc-james +startinsert
+[log]
+	abbrevCommit = true
+[rebase]
+	abbreviateCommands = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
