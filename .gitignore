@@ -57,25 +57,45 @@ vokoscreen/
 yarn/link
 
 # KDE stuff
+QtProject.conf
 akregatorrc
 arkrc
+baloofilerc
+baloofileinformationrc
 discoverrc
 dolphinrc
+drkonqirc
 gwenviewrc
 katemetainfos
 kdeconnect/
+kdeglobals
 k*rc
 kcm*
 ksysguardrc
 okularrc
+okularpartrc
 partitionmanagerrc
 pavucontrol-qt
 plasma-nm
+plasma-org.kde.plasma.desktop-appletsrc
+plasmanotifyrc
+plasmashellrc
 spectaclerc
 systemmonitorrc
 systemsettingsrc
 trashrc
-QtProject.conf
+usb-creator-kderc
+webengineurlinterceptoradblockrc
+
+# GNOME stuff
+dconf/user
+evolution/
+gnome-control-center/
+gtk-3.0/
+gnome-initial-setup-done
+libaccounts-glib/
+/monitors.xml*
+xsettingsd.conf
 
 # Why did Qt pick this file name?
 Trolltech.conf
