@@ -211,6 +211,7 @@ zinit load rupa/z
 if [[ "$(uname -m)" == "aarch64" ]]; then
 	unsetopt BG_NICE # Nix on Droid fix. It's heavy-handed but meh
 fi
+zinit light zdharma/fast-syntax-highlighting
 zinit ice wait lucid
 zinit load https://github.com/zsh-users/zsh-history-substring-search
 # Bind UP and DOWN keys
@@ -232,7 +233,6 @@ zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit load https://github.com/zsh-users/zsh-autosuggestions
 
 zinit ice from"gh" wait"0" atinit"zpcompinit; zpcdreplay" lucid
-zinit light zdharma/fast-syntax-highlighting
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
