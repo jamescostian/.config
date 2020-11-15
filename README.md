@@ -13,6 +13,8 @@ ZDOTDIR="$HOME/.config/zsh-james" zsh
 
 To install the full version (non-multitenant mode, which only makes sense for me, or for you if you fork and change this repo), run `export NOT_MULTITENANT=true` before running the `sh -c ...` part. You can also shorten this to `curl -L https://jami.am|NMT=y sh`
 
+This does *not* [install the DisplayLink driver](https://support.system76.com/articles/use-docking-station/#installing-displaylink-driver) - something very helpful for using USB-C! If you want video over USB-C, you should definitely install it
+
 ## Goals
 
 - **Allow me to set up a new machine** fully (assuming some Ubuntu or derivative OS, apt, snap, and internet access). Not just things like my [.zshrc](zsh-james/.zshrc), but also things like my SSH and GPG keys, and even wifi passwords I've saved (I store all these secrets in 1Password), and even install extensions in VS Codium, or configure `about:config` Firefox settings.
