@@ -250,18 +250,27 @@ alias je="junk; exit"
 # Alternatives I like
 alias kc="kubectl"
 alias mk="minikube"
+alias dkrma="docker ps -aq | xargs docker rm -f"
 alias nr="npm run --silent"
 alias y="yarn"
+alias yd="yarn dev"
+alias ya="yarn add"
+alias yad="yarn add --dev"
+alias yyd="yarn && yarn dev"
+alias yt="yarn test"
+alias ytc="yarn test --coverage"
+alias ytw="yarn test --watch"
 alias npmi="npm i"
 alias npmig="npm i -g"
 alias v="vim"
-alias s="sudo "
+alias s="sudo"
 alias la="exa -la --git --sort=Name --color-scale" # ls -lA --color=always
 alias l="exa -l --git --sort=Name --color-scale" # ls -l --color=always
 alias fda="fd -E '\0'" # Use fd but without .gitignore getting in the way
 # I miss these aliases from oh-my-zsh
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias .....="cd ../../../.."
 
 # Convenience helpers
 function mkcd {
