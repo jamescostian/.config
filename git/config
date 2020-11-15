@@ -18,10 +18,6 @@
 	colorMoved = default
 [color]
 	ui = auto
-[includeIf "gitdir:~/code/qliqweb/"]
-	path = ~/.config/git/config_qliq
-[includeIf "gitdir:~/code/qliqweb.botengine/"]
-	path = .config/git/config_qliq
 [url "git@github.com:jamescostian/"]
 	insteadOf = my:
 [url "https://github.com/"]

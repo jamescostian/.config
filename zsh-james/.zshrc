@@ -279,7 +279,7 @@ function code {
 alias shit='sudo $(fc -ln -1)'
 alias pkill="pkill -f" # Sane defaults IMO
 
-# Git-specific things (uses hub for GitHub integration)
+# Git-specific things
 alias gsht="git rev-parse --short"
 alias gal="git add --all"
 alias gds="git diff --staged"
@@ -287,8 +287,8 @@ alias gdi="git icdiff"
 alias gdis="git icdiff --staged"
 alias gdsi="git icdiff --staged"
 alias glt="git log --stat --since=5am --before=11pm"
-alias gbpurge='git branch --merged | grep -v "\*" | grep -v "master" | xargs -n 1 git branch -d'
-alias gbold='git branch --merged | grep -v "\*" | grep -v "master" | grep -v "rails5_"'
+alias gbpurge='git branch --merged | grep -v "\*" | grep -v "master" | grep -v "main" | xargs -n 1 git branch -d'
+alias gbold='git branch --merged | grep -v "\*" | grep -v "master" | grep -v "main"'
 alias glurg="gl && gbpurge"
 alias gundo="git reset --soft HEAD~"
 function gcl {
