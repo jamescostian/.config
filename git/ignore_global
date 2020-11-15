@@ -17,5 +17,7 @@ Thumbs.db
 *.log
 *.sqlite
 ._*
+/*.diff
+/patch
 /fontconfig
 GPUCache
