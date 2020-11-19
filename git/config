@@ -12,6 +12,8 @@
 	abbrevCommit = true
 [rebase]
 	abbreviateCommands = true
+[pull]
+	rebase = false
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
