@@ -4,6 +4,7 @@ apt list --manual-installed 2> /dev/null | cut -d/ -f1\
 	| grep -v "^nvidia" \
 	| grep -v "^xserver-" \
 	| grep -v "^system76" \
+	| grep -v "^openrazer-meta$" \
 	| grep -v "^cryptsetup" \
 	| grep -v "^dmeventd$" \
 	| grep -v "^gnome-getting-started" \

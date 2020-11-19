@@ -54,5 +54,6 @@ fi
 
 # /etc/apt/sources.list.d/steam.list may be created by steam
 # /etc/apt/sources.list.d/system76-ubuntu-pop-focal.list may be created on system76 machines
+# /etc/apt/sources.list.d/openrazer-ubuntu-stable-groovy.list may be created when installing open razer
 
 sudo apt-get update
