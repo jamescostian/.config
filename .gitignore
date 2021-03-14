@@ -25,6 +25,7 @@ configstore/time-tracker-cli.json
 deluge/
 discord/
 emaildefaults
+evince/
 freerdp
 google-chrome-beta/
 google-chrome/
@@ -66,7 +67,8 @@ tizonia/tizonia.conf
 user-dirs.locale
 vlc/
 vokoscreen/
-yarn/link
+vysor/
+yarn
 zoomus.conf
 
 # KDE stuff
