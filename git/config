@@ -34,3 +34,5 @@
 	insteadOf = gl:
 [url "git@gitlab.com:"]
 	pushInsteadOf = gl:
+[init]
+	defaultBranch = main
