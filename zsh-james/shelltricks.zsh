@@ -25,10 +25,10 @@ pastefinish() {
 	zle -N self-insert $OLD_SELF_INSERT
 }
 zstyle :bracketed-paste-magic paste-finish pastefinish
-zinit ice wait lucid
-zinit light zdharma/fast-syntax-highlighting
 
-zinit ice from"gh" wait atinit"zpcompinit; zpcdreplay" lucid
+# Load up f-s-y last, and setup completions with it
+zinit ice wait atinit"zpcompinit; zpcdreplay" lucid
+zinit light zdharma/fast-syntax-highlighting
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
