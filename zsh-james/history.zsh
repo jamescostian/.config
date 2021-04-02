@@ -5,7 +5,15 @@ HISTFILE=$HOME/.cache/zsh_history$MULTITENANT_SUFFIX
 HISTSIZE=10000
 SAVEHIST=10000
 # Some terminal sessions are a waste of ↑ keystrokes
-alias junk="unset HISTFILE"
+function junk {
+	# The old "unset HISTFILE" isn't working for me anymore, and neither is setting it to /dev/null.
+	# So I'm going to ask for no lines of history to be saved:
+	HISTSIZE=0
+	# Unfortunately, zsh will choose to store 1 line of history, instead of zero!
+	# So I'm going to put that line in a temporary file.
+	# NOTE: doing something like "mysql ...; je" isn't safe! Run je afterwards
+	HISTFILE="$(mktemp)"
+}
 alias je="junk; exit"
 
 unsetopt inc_append_history

@@ -1,15 +1,26 @@
 #!/usr/bin/env bash
 set -eo pipefail
 cd "$(dirname "$0")"
-# First, set up the apt sources so that all the apt packages can be downloaded
-./set-apt-sources
-# Next, install the apt packages
-# Don't use <(./...) because it's not always working for some reason.
-./list-apt-packages > tmp
-./install-and-uninstall ~/.config/apt-packages tmp "sudo apt-get install -yq" "sudo apt-mark auto" "sudo sed -i 's~^deb~# deb~g' /etc/apt/sources.list.d/google-chrome.list; sudo apt-get install -fyq"
-# Next, install snaps (has to come after apt, because apt may need to install snap)
-./list-snaps-installed > tmp
-./install-and-uninstall ~/.config/snaps-installed tmp "sudo snap install" "sudo snap remove" "" -rL 1
+if [ "$(uname)" = "Darwin" ]; then
+	softwareupdate --install-rosetta
+	if [[ ! -f /opt/homebrew/bin/brew ]]; then
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	fi
+	brew bundle --cleanup --file="$HOME/.config/Brewfile$MULTITENANT_SUFFIX"
+	# brew + zsh will make /opt/homebrew/share/zsh and /opt/homebrew/share/zsh/site-functions be group-writable, which compaudit complains about
+	chmod g-w /opt/homebrew/share/zsh/site-functions
+	chmod g-w /opt/homebrew/share/zsh
+else
+	# First, set up the apt sources so that all the apt packages can be downloaded
+	./set-apt-sources
+	# Next, install the apt packages
+	# Don't use <(./...) because it's not always working for some reason.
+	./list-apt-packages > tmp
+	./install-and-uninstall ~/.config/apt-packages tmp "sudo apt-get install -yq" "sudo apt-mark auto" "sudo sed -i 's~^deb~# deb~g' /etc/apt/sources.list.d/google-chrome.list; sudo apt-get install -fyq"
+	# Next, install snaps (has to come after apt, because apt may need to install snap)
+	./list-snaps-installed > tmp
+	./install-and-uninstall ~/.config/snaps-installed tmp "sudo snap install" "sudo snap remove" "" -rL 1
+fi
 # Next, install VS Code extensions (has to come after apt, because apt may need to install code)
 code --list-extensions > tmp
 ./install-and-uninstall ~/.config/Code/User/extensions tmp "code --install-extension" "code --uninstall-extension" "" -rL 1
@@ -20,32 +31,24 @@ rm tmp
 ./get-secrets
 ./make-external-files
 ./tweak-firefox
-./tweak-kernel-params
 ./clean-up-garbage
 
-dconf load /desktop/ibus/ < ~/.config/ibus.dconf
-
-# Use zsh as the default shell for this user account
-if ! getent passwd $LOGNAME | cut -d: -f7 | grep "$(which zsh)" > /dev/null; then
-	chsh -s "$(which zsh)"
-fi
-# Needed to run docker without sudo
-set +e
-if ! groups | grep docker > /dev/null; then
-	sudo usermod -aG docker "$USER"
-fi
-# Needed for global node modules
-if ! groups | grep root > /dev/null; then
-	sudo usermod -aG root "$USER"
-fi
-chmod 0775 /usr/lib/node_modules
-chmod 0775 /usr/lib/bin
-
-# Also, we need to set up some connections
-# TODO: set up a declarative connect/disconnect script and a list of connections
-if snap connections | grep remmina:password-manager-service > /dev/null; then
-	sudo snap connect remmina:avahi-observe :avahi-observe
-	sudo snap connect remmina:cups-control :cups-control
-	sudo snap connect remmina:mount-observe :mount-observe
-	sudo snap connect remmina:password-manager-service :password-manager-service
+if [ "$(uname)" != "Darwin" ]; then
+	./tweak-linux-kernel-params
+	dconf load /desktop/ibus/ < ~/.config/ibus.dconf
+	# Use zsh as the default shell for this user account
+	if ! getent passwd $LOGNAME | cut -d: -f7 | grep "$(which zsh)" > /dev/null; then
+		chsh -s "$(which zsh)"
+	fi
+	# Needed to run docker without sudo
+	set +e
+	if ! groups | grep docker > /dev/null; then
+		sudo usermod -aG docker "$USER"
+	fi
+	# Needed for global node modules
+	if ! groups | grep root > /dev/null; then
+		sudo usermod -aG root "$USER"
+	fi
+	chmod 0775 /usr/lib/node_modules
+	chmod 0775 /usr/lib/bin
 fi

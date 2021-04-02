@@ -5,9 +5,10 @@
 # In order for this to be truly multi-tenant, it's important to check if the multitenant suffix is the same suffix as the one that is currently being used.
 # This is... kinda ugly. I'm using {suffix here} as the place to insert the actual suffix (because if this script is called by me, I'll insert $MULTITENANT_SUFFIX, but if it were called by someone else, it should insert their suffix instead)
 # To make matters worse, I can't wrap $MULTITENANT_SUFFIX in quotation marks because ssh gives me errors if I do, so I have to prepend it and the suffix with a character (I'm using _) to ensure I don't end up writing something malformed like "&&  == $MULTITENANT_SUFFIX" when MULTITENANT_SUFFIX isn't set
+# Note that in MacOS, the first line of output from ps will be ARGS, which has to be skipped when checking if this is interactive by checking if there are only 2 args
 # TODO: read the existing indentation in ~/.ssh/config, and mimic it
 read -r -d '' SSH_CONFIG_NEEDED << 'EOF'
-Match exec "[[ $(ps h o args p $PPID | sed 's~ ~\n~g' | grep -v '^\-' | wc -l) -eq 2 && _$MULTITENANT_SUFFIX == _{suffix here} ]]"
+Match exec "[[ $(ps -ho args -p $PPID | sed 's~ ~\n~g' | grep -v '^\-' | grep -v '^ARGS$' | wc -l) -eq 2 && _$MULTITENANT_SUFFIX == _{suffix here} ]]"
     RemoteCommand if [ -d $HOME/.config/zsh{suffix here} ]; then ZDOTDIR=$HOME/.config/zsh{suffix here} zsh; else bash; fi
     RequestTTY yes
 EOF

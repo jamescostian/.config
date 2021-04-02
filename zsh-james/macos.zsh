@@ -41,3 +41,23 @@ function unlockshit {
 
 # For iTerm2
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
+
+# For Homebrew
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+	PATH="/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:/opt/homebrew/opt/gnu-tar/libexec/gnubin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+fi
+
+# Update, but just a few main things
+alias upd="mas upgrade && brew update && brew upgrade; brew unlink openssh"
+# Full update
+function update {
+	upd
+	# Update everything zinit manages
+	zinit update
+	# Upgrade GUIs (greedy is slower, but will result in more casks being updated)
+	brew upgrade --cask --greedy
+	# Upgrade OS-level things
+	softwareupdate -i -a
+}

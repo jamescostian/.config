@@ -1,30 +1,26 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-if [[ ! -d "$HOME/.cargo" ]] && ! hash rustc 2> /dev/null; then
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete --default-toolchain beta -y
-fi
+# if [[ "$(uname)" != "Darwin" && ! -d "$HOME/.cargo" ]] && ! hash rustc 2> /dev/null; then
+# 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete --default-toolchain beta -y
+# fi
 
-if [[ ! -d "/opt/go" ]] && ! hash go 2> /dev/null; then
-	curl -L https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz | sudo tar -xzC /opt
-fi
+# if [[ "$(uname)" != "Darwin" && ! -d "/opt/go" ]] && ! hash go 2> /dev/null; then
+# 	curl -L https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz | sudo tar -xzC /opt
+# fi
 
-if [[ ! -f "/usr/local/bin/minikube" ]] && ! hash minikube 2> /dev/null; then
-	sudo curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-	sudo chmod a+x /usr/local/bin/minikube
-fi
+# if [[ "$(uname)" != "Darwin" && ! -f "/usr/local/bin/minikube" ]] && ! hash minikube 2> /dev/null; then
+# 	sudo curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+# 	sudo chmod a+x /usr/local/bin/minikube
+# fi
 
-if [[ ! -f ~/.nanorc ]]; then
-	curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
-fi
-
-if ! hash mullvad 2> /dev/null; then
+if [[ "$(uname)" != "Darwin" ]] && ! hash mullvad 2> /dev/null; then
 	# This may not be the latest version, but running `update` in a terminal will fix that
 	wget --content-disposition https://mullvad.net/en/download/deb/2020.5/ -O mullvad.deb
 	sudo dpkg -i mullvad.deb && rm mullvad.deb
 fi
 
-if ! hash minecraft-launcher 2> /dev/null; then
+if [[ "$(uname)" != "Darwin" ]] && ! hash minecraft-launcher 2> /dev/null; then
 	wget https://launcher.mojang.com/download/Minecraft.deb
 	set +e
 	sudo dpkg -i Minecraft.deb
@@ -33,20 +29,20 @@ if ! hash minecraft-launcher 2> /dev/null; then
 	set -e
 fi
 
-if [[ ! -d "/usr/local/bin/op" ]] && ! hash op 2> /dev/null; then
+if [[ "$(uname)" != "Darwin" && ! -d "/usr/local/bin/op" ]] && ! hash op 2> /dev/null; then
 	curl https://cache.agilebits.com/dist/1P/op/pkg/v1.0.0/op_linux_amd64_v1.0.0.zip -o op.zip
 	unzip op.zip
 	rm op.zip op.sig
 	sudo mv op /usr/local/bin
 fi
 
-if ! hash 1password 2> /dev/null; then
+if [[ "$(uname)" != "Darwin" ]] && ! hash 1password 2> /dev/null; then
   sudo apt-key --keyring /usr/share/keyrings/1password.gpg adv --keyserver keyserver.ubuntu.com --recv-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
 	echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password.gpg] https://onepassword.s3.amazonaws.com/linux/debian edge main' | sudo tee /etc/apt/sources.list.d/1password.list
 	sudo apt update && sudo apt install 1password
 fi
 
-if ! fc-list | grep Powerline > /dev/null; then
+if { [[ "$(uname)" != "Darwin" ]] && ! fc-list | grep Powerline > /dev/null; } || { [[ "$(uname)" = "Darwin" ]] && ! system_profiler SPFontsDataType | grep Powerline > /dev/null; }; then
 	git clone https://github.com/powerline/fonts.git --depth=1
 	cd fonts
 	./install.sh
@@ -56,14 +52,14 @@ fi
 
 # Firefox Developer Edition... what a PITA
 # It updates frequently enough (not automatically) that it's worth just reinstalling every time, unless it's currently running
-if ! pgrep 'firefox-devedition' > /dev/null; then
+if [[ "$(uname)" != "Darwin" ]] && ! pgrep 'firefox-devedition' > /dev/null; then
 	curl -L 'https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US' | sudo tar -xjC /opt
 	sudo rm -Rf /opt/firefox-devedition
 	sudo mv /opt/firefox /opt/firefox-devedition
 	sudo mv /opt/firefox-devedition/firefox-bin /opt/firefox-devedition/firefox-devedition-bin
 	sudo mv /opt/firefox-devedition/firefox /opt/firefox-devedition/firefox-devedition
 fi
-if [[ ! -f ~/.local/share/applications/firefox-devedition.desktop ]]; then
+if [[ "$(uname)" != "Darwin" && ! -f ~/.local/share/applications/firefox-devedition.desktop ]]; then
 	mkdir -p ~/.local/share/applications
 	echo "[Desktop Entry]" > ~/.local/share/applications/firefox-devedition.desktop
 	echo "Name=Firefox Developer Edition" >> ~/.local/share/applications/firefox-devedition.desktop

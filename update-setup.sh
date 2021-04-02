@@ -2,8 +2,12 @@
 # setup.sh takes the existing configuration and writes it, it does _not_ absorb the configuration on your machine; it just overwrites it.
 # But what if you have changes on your machine that are worth keeping? Run this script to prevent setup.sh from messing up your setup.
 
-~/.config/scripts-james/helpers/list-apt-packages > ~/.config/apt-packages
-~/.config/scripts-james/helpers/list-snaps-installed > ~/.config/snaps-installed
+if [[ "$(uname)" = "Darwin" ]]; then
+	brew bundle dump --force --file="$HOME/.config/Brewfile$MULTITENANT_SUFFIX"
+else
+	~/.config/scripts$MULTITENANT_SUFFIX/helpers/list-apt-packages > ~/.config/apt-packages
+	~/.config/scripts$MULTITENANT_SUFFIX/helpers/list-snaps-installed > ~/.config/snaps-installed
+fi
 code --list-extensions > ~/.config/Code/User/extensions
 
 # Update the version of ~/.ssh/config in 1Password

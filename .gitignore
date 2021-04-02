@@ -1,4 +1,4 @@
-.op/
+op/
 1Password/
 DB Browser for SQLiterc
 Cypress/
@@ -35,6 +35,7 @@ gtkrc-2.0
 gtkrc
 htoprc
 ibus/
+iterm2
 libreoffice/
 menus/
 nextjs-nodejs/config.json

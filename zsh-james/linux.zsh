@@ -21,11 +21,13 @@ function unlockshit {
 	sudo chattr -a $@
 }
 
+# Update, but just a few main things
+alias upd="sudo apt update && sudo apt upgrade"
+# Full update
 function update {
-	# Update apt packages, snaps, and rust
-	sudo apt update && sudo apt upgrade
-	sudo snap refresh
-	rustup update
+	upd
+	# Update everything zinit manages
+	zinit update
 	# Update FF dev edition. It gets updated really frequently!
 	# Might as well download the latest version every time update is called - so long as FF is not running!
 	if ! pgrep "firefox-devedition" > /dev/null; then
@@ -38,6 +40,8 @@ function update {
 	# Update Mullvad
 	wget --content-disposition https://mullvad.net/download/app/deb/latest/ -O mullvad.deb
 	sudo dpkg -i mullvad.deb && rm mullvad.deb
+	# Update the OS
+	do-release-upgrade
 }
 
 # NixOS-specific

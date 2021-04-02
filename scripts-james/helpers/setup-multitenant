@@ -12,3 +12,4 @@ rm -Rf ~/.config/*$MULTITENANT_SUFFIX
 cat ~/.ssh/config | sed -e "/Match exec.*"'_$'"MULTITENANT_SUFFIX == _$MULTITENANT_SUFFIX.*/,+3d" > ~/.ssh/config-uninstalled
 mv ~/.ssh/config-uninstalled ~/.ssh/config
 EOF
+chmod +x $HOME/.config/uninstall$MULTITENANT_SUFFIX

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# This is only on linux, on a machine where QT_SCREEN_SCALE_FACTORS is set
+[[ -z "$QT_SCREEN_SCALE_FACTORS" ]] && exit 0
+
 ZOOM_LEVEL="$(echo $QT_SCREEN_SCALE_FACTORS | awk -F ';' '{print $1}')"
 if echo $ZOOM_LEVEL | grep = > /dev/null; then
 	ZOOM_LEVEL="$(echo $ZOOM_LEVEL | awk -F '=' '{print $2}')"

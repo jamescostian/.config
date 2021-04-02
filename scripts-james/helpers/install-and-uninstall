@@ -37,21 +37,25 @@ function install_and_uninstall {
 	fi
 
 	# Don't bother if the list of programs is identical to what's locally installed
-	if cmp "$actually_installed" "$expected_installed" 2> /dev/null; then
+	if cmp "$actually_installed" "$expected_installed" 2> /dev/null > /dev/null; then
 		exit 0
 	fi
 
 	echo "Installing/uninstalling packages to match $expected_installed"
-	if ! hash icdiff 2> /dev/null; then
-		sudo apt-get install -yq icdiff > /dev/null
+	# Show the differences so the user understands what's going to happen
+	# diff throws errors because these files are different, so errors must be allowed
+	set +e
+	if hash icdiff 2> /dev/null; then
+		icdiff "$actually_installed" "$expected_installed"
+	elif hash colordiff 2> /dev/null; then
+		colordiff "$actually_installed" "$expected_installed"
+	else
+		diff "$actually_installed" "$expected_installed"
 	fi
-	icdiff "$actually_installed" "$expected_installed"
 	echo "Press Ctrl+C to stop in the next 5 seconds"
 	sleep 5
 
 	# First goal, install the packages that are in the file but not locally installed.
-	# diff throws errors because these files are different, btw
-	set +e
 	if ! diff --old-line-format="" --unchanged-line-format="" "$actually_installed" "$expected_installed" | xargs $xargs_args $install_cmd; then
 		# Installation failed!
 		if [[ -z "$fix_bad_install_cmd" ]]; then

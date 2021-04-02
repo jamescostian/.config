@@ -1,34 +1,61 @@
 #!/usr/bin/env bash
 # I wish ~/.config was all I needed to check in to git, but it's not. Some things have be installed elsewhere
 touch "$HOME/.hushlogin"
-# I hate Konsole for putting its rc file in ~/.config but the rest of its config in ~/.local/share
-mkdir -p "$HOME/.local/share"
-cd "$HOME/.local/share"
-rm -Rf konsole
-ln -s ../../.config/konsole
+if hash konsole 2> /dev/null; then
+	# I hate Konsole for putting its rc file in ~/.config but the rest of its config in ~/.local/share
+	mkdir -p "$HOME/.local/share"
+	cd "$HOME/.local/share"
+	rm -Rf konsole
+	ln -s ../../.config/konsole
+fi
 # I'm using rupa/z which expects there to be a ~/.z file, so I'll just touch it:
 touch "$HOME/.z"
 
-# Allow my XDG dirs
-if grep "enabled=True" /etc/xdg/user-dirs.conf > /dev/null; then
-  sudo sed 's~enabled=True~enabled=False~' -i /etc/xdg/user-dirs.defaults
-  mkdir -p ~/Documents/Templates
-  set +e
-  rmdir ~/Templates
-  rmdir ~/Music
-  rmdir ~/Pictures
-  rmdir ~/Videos
-  set -e
+# `ensure_symlink $x $y` is equivalent to `ln -s $x $y` unless $y exists
+function ensure_symlink {
+	if [[ "$(readlink "$2" 2> /dev/null)" != "$1" ]]; then
+		if [[ -f "$2" || -d "$2" ]]; then
+			local tmp="$(mktemp -d)"
+			mv "$2" "$TMPDIR/old-contents"
+			echo "Overwriting $2"
+			echo "Find your version in $TMPDIR/old-contents"
+		fi
+		ln -s "$1" "$2"
+	fi
+}
+
+if [ "$(uname)" = "Darwin" ]; then
+	cd ~/.config/Code/User
+	for file in $(find . | grep -v '^\.$'); do
+		ensure_symlink "$PWD/$file" "$HOME/Library/Application Support/Code/User/$file"
+	done
+else
+	# Allow my XDG dirs
+	if grep "enabled=True" /etc/xdg/user-dirs.conf > /dev/null; then
+		sudo sed 's~enabled=True~enabled=False~' -i /etc/xdg/user-dirs.defaults
+		mkdir -p ~/Documents/Templates
+		set +e
+		rmdir ~/Templates
+		rmdir ~/Music
+		rmdir ~/Pictures
+		rmdir ~/Videos
+		set -e
+	fi
 fi
 
 # Set up zsh files that are needed
 if [[ ! -f ~/.zshenv ]]; then
-  echo "ZDOTDIR=$HOME/.config/zsh-james" > ~/.zshenv
+	echo "ZDOTDIR=$HOME/.config/zsh$MULTITENANT_SUFFIX" > ~/.zshenv
 fi
-if ! grep "apps-bin-path" /etc/zsh/zprofile > /dev/null; then
-  echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" | sudo tee -a /etc/zsh/zprofile > /dev/null
+if [[ "$(uname)" != "Darwin" ]] && ! grep "apps-bin-path" /etc/zsh/zprofile > /dev/null; then
+	echo "emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'" | sudo tee -a /etc/zsh/zprofile > /dev/null
 fi
 
 # Set up the SSH config
-cd "$HOME/.config/scripts-james/helpers"
+cd "$HOME/.config/scripts$MULTITENANT_SUFFIX/helpers"
 ./make-ssh-use-my-config
+
+# Setup pinentry-mac
+if [[ "$(uname)" = "Darwin" && ! -f "$HOME/bin/pinentry" ]] && ! hash pinentry-mac 2> /dev/null; then
+	mkdir -p ~/bin; ln -s `which pinentry-mac` ~/bin/pinentry
+fi
