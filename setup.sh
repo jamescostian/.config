@@ -11,7 +11,8 @@ install_git_if_not_installed () {
 	if [ ! -f "install-if-not-exists" ]; then
 		cd # Go to home directory, where one has write privileges. RIP if there is no home directory for this user
 		# Download a generalized installer that works on many OSes using curl or wget, whichever works, and save to the same filename
-		curl -L "https://raw.githubusercontent.com/jamescostian/.config/master/scripts-james/helpers/install-if-not-exists" -o "install-if-not-exists" 2> /dev/null || wget -qO "install-if-not-exists" "https://raw.githubusercontent.com/jamescostian/.config/master/scripts-james/helpers/install-if-not-exists"
+		INSTALL_IF_NOT_EXISTS_SCRIPT="https://raw.githubusercontent.com/jamescostian/.config/main/scripts-james/helpers/install-if-not-exists"
+		curl -L "$INSTALL_IF_NOT_EXISTS_SCRIPT" -o "install-if-not-exists" 2> /dev/null || wget -qO "install-if-not-exists" "$INSTALL_IF_NOT_EXISTS_SCRIPT"
 	fi
 	# The generalized installer is ready, time to run it
 	sh "install-if-not-exists" git || exit 1
@@ -23,6 +24,8 @@ run_script () {
 		./$1
 	elif [ -f "$1.zsh" ]; then
 		./$1.zsh
+	elif [ -f "$1.bash" ]; then
+		./$1.bash
 	elif [ -f "$1.sh" ]; then
 		./$1.sh
 	fi
