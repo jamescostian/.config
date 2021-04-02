@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# First, figure out which worktree to remove, then actually remove it if one is selected
+WORKTREE_TO_REMOVE=$(ggwl | fzf -0 -q "$1")
+if [[ -n "$WORKTREE_TO_REMOVE" ]]; then
+	cd "$WORKTREE_TO_REMOVE"
+	git worktree remove "$WORKTREE_TO_REMOVE"
+fi

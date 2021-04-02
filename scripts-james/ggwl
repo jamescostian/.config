@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+ghq list -p | while read -r repo; do
+	if [[ -f "$repo/.git" ]]; then
+		echo "$repo"
+	fi
+done

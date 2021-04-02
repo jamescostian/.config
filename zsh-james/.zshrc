@@ -30,6 +30,7 @@ zinit ice wait"1" lucid
 zinit snippet $ZDOTDIR/low-priority.zsh
 
 source $ZDOTDIR/git-shortcuts.zsh
+source $ZDOTDIR/git-worktrees.zsh
 # Add delta for git diffing
 if ! hash delta 2> /dev/null; then
 	zinit ice wait"1" from"gh-r" as"program" mv"delta*/delta -> delta" lucid
