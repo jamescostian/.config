@@ -11,7 +11,11 @@ sh -c "`curl -L https://jami.am || wget -qO - https://jami.am`"
 ZDOTDIR="$HOME/.config/zsh-james" zsh
 ```
 
-To install the full version (non-multitenant mode, which only makes sense for me, or for you if you fork and change this repo), run `export NOT_MULTITENANT=true` before running the `sh -c ...` part. You can also shorten this to `curl -L https://jami.am|NMT=y sh`
+To install the full version (non-multitenant mode, which only makes sense for me, or for you if you fork and change this repo), run `export NOT_MULTITENANT=true` or `export NMT=y` before running the `sh -c ...` part. The following is how I install this:
+
+```bash
+NMT=y sh -c "$(curl -L https://jami.am`)"
+```
 
 This does *not* [install the DisplayLink driver](https://support.system76.com/articles/use-docking-station/#installing-displaylink-driver) - something very helpful for using USB-C! If you want video over USB-C, you should definitely install it
 

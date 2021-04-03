@@ -2,11 +2,17 @@
 set -eo pipefail
 cd "$(dirname "$0")"
 if [ "$(uname)" = "Darwin" ]; then
+	set +e
 	softwareupdate --install-rosetta
+	set -e
 	if [[ ! -f /opt/homebrew/bin/brew ]]; then
+		FIRST_TIME_INSTALLING=true
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		eval "$(/opt/homebrew/bin/brew shellenv)"
 	fi
 	brew bundle --cleanup --file="$HOME/.config/Brewfile$MULTITENANT_SUFFIX"
+	# Installing from the Brewfile will include Xcode - you need to accept Xcode's license!
+	[[ "$FIRST_TIME_INSTALLING" = "true" ]] && sudo xcodebuild -license
 	# brew + zsh will make /opt/homebrew/share/zsh and /opt/homebrew/share/zsh/site-functions be group-writable, which compaudit complains about
 	chmod g-w /opt/homebrew/share/zsh/site-functions
 	chmod g-w /opt/homebrew/share/zsh
@@ -51,4 +57,18 @@ if [ "$(uname)" != "Darwin" ]; then
 	fi
 	chmod 0775 /usr/lib/node_modules
 	chmod 0775 /usr/lib/bin
+else
+	./tweak-macos-defaults
 fi
+
+if ! gpg --list-keys | grep 77E30DB4F230282981ED38EEDDF677A250F99DFD > /dev/null; then
+	echo
+	echo
+	echo "Importing GPG keys failed! Try running this manually:"
+	echo '  eval $(op --cache signin costian)'
+	echo "  op get document xhrjl3vs5i22tdiu2lmv7mgq4m | gpg --import -"
+	echo '  expect -c "spawn gpg --edit-key 77E30DB4F230282981ED38EEDDF677A250F99DFD trust quit; send \"5\ry\r\"; expect eof"'
+	echo
+fi
+
+echo "Successfully set up! If this is your initial setup, open a new terminal tab now"

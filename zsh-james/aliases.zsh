@@ -40,3 +40,6 @@ alias rx="wormhole rx --no-listen --accept-file"
 
 # Put my config in .config
 alias vim="vim -Nu $HOME/.config/vimrc$MULTITENANT_SUFFIX"
+
+# Log into 1Password's CLI
+alias 1p='eval $(op --cache signin costian)'

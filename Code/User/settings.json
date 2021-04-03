@@ -94,7 +94,6 @@
     "todo-tree.highlights.enabled": true,
     "explorer.confirmDelete": false,
     "gitlens.codeLens.enabled": false,
-    "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
     "gitlens.defaultDateShortFormat": "MM/DD/YY h:mmA",
     "gitlens.views.repositories.location": "gitlens",
@@ -151,5 +150,16 @@
     "terminal.integrated.allowChords": false,
     "workbench.startupEditor": "newUntitledFile",
     "code-runner.showRunIconInEditorTitleMenu": false,
-    "hexdump.btnEnabled": false
+    "hexdump.btnEnabled": false,
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }

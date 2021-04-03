@@ -1,0 +1,219 @@
+#!/usr/bin/env bash
+# Not sure if this one works
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+
+# Setup finder to show all files with all extensions, and show the current path at the bottom
+defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write com.apple.finder ShowPathbar -bool true
+chflags nohidden ~/Library
+killall Finder
+
+# Setup the dock's size, make it autohide, don't show recents
+defaults write com.apple.dock tilesize -int 55
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock show-recents -bool false
+killall Dock
+
+# Menu bar
+defaults write "Apple Global Domain" _HIHideMenuBar -bool true
+defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool true
+
+# Don't open a zip file or a pdf or whatever automatically
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+
+# Last 10 minutes on battery, 15 when plugged in
+sudo pmset -b sleep 10
+sudo pmset -b displaysleep 10
+sudo pmset -c sleep 15
+sudo pmset -c displaysleep 15
+
+# Allow scrolling through interactive CLIs
+defaults write com.googlecode.iterm2 AlternateMouseScroll -bool true
+# Setup OneHalf Dark on iTerm2
+defaults write com.googlecode.iterm2 "Custom Color Presets" '{
+    OneHalfDark = {
+        "Ansi 0 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.203921568627";
+            "Color Space" = sRGB;
+            "Green Component" = "0.172549019608";
+            "Red Component" = "0.156862745098";
+        };
+        "Ansi 1 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.458823529412";
+            "Color Space" = sRGB;
+            "Green Component" = "0.423529411765";
+            "Red Component" = "0.8784313725489999";
+        };
+        "Ansi 10 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.474509803922";
+            "Color Space" = sRGB;
+            "Green Component" = "0.764705882353";
+            "Red Component" = "0.596078431373";
+        };
+        "Ansi 11 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.482352941176";
+            "Color Space" = sRGB;
+            "Green Component" = "0.752941176471";
+            "Red Component" = "0.898039215686";
+        };
+        "Ansi 12 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.937254901961";
+            "Color Space" = sRGB;
+            "Green Component" = "0.686274509804";
+            "Red Component" = "0.380392156863";
+        };
+        "Ansi 13 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.866666666667";
+            "Color Space" = sRGB;
+            "Green Component" = "0.470588235294";
+            "Red Component" = "0.776470588235";
+        };
+        "Ansi 14 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.760784313725";
+            "Color Space" = sRGB;
+            "Green Component" = "0.713725490196";
+            "Red Component" = "0.337254901961";
+        };
+        "Ansi 15 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.894117647059";
+            "Color Space" = sRGB;
+            "Green Component" = "0.874509803922";
+            "Red Component" = "0.862745098039";
+        };
+        "Ansi 2 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.474509803922";
+            "Color Space" = sRGB;
+            "Green Component" = "0.764705882353";
+            "Red Component" = "0.596078431373";
+        };
+        "Ansi 3 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.482352941176";
+            "Color Space" = sRGB;
+            "Green Component" = "0.752941176471";
+            "Red Component" = "0.898039215686";
+        };
+        "Ansi 4 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.937254901961";
+            "Color Space" = sRGB;
+            "Green Component" = "0.686274509804";
+            "Red Component" = "0.380392156863";
+        };
+        "Ansi 5 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.866666666667";
+            "Color Space" = sRGB;
+            "Green Component" = "0.470588235294";
+            "Red Component" = "0.776470588235";
+        };
+        "Ansi 6 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.760784313725";
+            "Color Space" = sRGB;
+            "Green Component" = "0.713725490196";
+            "Red Component" = "0.337254901961";
+        };
+        "Ansi 7 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.894117647059";
+            "Color Space" = sRGB;
+            "Green Component" = "0.874509803922";
+            "Red Component" = "0.862745098039";
+        };
+        "Ansi 8 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.203921568627";
+            "Color Space" = sRGB;
+            "Green Component" = "0.172549019608";
+            "Red Component" = "0.156862745098";
+        };
+        "Ansi 9 Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.458823529412";
+            "Color Space" = sRGB;
+            "Green Component" = "0.423529411765";
+            "Red Component" = "0.8784313725489999";
+        };
+        "Background Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.203921568627";
+            "Color Space" = sRGB;
+            "Green Component" = "0.172549019608";
+            "Red Component" = "0.156862745098";
+        };
+        "Badge Color" =                 {
+            "Alpha Component" = "0.5";
+            "Blue Component" = 0;
+            "Color Space" = sRGB;
+            "Green Component" = 0;
+            "Red Component" = 1;
+        };
+        "Bold Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.7490196228027344";
+            "Color Space" = sRGB;
+            "Green Component" = "0.6980392336845398";
+            "Red Component" = "0.6705882549285889";
+        };
+        "Cursor Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.8";
+            "Color Space" = sRGB;
+            "Green Component" = "0.701960784314";
+            "Red Component" = "0.639215686275";
+        };
+        "Cursor Guide Color" =                 {
+            "Alpha Component" = "0.25";
+            "Blue Component" = "0.250980392157";
+            "Color Space" = sRGB;
+            "Green Component" = "0.211764705882";
+            "Red Component" = "0.192156862745";
+        };
+        "Cursor Text Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.894117647059";
+            "Color Space" = sRGB;
+            "Green Component" = "0.874509803922";
+            "Red Component" = "0.862745098039";
+        };
+        "Foreground Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.894117647059";
+            "Color Space" = sRGB;
+            "Green Component" = "0.874509803922";
+            "Red Component" = "0.862745098039";
+        };
+        "Link Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.937254901961";
+            "Color Space" = sRGB;
+            "Green Component" = "0.686274509804";
+            "Red Component" = "0.380392156863";
+        };
+        "Selected Text Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.894117647059";
+            "Color Space" = sRGB;
+            "Green Component" = "0.874509803922";
+            "Red Component" = "0.862745098039";
+        };
+        "Selection Color" =                 {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.364705882353";
+            "Color Space" = sRGB;
+            "Green Component" = "0.305882352941";
+            "Red Component" = "0.278431372549";
+        };
+    };
+}'

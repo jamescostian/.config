@@ -56,6 +56,6 @@ cd "$HOME/.config/scripts$MULTITENANT_SUFFIX/helpers"
 ./make-ssh-use-my-config
 
 # Setup pinentry-mac
-if [[ "$(uname)" = "Darwin" && ! -f "$HOME/bin/pinentry" ]] && ! hash pinentry-mac 2> /dev/null; then
+if [[ "$(uname)" = "Darwin" && ! -f "$HOME/bin/pinentry" ]] && hash pinentry-mac 2> /dev/null; then
 	mkdir -p ~/bin; ln -s `which pinentry-mac` ~/bin/pinentry
 fi

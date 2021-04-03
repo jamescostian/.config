@@ -6,6 +6,9 @@ install_git_if_not_installed () {
 	if hash git 2> /dev/null; then
 		return
 	fi
+	if [ "$(uname)" = "Darwin" ]; then
+		xcode-select --install
+	fi
 	# Git isn't installed, so download the installer and run it, then clone with git
 	# If you always download the installer, you can't test changes you make to it locally. So allow using an installer if it already exists
 	if [ ! -f "install-if-not-exists" ]; then

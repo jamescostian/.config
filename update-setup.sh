@@ -7,26 +7,17 @@ if [[ "$(uname)" = "Darwin" ]]; then
 else
 	~/.config/scripts$MULTITENANT_SUFFIX/helpers/list-apt-packages > ~/.config/apt-packages
 	~/.config/scripts$MULTITENANT_SUFFIX/helpers/list-snaps-installed > ~/.config/snaps-installed
+	dconf dump /desktop/ibus/ > ~/ibus.dconf
 fi
 code --list-extensions > ~/.config/Code/User/extensions
 
 # Update the version of ~/.ssh/config in 1Password
 if [[ -s ~/.ssh/config ]]; then
-	if ! op list vaults > /dev/null 2>&1; then
-		# Not logged in. Try to log in if not already logged in
-		if [[ ! -d "$HOME/.op" ]]; then
-			# Oh wait, this machine has never been signed in on!
-			echo '/!\ Do not type your master password yet! /!\'
-			op signin costian jamescostian@gmail.com
-		fi
-		eval $(op signin costian)
-	fi
+	eval $(op --cache signin costian)
 	# Remove the old SSH config (1Password's CLI doesn't support updating documents :/)
-	op delete document "SSH Config"
+	op --cache delete document "SSH Config"
 	cd ~/.ssh
-	op create document config --title "SSH Config"
+	op --cache create document config --title "SSH Config"
 fi
-
-dconf dump /desktop/ibus/ > ~/ibus.dconf
 
 # TODO: export wifi networks
