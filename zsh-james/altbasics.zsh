@@ -19,7 +19,7 @@ alias fda="fd -IH --exclude .git"
 
 # exa: ls but nicer
 if ! hash exa 2> /dev/null; then
-	zinit ice wait from"gh-r" as"program" mv"exa* -> exa" lucid
+	zinit ice wait from"gh-r" as"program" mv"bin/exa* -> exa" lucid
 	zinit light ogham/exa
 fi
 alias la="exa -la --git --sort=Name --color-scale"
