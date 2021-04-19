@@ -34,7 +34,8 @@ function kdbg {
 	echo
 	read -k "?Hit enter when you've done all the above"
 	echo "Open Chrome and go to chrome://inspect"
-	LOCAL_PORT=9232;
+	echo "You can also configure chrome to allow some ports above 9229"
+	LOCAL_PORT=9229;
 	CONCURRENTLY_ARGS="-k"
 	for POD_NAME in $(kpods "$1"); do
 			CONCURRENTLY_ARGS="$CONCURRENTLY_ARGS\n'kubectl port-forward $POD_NAME $LOCAL_PORT:9229'"
