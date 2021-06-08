@@ -43,7 +43,7 @@ fi
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep$MULTITENANT_SUFFIX"
 zinit ice wait"1" as"program" pick"src/batgrep.sh" lucid
 zinit light eth-p/bat-extras
-alias rg=batgrep.sh
+alias rg="BAT_STYLE= batgrep.sh"
 
 # Misc sane defaults IMO
 alias pkill="pkill -f"
