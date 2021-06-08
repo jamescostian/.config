@@ -1,21 +1,45 @@
-// Place your key bindings in this file to override the defaultsauto[]
 [
     // Make ctrl+alt+right and ctrl+alt+shift going between terminals IN ANY CONTEXT
     {
         "key": "ctrl+alt+right",
-        "command": "-workbench.action.moveEditorToNextGroup"
+        "command": "-workbench.action.moveEditorToNextGroup",
+        "when": "!isMac"
     },
     {
         "key": "ctrl+alt+right",
         "command": "workbench.action.terminal.focusNext",
+        "when": "!isMac"
     },
     {
         "key": "ctrl+alt+left",
-        "command": "-workbench.action.moveEditorToPreviousGroup"
+        "command": "-workbench.action.moveEditorToPreviousGroup",
+        "when": "!isMac"
     },
     {
         "key": "ctrl+alt+left",
         "command": "workbench.action.terminal.focusPrevious",
+        "when": "!isMac"
+    },
+    // Same thing but for macs, replacing ctrl with cmd
+    {
+        "key": "cmd+alt+right",
+        "command": "-workbench.action.moveEditorToNextGroup",
+        "when": "isMac"
+    },
+    {
+        "key": "cmd+alt+right",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "isMac"
+    },
+    {
+        "key": "cmd+alt+left",
+        "command": "-workbench.action.moveEditorToPreviousGroup",
+        "when": "isMac"
+    },
+    {
+        "key": "cmd+alt+left",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "isMac"
     },
 
     // Make shift+right and shift+left also switch between terminals, BUT ONLY IF FOCUS IS ON THE TERMINAL
@@ -29,62 +53,124 @@
         "command": "workbench.action.terminal.focusPrevious",
         "when": "terminalFocus"
     },
+
     // ctrl+` toggles focus between the terminal and the editor
     {
         "key": "ctrl+`",
         "command": "workbench.action.focusActiveEditorGroup",
-        "when": "terminalFocus"
+        "when": "terminalFocus && !isMac"
     },
     {
         "key": "ctrl+`",
         "command": "workbench.action.terminal.toggleTerminal",
-        "when": "!terminalFocus"
+        "when": "!terminalFocus && !isMac"
     },
     {
         "key": "ctrl+`",
-        "command": "-workbench.action.terminal.toggleTerminal"
+        "command": "-workbench.action.terminal.toggleTerminal",
+        "when": "!isMac"
     },
-    // Make ctrl+shift+c always go to the docker view
+    // Same thing but for macs, replacing ctrl with cmd
+    {
+        "key": "cmd+`",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus && isMac"
+    },
+    {
+        "key": "cmd+`",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "!terminalFocus && isMac"
+    },
+
+    // Make ctrl+shift+c always go to the ocker view
     {
         "key": "ctrl+shift+c",
         "command": "-workbench.action.terminal.copySelection",
-        "when": "terminalFocus && terminalTextSelected"
+        "when": "terminalFocus && terminalTextSelected && !isMac"
     },
     {
         "key": "ctrl+shift+c",
-        "command": "workbench.view.extension.dockerView"
+        "command": "workbench.view.extension.dockerView",
+        "when": "!isMac"
     },
     {
         "key": "ctrl+shift+c",
         "command": "-workbench.action.terminal.openNativeConsole",
-        "when": "!terminalFocus"
+        "when": "!terminalFocus && !isMac"
     },
+    // Same thing but for macs, replacing ctrl with cmd
+    {
+        "key": "cmd+shift+c",
+        "command": "-workbench.action.terminal.copySelection",
+        "when": "terminalFocus && terminalTextSelected && isMac"
+    },
+    {
+        "key": "cmd+shift+c",
+        "command": "workbench.view.extension.dockerView",
+        "when": "isMac"
+    },
+    {
+        "key": "cmd+shift+c",
+        "command": "-workbench.action.terminal.openNativeConsole",
+        "when": "!terminalFocus && isMac"
+    },
+
     // ctrl+shift+t to reopen an editor tab, or open a new terminal
     {
         "key": "ctrl+shift+t",
         "command": "workbench.action.reopenClosedEditor",
-        "when": "!terminalFocus"
+        "when": "!terminalFocus && !isMac"
     },
     {
         "key": "ctrl+shift+t",
-        "command": "-workbench.action.reopenClosedEditor"
+        "command": "-workbench.action.reopenClosedEditor",
+        "when": "!isMac"
     },
     {
         "key": "ctrl+shift+t",
         "command": "workbench.action.terminal.newInActiveWorkspace",
-        "when": "terminalFocus"
+        "when": "terminalFocus && !isMac"
     },
+    // Same thing but for macs, replacing ctrl with cmd
+    {
+        "key": "cmd+shift+t",
+        "command": "workbench.action.reopenClosedEditor",
+        "when": "!terminalFocus && isMac"
+    },
+    {
+        "key": "cmd+shift+t",
+        "command": "-workbench.action.reopenClosedEditor",
+        "when": "isMac"
+    },
+    {
+        "key": "cmd+shift+t",
+        "command": "workbench.action.terminal.newInActiveWorkspace",
+        "when": "terminalFocus && isMac"
+    },
+
     // Stage selection with ctrl+alt+s, unstage the same selection with ctrl+shift+alt+s
     {
         "key": "ctrl+alt+s",
         "command": "git.stageSelectedRanges",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && !isMac"
     },
     {
         "key": "ctrl+shift+alt+s",
         "command": "git.unstageSelectedRanges",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && !isMac"
     },
+    // Same thing but for macs, replacing ctrl with cmd
+    {
+        "key": "cmd+alt+s",
+        "command": "git.stageSelectedRanges",
+        "when": "editorTextFocus && isMac"
+    },
+    {
+        "key": "cmd+shift+alt+s",
+        "command": "git.unstageSelectedRanges",
+        "when": "editorTextFocus && isMac"
+    },
+
     // Bindings added by GitLens that I never touched
     {
         "key": "ctrl+shift+g g",
