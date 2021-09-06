@@ -17,12 +17,12 @@ source ~/.zinit/bin/zinit.zsh
 
 source $ZDOTDIR/docker.zsh
 source $ZDOTDIR/fzf.zsh
-source $ZDOTDIR/altbasics.zsh
+source $ZDOTDIR/alt-basics.zsh
 source $ZDOTDIR/theme.zsh
 source $ZDOTDIR/cd.zsh
-source $ZDOTDIR/shelltricks.zsh
+source $ZDOTDIR/shell-tricks.zsh
 source $ZDOTDIR/history.zsh
-source $ZDOTDIR/aliases.zsh
+source $ZDOTDIR/misc-shortcuts.zsh
 source $ZDOTDIR/editor.zsh
 source $ZDOTDIR/magic.zsh
 source $ZDOTDIR/completion.zsh
@@ -40,6 +40,8 @@ fi
 export GIT_PAGER="delta --theme OneHalfDark --file-style box --tabs 2"
 export GIT_COMMITTER_NAME="James Costian"
 export GIT_COMMITTER_EMAIL="james@jamescostian.com"
+# Vim, on the other hand, can read my vimrc
+alias vim="vim -Nu $HOME/.config/vimrc$MULTITENANT_SUFFIX"
 
 # Misc
 export PATH="$HOME/bin:$HOME/.config/scripts$MULTITENANT_SUFFIX:$HOME/.cargo/bin:$PATH"

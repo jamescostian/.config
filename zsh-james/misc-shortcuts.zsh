@@ -35,11 +35,10 @@ alias yt="yarn test"
 alias ytc="yarn test --coverage"
 alias ytw="yarn test --watch"
 
-# Config for file transfer things
-alias rx="wormhole rx --no-listen --accept-file"
-
-# Put my config in .config
-alias vim="vim -Nu $HOME/.config/vimrc$MULTITENANT_SUFFIX"
-
-# Log into 1Password's CLI
-alias 1p='eval $(op --cache signin costian)'
+# rm -Rf but with confirmation
+function rmr {
+	TOTAL_SIZE="$(du -shc "$@" | tail -1 | cut -f 1 -)B"
+	if read -k "?Hit enter to delete $TOTAL_SIZE or Ctrl+C to cancel"; then
+		rm -Rf "$@"
+	fi
+}
