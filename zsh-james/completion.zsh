@@ -5,7 +5,7 @@ if ! which _docker > /dev/null; then
 fi
 
 # Moar completions!
-zinit ice wait blockf lucid atpull"zinit creinstall -q ."
+zinit ice wait blockf lucid atpull"zinit creinstall -q ." as"completion"
 zinit light https://github.com/zsh-users/zsh-completions
 
 setopt alwaystoend
