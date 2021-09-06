@@ -43,8 +43,9 @@ export GIT_COMMITTER_EMAIL="james@jamescostian.com"
 # Vim, on the other hand, can read my vimrc
 alias vim="vim -Nu $HOME/.config/vimrc$MULTITENANT_SUFFIX"
 
+# .cargo/bin is for rust, .local/bin is for pipx
+export PATH="$HOME/bin:$HOME/.config/scripts$MULTITENANT_SUFFIX:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 # Misc
-export PATH="$HOME/bin:$HOME/.config/scripts$MULTITENANT_SUFFIX:$HOME/.cargo/bin:$PATH"
 export LESS=-R
 export GPG_TTY=$(tty)
 alias grep="grep --color=auto"
