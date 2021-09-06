@@ -14,6 +14,10 @@ set -eo pipefail
 # 	sudo chmod a+x /usr/local/bin/minikube
 # fi
 
+if ! hash iredis 2> /dev/null && hash pipx 2> /dev/null; then
+  pipx install iredis
+fi
+
 if [[ "$(uname)" != "Darwin" ]] && ! hash mullvad 2> /dev/null; then
 	# This may not be the latest version, but running `update` in a terminal will fix that
 	wget --content-disposition https://mullvad.net/en/download/deb/2020.5/ -O mullvad.deb

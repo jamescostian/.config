@@ -24,11 +24,6 @@
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "files.associations": {
-        "*.vue": "vue",
-        "request.schema": "json",
-        "response.schema": "json"
-    },
     "[vue]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -96,20 +91,14 @@
     "gitlens.codeLens.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
     "gitlens.defaultDateShortFormat": "MM/DD/YY h:mmA",
-    "gitlens.views.repositories.location": "gitlens",
-    "gitlens.views.fileHistory.location": "gitlens",
-    "gitlens.views.lineHistory.location": "gitlens",
-    "gitlens.views.compare.location": "gitlens",
-    "gitlens.views.search.location": "gitlens",
     "workbench.colorCustomizations": {
         "highlightLogicalLine.background": "#66666620",
     },
     "auto-rename-tag.activationOnLanguage": [
         "html",
         "xml",
-        "php",
-        "erb",
-        "javascript",
+        "javascriptreact",
+        "typescriptreact",
         "vue"
     ],
     "diffEditor.ignoreTrimWhitespace": false,
@@ -134,19 +123,10 @@
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
     "code-runner.enableAppInsights": false,
-    "atlascode.bitbucket.enabled": false,
-    "atlascode.jira.statusbar.showUser": false,
-    "atlascode.jira.statusbar.showProduct": false,
-    "atlascode.jira.statusbar.showLogin": true,
-    "atlascode.jira.statusbar.enabled": false,
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "eslint.format.enable": true,
     "vscode-postgres.prettyPrintJSONfields": true,
-    "atlascode.jira.enabled": true,
-    "gitlens.advanced.telemetry.enabled": false,
-    "gitlab.showIssueLinkOnStatusBar": false,
-    "gitlab.showStatusBarLinks": false,
     "terminal.integrated.allowChords": false,
     "workbench.startupEditor": "newUntitledFile",
     "code-runner.showRunIconInEditorTitleMenu": false,
@@ -164,5 +144,15 @@
     "typescript.updateImportsOnFileMove.enabled": "always",
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "go.vetFlags": [
+        "[\"-all\", \"-shadow\"]"
+    ],
+    "redhat.telemetry.enabled": false,
+    "gitlens.currentLine.enabled": false,
+    "docker.showStartPage": false,
+    "editor.formatOnSave": true,
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "go.coverOnSave": true
 }
