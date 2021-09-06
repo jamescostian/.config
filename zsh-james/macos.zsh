@@ -47,6 +47,7 @@ if [[ -f "/opt/homebrew/bin/brew" ]]; then
   eval $(/opt/homebrew/bin/brew shellenv)
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 	PATH="/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:/opt/homebrew/opt/gnu-tar/libexec/gnubin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+	MANPATH="/opt/homebrew/opt/grep/libexec/gnuman:/opt/homebrew/opt/gnu-sed/libexec/gnuman:/opt/homebrew/opt/gnu-tar/libexec/gnuman:/opt/homebrew/opt/findutils/libexec/gnuman:/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
 # Update, but just a few main things
