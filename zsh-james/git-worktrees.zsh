@@ -10,7 +10,7 @@ function github_forkable_repo_list {
 #        gfrk [repo to clone using gcl] [new branch name]
 function gfrk {
 	# First, try to figure out which project to fork using fzf, and allow accepting a search query as an argument, e.g. "gfrk jamescostian/.config"
-	local project="$(github_forkable_repo_list | fzf -0 -q "$1")"
+	local project="$(github_forkable_repo_list | fzf -0 -1 -q "$1")"
 	[[ "$?" != "0" ]] && return 1
 	# If no project was picked but there was a search query passed in, prompt to clone it
 	if [[ -z "$project" && -n "$1" ]]; then

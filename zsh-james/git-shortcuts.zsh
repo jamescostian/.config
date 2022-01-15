@@ -7,6 +7,10 @@ alias glurg="gl && gbpurge"
 alias gundo="git reset --soft HEAD~"
 alias gforget="git reset --hard HEAD~"
 alias glf='git fetch --all; git reset origin/$(git_current_branch) --hard' # analogous to "gpf" which is for force pushing, this is "force pulling"
+
+# Allow using git completions (like __git_branch_names) by calling _git once
+_git > /dev/null 2> /dev/null
+
 function gco {
 	echo "Use switch or restore instead!"
 	echo "gsw, grs, grss, and grst are good ones"
