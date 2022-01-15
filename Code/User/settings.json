@@ -154,5 +154,7 @@
     "editor.formatOnSave": true,
     "javascript.preferences.quoteStyle": "single",
     "typescript.preferences.quoteStyle": "single",
-    "go.coverOnSave": true
+    "go.coverOnSave": true,
+    "editor.bracketPairColorization.enabled": true,
+    "go.toolsManagement.autoUpdate": true
 }
