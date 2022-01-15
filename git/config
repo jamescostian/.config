@@ -5,7 +5,7 @@
 [commit]
 	gpgsign = true
 [core]
-	pager = delta --theme OneHalfDark --file-style box --tabs 2
+	pager = delta --theme OneHalfDark --file-style box --tabs 2 -s
 	excludesfile = ~/.config/git/ignore_global
 	editor = vim -Nu ~/.config/vimrc-james +startinsert
 [log]
