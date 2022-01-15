@@ -16,8 +16,7 @@ brew "diskus"
 brew "exa"
 brew "expect"
 brew "fd"
-brew "nghttp2"
-brew "unbound"
+brew "unbound", restart_service: true
 brew "gobject-introspection"
 brew "icu4c"
 brew "lame"
@@ -47,6 +46,8 @@ brew "krb5"
 brew "libfido2"
 brew "libpq"
 brew "mas"
+brew "mockery"
+brew "nghttp2"
 brew "ngrep"
 brew "nmap"
 brew "node"
@@ -56,7 +57,7 @@ brew "pgcli"
 brew "pinentry-mac"
 brew "pipx"
 brew "postgresql", restart_service: true
-brew "pv"
+brew "protoc-gen-go"
 brew "rename"
 brew "ripgrep"
 brew "rsync"
@@ -75,7 +76,6 @@ brew "zsh-completions"
 cask "1password"
 cask "1password-cli"
 cask "appcleaner"
-cask "db-browser-for-sqlite"
 cask "firefox"
 cask "firefox-developer-edition"
 cask "font-sauce-code-pro-nerd-font"
@@ -87,21 +87,23 @@ cask "libreoffice"
 cask "little-snitch"
 cask "micro-snitch"
 cask "minecraft"
+cask "monitorcontrol"
 cask "mullvadvpn"
-cask "pastebot"
-cask "plex"
 cask "rectangle"
-cask "sequel-pro"
+cask "signal"
+cask "skype"
 cask "spotify"
 cask "sublime-text"
 cask "visual-studio-code"
 cask "vlc"
 mas "2Do", id: 477670270
 mas "GarageBand", id: 682658836
+mas "Hush", id: 1544743900
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Paste", id: 967805235
 mas "The Unarchiver", id: 425424353
 mas "Xcode", id: 497799835
