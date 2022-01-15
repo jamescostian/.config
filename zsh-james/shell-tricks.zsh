@@ -28,7 +28,7 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 
 # Load up f-s-y last, and setup completions with it
 zinit ice wait atinit"zpcompinit; zpcdreplay" lucid
-zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
