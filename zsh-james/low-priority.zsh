@@ -5,5 +5,6 @@ if hash thefuck 2> /dev/null; then
 	eval $(thefuck --alias)
 fi
 
-# An alias from git-shortcuts will try to overwrite `gr` to be `git remote`, so this alias overwrites it to what I want
+# An alias from git-shortcuts will try to overwrite these, so these alias overwrites them to what I want
 alias gr='git reset'
+alias grbm="grbfm"

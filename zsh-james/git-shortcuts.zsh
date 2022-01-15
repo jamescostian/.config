@@ -36,6 +36,7 @@ function popb {
 }
 
 alias gsm='git fetch origin $(git_default_main_branch); gsw $(git_default_main_branch)'
+alias gsml='gsm && git pull'
 
 function git_remote_exists {
 	git remote get-url "$1" 2> /dev/null > /dev/null
@@ -74,6 +75,9 @@ function grbif {
 }
 zpcompdef __git_branch_names grbif
 alias grbfi="grbif"
+
+alias grbfm='grbf $(git_default_main_branch)'
+alias grbm="grbfm"
 
 # Install ghq for cloning repos
 zinit ice wait"1" from"gh-r" as"program" lucid mv"ghq*/ghq -> ghq"
