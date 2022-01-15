@@ -11,6 +11,10 @@ if [ "$(uname)" = "Darwin" ]; then
 		eval "$(/opt/homebrew/bin/brew shellenv)"
 	fi
 	brew bundle --cleanup --file="$HOME/.config/Brewfile$MULTITENANT_SUFFIX"
+	open -a pastebot
+	echo "Allow pastebot to run, and I'll set it up to allow up to 5000 entries"
+	sleep 10
+	defaults write com.tapbots.Pastebot2Mac MaxNumberClipboardEntries 5000
 	# Installing from the Brewfile will include Xcode - you need to accept Xcode's license!
 	[[ "$FIRST_TIME_INSTALLING" = "true" ]] && sudo xcodebuild -license
 	# brew + zsh will make /opt/homebrew/share/zsh and /opt/homebrew/share/zsh/site-functions be group-writable, which compaudit complains about
