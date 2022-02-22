@@ -12,6 +12,7 @@
 	abbrevCommit = true
 [rebase]
 	abbreviateCommands = true
+	autoStash = true
 [pull]
 	rebase = false
 [push]
