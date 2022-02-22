@@ -37,7 +37,7 @@ if ! hash delta 2> /dev/null; then
 	zinit light dandavison/delta
 fi
 # Git config (can't rely on ~/.config/git/config being available in multitenant situations)
-export GIT_PAGER="delta --theme OneHalfDark --file-style box --tabs 2 -s"
+export GIT_PAGER="delta --syntax-theme OneHalfDark --file-style box --tabs 2 -s"
 export GIT_COMMITTER_NAME="James Costian"
 export GIT_COMMITTER_EMAIL="james@jamescostian.com"
 # Vim, on the other hand, can read my vimrc
