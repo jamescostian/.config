@@ -16,6 +16,7 @@ Thumbs.db
 *.so
 *.log
 *.sqlite
+!**/fixtures/**/*.sqlite
 ._*
 /*.diff
 /patch
