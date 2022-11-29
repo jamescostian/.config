@@ -1,160 +1,157 @@
 {
-    "workbench.colorTheme": "One Dark Pro",
-    "editor.fontSize": 12,
-    "editor.scrollBeyondLastLine": true,
-    "files.trimTrailingWhitespace": true,
-    "editor.formatOnPaste": true,
-    // "editor.multiCursorModifier": "ctrlCmd",
-    "editor.snippetSuggestions": "top",
-    "editor.fontFamily": "Noto Mono for Powerline",
-    "git.autofetch": true,
-    "window.zoomLevel": 0,
-    "editor.tabSize": 2,
-    "terminal.integrated.copyOnSelection": true,
-    "editor.wordWrap": "on",
-    "editor.renderLineHighlight": "gutter",
-    "git.confirmSync": false,
-    "editor.cursorSurroundingLines": 3,
-    "git.suggestSmartCommit": false,
-    "terminal.integrated.fontSize": 13,
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "workbench.colorTheme": "One Dark Pro",
+  "editor.fontSize": 12,
+  "editor.scrollBeyondLastLine": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.formatOnPaste": true,
+  // "editor.multiCursorModifier": "ctrlCmd",
+  "editor.snippetSuggestions": "top",
+  "editor.fontFamily": "Noto Mono for Powerline",
+  "git.autofetch": true,
+  "editor.tabSize": 2,
+  "terminal.integrated.copyOnSelection": true,
+  "editor.wordWrap": "on",
+  "editor.renderLineHighlight": "gutter",
+  "git.confirmSync": false,
+  "editor.cursorSurroundingLines": 3,
+  "git.suggestSmartCommit": false,
+  "terminal.integrated.fontSize": 13,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "terminal.integrated.localEchoLatencyThreshold": -1,
+  "peacock.favoriteColors": [
+    {
+      "name": "Angular Red",
+      "value": "#b52e31"
     },
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "name": "Auth0 Orange",
+      "value": "#eb5424"
     },
-    "[vue]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "name": "Azure Blue",
+      "value": "#007fff"
     },
-    "terminal.integrated.localEchoLatencyThreshold": -1,
-    "peacock.favoriteColors": [
-        {
-            "name": "Angular Red",
-            "value": "#b52e31"
-        },
-        {
-            "name": "Auth0 Orange",
-            "value": "#eb5424"
-        },
-        {
-            "name": "Azure Blue",
-            "value": "#007fff"
-        },
-        {
-            "name": "C# Purple",
-            "value": "#68217A"
-        },
-        {
-            "name": "Gatsby Purple",
-            "value": "#639"
-        },
-        {
-            "name": "Go Cyan",
-            "value": "#5dc9e2"
-        },
-        {
-            "name": "Java Blue-Gray",
-            "value": "#557c9b"
-        },
-        {
-            "name": "JavaScript Yellow",
-            "value": "#f9e64f"
-        },
-        {
-            "name": "Mandalorian Blue",
-            "value": "#1857a4"
-        },
-        {
-            "name": "Node Green",
-            "value": "#215732"
-        },
-        {
-            "name": "React Blue",
-            "value": "#00b3e6"
-        },
-        {
-            "name": "Something Different",
-            "value": "#832561"
-        },
-        {
-            "name": "Vue Green",
-            "value": "#42b883"
-        }
-    ],
-    "editor.acceptSuggestionOnCommitCharacter": false,
-    "terminal.integrated.scrollback": 10000,
-    "window.titleBarStyle": "custom",
-    "update.mode": "manual",
-    "todo-tree.highlights.enabled": true,
-    "explorer.confirmDelete": false,
-    "gitlens.codeLens.enabled": false,
-    "gitlens.hovers.currentLine.over": "line",
-    "gitlens.defaultDateShortFormat": "MM/DD/YY h:mmA",
-    "workbench.colorCustomizations": {
-        "highlightLogicalLine.background": "#66666620",
+    {
+      "name": "C# Purple",
+      "value": "#68217A"
     },
-    "auto-rename-tag.activationOnLanguage": [
-        "html",
-        "xml",
-        "javascriptreact",
-        "typescriptreact",
-        "vue"
-    ],
-    "diffEditor.ignoreTrimWhitespace": false,
-    "editor.minimap.enabled": false,
-    "todo-tree.tree.showScanModeButton": false,
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "name": "Gatsby Purple",
+      "value": "#639"
     },
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "name": "Go Cyan",
+      "value": "#5dc9e2"
     },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "name": "Java Blue-Gray",
+      "value": "#557c9b"
     },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "name": "JavaScript Yellow",
+      "value": "#f9e64f"
     },
-    "[yaml]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "name": "Mandalorian Blue",
+      "value": "#1857a4"
     },
-    "terminal.integrated.enableBell": true,
-    "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false,
-    "code-runner.enableAppInsights": false,
-    "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "eslint.format.enable": true,
-    "vscode-postgres.prettyPrintJSONfields": true,
-    "terminal.integrated.allowChords": false,
-    "workbench.startupEditor": "newUntitledFile",
-    "code-runner.showRunIconInEditorTitleMenu": false,
-    "hexdump.btnEnabled": false,
-    "todo-tree.general.tags": [
-        "BUG",
-        "HACK",
-        "FIXME",
-        "TODO",
-        "XXX",
-        "[ ]",
-        "[x]"
-    ],
-    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "[css]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "name": "Node Green",
+      "value": "#215732"
     },
-    "go.vetFlags": [
-        "[\"-all\", \"-shadow\"]"
-    ],
-    "redhat.telemetry.enabled": false,
-    "gitlens.currentLine.enabled": false,
-    "docker.showStartPage": false,
-    "editor.formatOnSave": true,
-    "javascript.preferences.quoteStyle": "single",
-    "typescript.preferences.quoteStyle": "single",
-    "go.coverOnSave": true,
-    "editor.bracketPairColorization.enabled": true,
-    "go.toolsManagement.autoUpdate": true
+    {
+      "name": "React Blue",
+      "value": "#00b3e6"
+    },
+    {
+      "name": "Something Different",
+      "value": "#832561"
+    },
+    {
+      "name": "Vue Green",
+      "value": "#42b883"
+    }
+  ],
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "terminal.integrated.scrollback": 10000,
+  "window.titleBarStyle": "custom",
+  "update.mode": "manual",
+  "todo-tree.highlights.enabled": true,
+  "explorer.confirmDelete": false,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.defaultDateShortFormat": "MM/DD/YY h:mmA",
+  "workbench.colorCustomizations": {
+    "highlightLogicalLine.background": "#66666620"
+  },
+  "auto-rename-tag.activationOnLanguage": [
+    "html",
+    "xml",
+    "javascriptreact",
+    "typescriptreact",
+    "vue"
+  ],
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.minimap.enabled": false,
+  "todo-tree.tree.showScanModeButton": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "terminal.integrated.enableBell": true,
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false,
+  "code-runner.enableAppInsights": false,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "eslint.format.enable": true,
+  "vscode-postgres.prettyPrintJSONfields": true,
+  "terminal.integrated.allowChords": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "code-runner.showRunIconInEditorTitleMenu": false,
+  "hexdump.btnEnabled": false,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "[ ]",
+    "[x]"
+  ],
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "go.vetFlags": ["[\"-all\", \"-shadow\"]"],
+  "redhat.telemetry.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "docker.showStartPage": false,
+  "editor.formatOnSave": true,
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "go.coverOnSave": true,
+  "editor.bracketPairColorization.enabled": true,
+  "go.toolsManagement.autoUpdate": true
 }

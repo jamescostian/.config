@@ -24,6 +24,8 @@ configstore/update-notifier-*.json
 configstore/time-tracker-cli.json
 deluge/
 discord/
+docker-james/canary.json
+docker-james/contexts
 emaildefaults
 evince/
 freerdp
@@ -38,14 +40,15 @@ htoprc
 ibus/
 iterm2
 libreoffice/
+litecli
 menus/
 nextjs-nodejs/config.json
 notificationhelper
 openrazer/
 opera/
 pavucontrol.ini
+pgcli
 plasma-localerc
-plex.tv/plexmediaplayer.conf
 print-manager
 pulse/
 remmina/
