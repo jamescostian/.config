@@ -44,8 +44,8 @@ export GIT_COMMITTER_EMAIL="james@jamescostian.com"
 alias vim="vim -Nu $HOME/.config/vimrc$MULTITENANT_SUFFIX"
 
 export GOPATH="$HOME/go"
-# .cargo/bin is for rust, .local/bin is for pipx
-export PATH="$HOME/bin:$HOME/.config/scripts$MULTITENANT_SUFFIX:$HOME/.cargo/bin:$HOME/.local/bin:$GOPATH/bin:$PATH"
+# .cargo/bin is for rust, $GOPATH/bin is for golang
+export PATH="$HOME/bin:$HOME/.config/scripts$MULTITENANT_SUFFIX:$HOME/.cargo/bin:$GOPATH/bin:$PATH"
 # Misc
 export LESS=-R
 export GPG_TTY=$(tty)
