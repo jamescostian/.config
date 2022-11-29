@@ -29,6 +29,15 @@ fi
 alias la="exa -la --git --sort=Name --color-scale"
 alias l="exa -l --git --sort=Name --color-scale"
 
+# llama: cd+ls+$EDITOR
+if ! hash llama 2> /dev/null; then
+	zinit ice wait from"gh-r" as"program" mv"llama* -> llama" lucid
+	zinit light antonmedv/llama
+fi
+function ll {
+	cd "$(llama "$@")"
+}
+
 # hyperfine: time on steroids
 if ! hash hyperfine 2> /dev/null; then
 	function hyperfine {
