@@ -69,8 +69,8 @@ if ! gpg --list-keys | grep 77E30DB4F230282981ED38EEDDF677A250F99DFD > /dev/null
 	echo
 	echo
 	echo "Importing GPG keys failed! Try running this manually:"
-	echo '  eval $(op --cache signin costian)'
-	echo "  op get document xhrjl3vs5i22tdiu2lmv7mgq4m | gpg --import -"
+	echo '  eval $(op signin --account costian.1password.com)'
+	echo "  op document get xhrjl3vs5i22tdiu2lmv7mgq4m --force | gpg --import -"
 	echo '  expect -c "spawn gpg --edit-key 77E30DB4F230282981ED38EEDDF677A250F99DFD trust quit; send \"5\ry\r\"; expect eof"'
 	echo
 fi
