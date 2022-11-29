@@ -8,7 +8,7 @@ zinit light https://github.com/zsh-users/zsh-history-substring-search
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-# Finally, autosuggestions - see a recently run command that starts the same as what you're typing, and just hit the right arrow key
+# autosuggestions - see a recently run command that starts the same as what you're typing, and just hit the right arrow key
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -32,3 +32,14 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
+
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+zinit ice wait lucid
+zinit snippet https://raw.githubusercontent.com/knu/zsh-manydots-magic/master/manydots-magic
+
+bindkey " " magic-space

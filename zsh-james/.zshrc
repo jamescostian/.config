@@ -20,12 +20,15 @@ source $ZDOTDIR/fzf.zsh
 source $ZDOTDIR/alt-basics.zsh
 source $ZDOTDIR/theme.zsh
 source $ZDOTDIR/cd.zsh
-source $ZDOTDIR/shell-tricks.zsh
+zinit ice wait lucid
+zinit snippet $ZDOTDIR/completion/requires-compdef.zsh
 source $ZDOTDIR/history.zsh
 source $ZDOTDIR/misc-shortcuts.zsh
 source $ZDOTDIR/editor.zsh
-source $ZDOTDIR/magic.zsh
-source $ZDOTDIR/completion.zsh
+source $ZDOTDIR/shell-tricks.zsh
+source $ZDOTDIR/completion/external.zsh
+source $ZDOTDIR/completion/my-rules.zsh
+source $ZDOTDIR/completion/my-scripts.zsh
 zinit ice wait"1" lucid
 zinit snippet $ZDOTDIR/low-priority.zsh
 
