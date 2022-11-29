@@ -46,7 +46,7 @@ test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_int
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
   eval $(/opt/homebrew/bin/brew shellenv)
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-	PATH="/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:/opt/homebrew/opt/gnu-tar/libexec/gnubin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+	PATH="/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:/opt/homebrew/opt/gnu-tar/libexec/gnubin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/python/libexec/bin:$PATH"
 	MANPATH="/opt/homebrew/opt/grep/libexec/gnuman:/opt/homebrew/opt/gnu-sed/libexec/gnuman:/opt/homebrew/opt/gnu-tar/libexec/gnuman:/opt/homebrew/opt/findutils/libexec/gnuman:/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
