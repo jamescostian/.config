@@ -1,21 +1,10 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# if [[ "$(uname)" != "Darwin" && ! -d "$HOME/.cargo" ]] && ! hash rustc 2> /dev/null; then
-# 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete --default-toolchain beta -y
-# fi
-
-# if [[ "$(uname)" != "Darwin" && ! -d "/opt/go" ]] && ! hash go 2> /dev/null; then
-# 	curl -L https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz | sudo tar -xzC /opt
-# fi
-
-# if [[ "$(uname)" != "Darwin" && ! -f "/usr/local/bin/minikube" ]] && ! hash minikube 2> /dev/null; then
-# 	sudo curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-# 	sudo chmod a+x /usr/local/bin/minikube
-# fi
-
-if ! hash iredis 2> /dev/null && hash pipx 2> /dev/null; then
-  pipx install iredis
+if ! hash js-beautify 2> /dev/null; then
+	set +e
+	npm install --global js-beautify || sudo npm install --global js-beautify
+	set -e
 fi
 
 if [[ "$(uname)" != "Darwin" ]] && ! hash mullvad 2> /dev/null; then
