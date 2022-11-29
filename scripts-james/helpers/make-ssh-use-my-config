@@ -8,7 +8,7 @@
 # Note that in MacOS, the first line of output from ps will be ARGS, which has to be skipped when checking if this is interactive by checking if there are only 2 args
 # TODO: read the existing indentation in ~/.ssh/config, and mimic it
 read -r -d '' SSH_CONFIG_NEEDED << 'EOF'
-Match exec "[[ $(ps -ho args -p $PPID | sed 's~ ~\n~g' | grep -v '^\-' | grep -v '^ARGS$' | wc -l) -eq 2 && _$MULTITENANT_SUFFIX == _{suffix here} ]]"
+Match exec "[[ $(ps -ho args -p $PPID | sed 's~ ~\n~g' | grep -v '^-' | grep -v '^ARGS$' | wc -l) -eq 2 && _$MULTITENANT_SUFFIX == _{suffix here} ]]"
     RemoteCommand if [ -d $HOME/.config/zsh{suffix here} ]; then ZDOTDIR=$HOME/.config/zsh{suffix here} zsh; else bash; fi
     RequestTTY yes
 EOF
