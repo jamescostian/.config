@@ -1,4 +1,5 @@
 alias dkrma="docker ps -aq | xargs docker rm -f"
+alias curv="curl -v"
 
 alias v="vim"
 
@@ -42,3 +43,32 @@ function rmr {
 		rm -Rf "$@"
 	fi
 }
+
+# Extract a .tar.gz or .tgz by just paste a URL ending in .tar.gz or .tgz into the terminal and hitting enter
+alias -s {tar.gz,tgz}="remote_tgz_extract"
+function remote_tgz_extract {
+	if curl -fL "$1" -o tarball.tgz && mkdir tarball && tar -C tarball -xf tarball.tgz; then
+		rm tarball.tgz
+		# Go into the directory
+		pushd tarball > /dev/null 2> /dev/null
+		# cd as many times as a human would, while keeping it so that a simple "pushd" will restore the directory previous to this function being run
+		replaced_ad_nauseum
+		# This makes it easy move on from the archive with a simple `popd; rmr tarball`
+	fi
+}
+
+# If this dir has 0 files and exactly 1 dir, popd+pushd ("replaced") into it. Hidden files and dirs count towards those numbers.
+function replaced_ad_nauseum {
+	if [[ "$(ls -A1 | wc -l)" == "1" ]] && [[ -d "$(ls -A1)" ]]; then
+		local new_cwd="$PWD/$(ls -A1)"
+		popd > /dev/null 2> /dev/null
+		pushd "$new_cwd" > /dev/null 2> /dev/null
+		replaced_ad_nauseum
+	fi
+}
+
+# Look at an NPM package locally
+function npvw {
+	remote_tgz_extract "$(npm view "$1" dist.tarball)"
+}
+
