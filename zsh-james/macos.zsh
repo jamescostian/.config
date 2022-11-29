@@ -56,7 +56,7 @@ alias upd="mas upgrade && brew update && brew upgrade; brew unlink openssh"
 function update {
 	upd
 	# Update everything zinit manages
-	zinit update
+	zinit update; rm -Rf .zinit/completions
 	# Upgrade GUIs (greedy is slower, but will result in more casks being updated)
 	brew upgrade --cask --greedy
 	# Upgrade OS-level things

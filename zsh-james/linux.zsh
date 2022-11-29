@@ -27,7 +27,7 @@ alias upd="sudo apt update && sudo apt upgrade"
 function update {
 	upd
 	# Update everything zinit manages
-	zinit update
+	zinit update; rm -Rf ~/.zinit/completions
 	# Update FF dev edition. It gets updated really frequently!
 	# Might as well download the latest version every time update is called - so long as FF is not running!
 	if ! pgrep "firefox-devedition" > /dev/null; then
