@@ -7,6 +7,7 @@
 [core]
 	pager = delta --syntax-theme OneHalfDark --file-style box --tabs 2 -s
 	excludesfile = ~/.config/git/ignore_global
+	attributesfile = ~/.config/git/attributes_global
 	editor = vim -Nu ~/.config/vimrc-james +startinsert
 [log]
 	abbrevCommit = true
@@ -29,3 +30,9 @@
 	ui = auto
 [init]
 	defaultBranch = main
+[diff "minjs"]
+	textconv = js-beautify
+	cachetextconv = true
+[diff "mincss"]
+	textconv = js-beautify --css
+	cachetextconv = true
