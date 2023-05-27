@@ -6,8 +6,12 @@ fi
 export BAT_THEME="OneHalfDark"
 export BAT_PAGER="less -R"
 export BAT_STYLE="plain"
-# Replace cat with bat
-alias cat="bat --paging never"
+# Replace cat with bat, optionally with dark mode vs light mode support for MacOS
+if [ "$(uname)" = "Darwin" ]; then
+	alias cat="bat --paging never --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo OneHalfDark || echo OneHalfLight)"
+else
+	alias cat="bat --paging never"
+fi
 
 # fd: find but nicer
 if ! hash fd 2> /dev/null; then

@@ -14,23 +14,39 @@ cmap Wq wq
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	autocmd VimEnter * PlugInstall --sync | :execute 'source ' . expand('<sfile>:p')
 endif
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
+Plug 'vimpostor/vim-lumen'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'sonph/onehalf', {'rtp': 'vim'}
 Plug 'scrooloose/syntastic'
 Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
-colorscheme onehalfdark
-let g:airline_theme='onehalfdark'
+" Switching OS dark mode changes the colorscheme and airline_theme
+au User LumenLight colorscheme onehalflight
+au User LumenLight let g:airline_theme='onehalflight'
+au User LumenDark colorscheme onehalfdark
+au User LumenDark let g:airline_theme='onehalfdark'
 
+" Airline needs to refresh when its theme is changed.
+" However, simply calling AirlineRefresh on LumenLight/LumenDark fails, saying AirlineRefresh isn't defined
+" Avoid those errors during initial startup, but allow changing between dark mode and light mode to still cause an AirlineRefresh
+func! TryAirlineRefresh()
+	try
+		silent! AirlineRefresh
+	endtry
+endfunc
+au User LumenLight :call TryAirlineRefresh()
+au User LumenDark :call TryAirlineRefresh()
+
+" Use true colors
 if exists('+termguicolors')
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

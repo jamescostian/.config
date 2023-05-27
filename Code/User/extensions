@@ -42,6 +42,8 @@ naumovs.color-highlight
 nhoizey.gremlins
 pnp.polacode
 Prisma.prisma
+quandinh.onehalf-dark
+quandinh.onehalf-light
 redhat.vscode-commons
 redhat.vscode-yaml
 rust-lang.rust
@@ -52,5 +54,4 @@ VisualStudioExptTeam.intellicode-api-usage-examples
 VisualStudioExptTeam.vscodeintellicode
 vsls-contrib.codetour
 wmira.react-playground-vscode
-zhuangtongfa.material-theme
 zxh404.vscode-proto3

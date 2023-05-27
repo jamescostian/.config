@@ -28,187 +28,189 @@ sudo pmset -b displaysleep 10
 sudo pmset -c sleep 15
 sudo pmset -c displaysleep 15
 
+# Switch to "minimal" UI
+defaults write com.googlecode.iterm2 TabStyleWithAutomaticOption -int 5
 # Allow scrolling through interactive CLIs
 defaults write com.googlecode.iterm2 AlternateMouseScroll -bool true
 # Setup OneHalf Dark on iTerm2
 defaults write com.googlecode.iterm2 "Custom Color Presets" '{
-    OneHalfDark = {
-        "Ansi 0 Color" =                 {
+    OneHalfDark =     {
+        "Ansi 0 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.203921568627";
             "Color Space" = sRGB;
             "Green Component" = "0.172549019608";
             "Red Component" = "0.156862745098";
         };
-        "Ansi 1 Color" =                 {
+        "Ansi 1 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.458823529412";
             "Color Space" = sRGB;
             "Green Component" = "0.423529411765";
             "Red Component" = "0.8784313725489999";
         };
-        "Ansi 10 Color" =                 {
+        "Ansi 10 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.474509803922";
             "Color Space" = sRGB;
             "Green Component" = "0.764705882353";
             "Red Component" = "0.596078431373";
         };
-        "Ansi 11 Color" =                 {
+        "Ansi 11 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.482352941176";
             "Color Space" = sRGB;
             "Green Component" = "0.752941176471";
             "Red Component" = "0.898039215686";
         };
-        "Ansi 12 Color" =                 {
+        "Ansi 12 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.937254901961";
             "Color Space" = sRGB;
             "Green Component" = "0.686274509804";
             "Red Component" = "0.380392156863";
         };
-        "Ansi 13 Color" =                 {
+        "Ansi 13 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.866666666667";
             "Color Space" = sRGB;
             "Green Component" = "0.470588235294";
             "Red Component" = "0.776470588235";
         };
-        "Ansi 14 Color" =                 {
+        "Ansi 14 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.760784313725";
             "Color Space" = sRGB;
             "Green Component" = "0.713725490196";
             "Red Component" = "0.337254901961";
         };
-        "Ansi 15 Color" =                 {
+        "Ansi 15 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.894117647059";
             "Color Space" = sRGB;
             "Green Component" = "0.874509803922";
             "Red Component" = "0.862745098039";
         };
-        "Ansi 2 Color" =                 {
+        "Ansi 2 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.474509803922";
             "Color Space" = sRGB;
             "Green Component" = "0.764705882353";
             "Red Component" = "0.596078431373";
         };
-        "Ansi 3 Color" =                 {
+        "Ansi 3 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.482352941176";
             "Color Space" = sRGB;
             "Green Component" = "0.752941176471";
             "Red Component" = "0.898039215686";
         };
-        "Ansi 4 Color" =                 {
+        "Ansi 4 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.937254901961";
             "Color Space" = sRGB;
             "Green Component" = "0.686274509804";
             "Red Component" = "0.380392156863";
         };
-        "Ansi 5 Color" =                 {
+        "Ansi 5 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.866666666667";
             "Color Space" = sRGB;
             "Green Component" = "0.470588235294";
             "Red Component" = "0.776470588235";
         };
-        "Ansi 6 Color" =                 {
+        "Ansi 6 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.760784313725";
             "Color Space" = sRGB;
             "Green Component" = "0.713725490196";
             "Red Component" = "0.337254901961";
         };
-        "Ansi 7 Color" =                 {
+        "Ansi 7 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.894117647059";
             "Color Space" = sRGB;
             "Green Component" = "0.874509803922";
             "Red Component" = "0.862745098039";
         };
-        "Ansi 8 Color" =                 {
+        "Ansi 8 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.203921568627";
             "Color Space" = sRGB;
             "Green Component" = "0.172549019608";
             "Red Component" = "0.156862745098";
         };
-        "Ansi 9 Color" =                 {
+        "Ansi 9 Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.458823529412";
             "Color Space" = sRGB;
             "Green Component" = "0.423529411765";
             "Red Component" = "0.8784313725489999";
         };
-        "Background Color" =                 {
+        "Background Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.203921568627";
             "Color Space" = sRGB;
             "Green Component" = "0.172549019608";
             "Red Component" = "0.156862745098";
         };
-        "Badge Color" =                 {
+        "Badge Color" =         {
             "Alpha Component" = "0.5";
             "Blue Component" = 0;
             "Color Space" = sRGB;
             "Green Component" = 0;
             "Red Component" = 1;
         };
-        "Bold Color" =                 {
+        "Bold Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.7490196228027344";
             "Color Space" = sRGB;
             "Green Component" = "0.6980392336845398";
             "Red Component" = "0.6705882549285889";
         };
-        "Cursor Color" =                 {
+        "Cursor Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.8";
             "Color Space" = sRGB;
             "Green Component" = "0.701960784314";
             "Red Component" = "0.639215686275";
         };
-        "Cursor Guide Color" =                 {
+        "Cursor Guide Color" =         {
             "Alpha Component" = "0.25";
             "Blue Component" = "0.250980392157";
             "Color Space" = sRGB;
             "Green Component" = "0.211764705882";
             "Red Component" = "0.192156862745";
         };
-        "Cursor Text Color" =                 {
+        "Cursor Text Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.894117647059";
             "Color Space" = sRGB;
             "Green Component" = "0.874509803922";
             "Red Component" = "0.862745098039";
         };
-        "Foreground Color" =                 {
+        "Foreground Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.894117647059";
             "Color Space" = sRGB;
             "Green Component" = "0.874509803922";
             "Red Component" = "0.862745098039";
         };
-        "Link Color" =                 {
+        "Link Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.937254901961";
             "Color Space" = sRGB;
             "Green Component" = "0.686274509804";
             "Red Component" = "0.380392156863";
         };
-        "Selected Text Color" =                 {
+        "Selected Text Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.894117647059";
             "Color Space" = sRGB;
             "Green Component" = "0.874509803922";
             "Red Component" = "0.862745098039";
         };
-        "Selection Color" =                 {
+        "Selection Color" =         {
             "Alpha Component" = 1;
             "Blue Component" = "0.364705882353";
             "Color Space" = sRGB;
@@ -216,4 +218,190 @@ defaults write com.googlecode.iterm2 "Custom Color Presets" '{
             "Red Component" = "0.278431372549";
         };
     };
+    OneHalfLight =     {
+        "Ansi 0 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.258823529412";
+            "Color Space" = sRGB;
+            "Green Component" = "0.227450980392";
+            "Red Component" = "0.219607843137";
+        };
+        "Ansi 1 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.286274509804";
+            "Color Space" = sRGB;
+            "Green Component" = "0.337254901961";
+            "Red Component" = "0.894117647059";
+        };
+        "Ansi 10 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.474509803922";
+            "Color Space" = sRGB;
+            "Green Component" = "0.764705882353";
+            "Red Component" = "0.596078431373";
+        };
+        "Ansi 11 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.482352941176";
+            "Color Space" = sRGB;
+            "Green Component" = "0.752941176471";
+            "Red Component" = "0.898039215686";
+        };
+        "Ansi 12 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.937254901961";
+            "Color Space" = sRGB;
+            "Green Component" = "0.686274509804";
+            "Red Component" = "0.380392156863";
+        };
+        "Ansi 13 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.866666666667";
+            "Color Space" = sRGB;
+            "Green Component" = "0.470588235294";
+            "Red Component" = "0.776470588235";
+        };
+        "Ansi 14 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.760784313725";
+            "Color Space" = sRGB;
+            "Green Component" = "0.713725490196";
+            "Red Component" = "0.337254901961";
+        };
+        "Ansi 15 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = 1;
+            "Color Space" = sRGB;
+            "Green Component" = 1;
+            "Red Component" = 1;
+        };
+        "Ansi 2 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.309803921569";
+            "Color Space" = sRGB;
+            "Green Component" = "0.63137254902";
+            "Red Component" = "0.313725490196";
+        };
+        "Ansi 3 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.00392156862745";
+            "Color Space" = sRGB;
+            "Green Component" = "0.517647058824";
+            "Red Component" = "0.756862745098";
+        };
+        "Ansi 4 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.737254901961";
+            "Color Space" = sRGB;
+            "Green Component" = "0.517647058824";
+            "Red Component" = "0.00392156862745";
+        };
+        "Ansi 5 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.643137254902";
+            "Color Space" = sRGB;
+            "Green Component" = "0.149019607843";
+            "Red Component" = "0.650980392157";
+        };
+        "Ansi 6 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.701960784314";
+            "Color Space" = sRGB;
+            "Green Component" = "0.592156862745";
+            "Red Component" = "0.0352941176471";
+        };
+        "Ansi 7 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.980392156863";
+            "Color Space" = sRGB;
+            "Green Component" = "0.980392156863";
+            "Red Component" = "0.980392156863";
+        };
+        "Ansi 8 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.36862745098";
+            "Color Space" = sRGB;
+            "Green Component" = "0.321568627451";
+            "Red Component" = "0.309803921569";
+        };
+        "Ansi 9 Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.458823529412";
+            "Color Space" = sRGB;
+            "Green Component" = "0.423529411765";
+            "Red Component" = "0.8784313725489999";
+        };
+        "Background Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.980392156863";
+            "Color Space" = sRGB;
+            "Green Component" = "0.980392156863";
+            "Red Component" = "0.980392156863";
+        };
+        "Badge Color" =         {
+            "Alpha Component" = "0.5";
+            "Blue Component" = 0;
+            "Color Space" = sRGB;
+            "Green Component" = 0;
+            "Red Component" = 1;
+        };
+        "Bold Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.7490196228027344";
+            "Color Space" = sRGB;
+            "Green Component" = "0.6980392336845398";
+            "Red Component" = "0.6705882549285889";
+        };
+        "Cursor Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = 1;
+            "Color Space" = sRGB;
+            "Green Component" = "0.807843137255";
+            "Red Component" = "0.749019607843";
+        };
+        "Cursor Guide Color" =         {
+            "Alpha Component" = "0.25";
+            "Blue Component" = "0.941176470588";
+            "Color Space" = sRGB;
+            "Green Component" = "0.941176470588";
+            "Red Component" = "0.941176470588";
+        };
+        "Cursor Text Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.258823529412";
+            "Color Space" = sRGB;
+            "Green Component" = "0.227450980392";
+            "Red Component" = "0.219607843137";
+        };
+        "Foreground Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.258823529412";
+            "Color Space" = sRGB;
+            "Green Component" = "0.227450980392";
+            "Red Component" = "0.219607843137";
+        };
+        "Link Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.737254901961";
+            "Color Space" = sRGB;
+            "Green Component" = "0.517647058824";
+            "Red Component" = "0.00392156862745";
+        };
+        "Selected Text Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = "0.258823529412";
+            "Color Space" = sRGB;
+            "Green Component" = "0.227450980392";
+            "Red Component" = "0.219607843137";
+        };
+        "Selection Color" =         {
+            "Alpha Component" = 1;
+            "Blue Component" = 1;
+            "Color Space" = sRGB;
+            "Green Component" = "0.807843137255";
+            "Red Component" = "0.749019607843";
+        };
+    };
 }'
+
+# TODO: replace all this with some JS that uses https://github.com/tarranjones/macOS-defaults to do all this *plus*, set the theme (it's under "New Bookmarks" - see all the colors, and also turn on "Use Separate Colors for Light and Dark Mode"). Also, set the default font!
