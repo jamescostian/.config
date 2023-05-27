@@ -66,5 +66,6 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[5~" backward-word
 bindkey "^[[3~" delete-char
 bindkey "^H" backward-kill-word
+bindkey "^U" backward-kill-line
 
 # Benchmark with hyperfine --warmup 2 'zsh -i -c exit'

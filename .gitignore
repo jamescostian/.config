@@ -24,8 +24,8 @@ configstore/update-notifier-*.json
 configstore/time-tracker-cli.json
 deluge/
 discord/
-docker-james/canary.json
-docker-james/contexts
+docker-james/
+!docker-james/config.json
 emaildefaults
 evince/
 freerdp

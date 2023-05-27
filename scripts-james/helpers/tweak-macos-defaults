@@ -13,6 +13,8 @@ killall Finder
 defaults write com.apple.dock tilesize -int 55
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock show-recents -bool false
+# Mission Control: don't reorganize spaces automatically based on most recently used
+defaults write com.apple.dock mru-spaces -bool false
 killall Dock
 
 # Menu bar

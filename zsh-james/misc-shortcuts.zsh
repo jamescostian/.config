@@ -1,3 +1,5 @@
+alias btoa="base64"
+alias atob="base64 -d"
 alias dkrma="docker ps -aq | xargs docker rm -f"
 alias curv="curl -v"
 
@@ -44,8 +46,9 @@ function rmr {
 	fi
 }
 
-# Extract a .tar.gz or .tgz by just paste a URL ending in .tar.gz or .tgz into the terminal and hitting enter
-alias -s {tar.gz,tgz}="remote_tgz_extract"
+# Extract a .tar.gz or .tgz by just paste a URL ending in .tar.gz or .tgz into the terminal and hitting enter.
+# Notable bugs: this expects the tarball to be a link it has to curl (doesn't work with local files!) and it is activated on .gz links that aren't .tar.gz links
+alias -s {gz,tgz}="remote_tgz_extract"
 function remote_tgz_extract {
 	if curl -fL "$1" -o tarball.tgz && mkdir tarball && tar -C tarball -xf tarball.tgz; then
 		rm tarball.tgz
