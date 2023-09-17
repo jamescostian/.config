@@ -3,13 +3,20 @@ if ! hash bat 2> /dev/null; then
 	zinit ice wait from"gh-r" as"program" mv"bat*/bat -> bat" lucid
 	zinit light sharkdp/bat
 fi
-export BAT_THEME="OneHalfDark"
 export BAT_PAGER="less -R"
 export BAT_STYLE="plain"
 # Replace cat with bat, optionally with dark mode vs light mode support for MacOS
 if [ "$(uname)" = "Darwin" ]; then
+	# Sets an environment variable 1 time which is useful for everything that bundles bat, but won't live-update
+	if defaults read -globalDomain AppleInterfaceStyle &> /dev/null; then
+		export BAT_THEME="OneHalfDark"
+	else
+		export BAT_THEME="OneHalfLight"
+	fi
+	# Every time you run cat, evaluate the light/dark mode setting to choose which theme to use
 	alias cat="bat --paging never --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo OneHalfDark || echo OneHalfLight)"
 else
+	export BAT_THEME="OneHalfDark"
 	alias cat="bat --paging never"
 fi
 
