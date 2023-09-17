@@ -17,11 +17,9 @@ To install the full version (non-multitenant mode, which only makes sense for me
 NMT=y sh -c "$(curl -L https://jami.am`)"
 ```
 
-This does *not* [install the DisplayLink driver](https://support.system76.com/articles/use-docking-station/#installing-displaylink-driver) - something very helpful for using USB-C! If you want video over USB-C, you should definitely install it
-
 ## Goals
 
-- **Allow me to set up a new machine** fully (assuming some Ubuntu or derivative OS, apt, snap, and internet access). Not just things like my [.zshrc](zsh-james/.zshrc), but also things like my SSH and GPG keys, and even wifi passwords I've saved (I store all these secrets in 1Password), and even install extensions in VS Codium, or configure `about:config` Firefox settings.
+- **Allow me to set up a new machine** fully (assuming some Ubuntu or derivative OS, apt, snap, and internet access). Not just things like my [.zshrc](zsh-james/.zshrc), but also things like my SSH and GPG keys, and even wifi passwords I've saved (I store all these secrets in 1Password), and even install extensions in VS Code, or configure `about:config` Firefox settings.
 - **Allow me to get a similar set up on a shared user account of an existing machine** - many people make their dotfiles under the assumption that they will have an account which is solely their's, which allows for some simplifications like putting their configuration files in the normal places. But sometimes you need to SSH into a machine and use an account that is shared by others. Having your own `.zshrc`, `.vimrc`, scripts, etc. in the `$HOME` of that shared user account affects others - it's better to allow everyone to have their own, different configurations, and [when each of you SSHs in, you can have your custom shell](scripts-james/helpers/make-ssh-use-my-config)
 - Do the above using **idempotent** scripts
 - Try to be **declarative** when possible, but not to the extent that it limits the capabilities (for example, NixOS allowed me to have a very declarative configuration, but it also got in my way frequently enough that it wasn't worth the troubles)
