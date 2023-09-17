@@ -3,13 +3,13 @@
   "workbench.preferredDarkColorTheme": "onehalf-dark",
   "workbench.colorTheme": "onehalf-light",
   "workbench.preferredLightColorTheme": "onehalf-light",
+  "editor.fontFamily": "MesloLGL Nerd Font Mono",
   "editor.fontSize": 12,
+  "terminal.integrated.fontSize": 13,
   "editor.scrollBeyondLastLine": true,
   "files.trimTrailingWhitespace": true,
   "editor.formatOnPaste": true,
-  // "editor.multiCursorModifier": "ctrlCmd",
   "editor.snippetSuggestions": "top",
-  "editor.fontFamily": "SauceCodePro Nerd Font Mono",
   "git.autofetch": true,
   "editor.tabSize": 2,
   "terminal.integrated.copyOnSelection": true,
@@ -18,7 +18,6 @@
   "git.confirmSync": false,
   "editor.cursorSurroundingLines": 3,
   "git.suggestSmartCommit": false,
-  "terminal.integrated.fontSize": 13,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -52,7 +51,6 @@
   ],
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.minimap.enabled": false,
-  "todo-tree.tree.showScanModeButton": false,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -69,17 +67,14 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "terminal.integrated.enableBell": true,
-  "telemetry.enableTelemetry": false,
-  "telemetry.enableCrashReporter": false,
+  "telemetry.telemetryLevel": "off",
   "code-runner.enableAppInsights": false,
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "eslint.format.enable": true,
-  "vscode-postgres.prettyPrintJSONfields": true,
   "terminal.integrated.allowChords": false,
   "workbench.startupEditor": "newUntitledFile",
   "code-runner.showRunIconInEditorTitleMenu": false,
-  "hexdump.btnEnabled": false,
   "todo-tree.general.tags": [
     "BUG",
     "HACK",
@@ -97,11 +92,11 @@
   "go.vetFlags": ["[\"-all\", \"-shadow\"]"],
   "redhat.telemetry.enabled": false,
   "gitlens.currentLine.enabled": false,
-  "docker.showStartPage": false,
   "editor.formatOnSave": true,
   "javascript.preferences.quoteStyle": "single",
   "typescript.preferences.quoteStyle": "single",
   "go.coverOnSave": true,
   "editor.bracketPairColorization.enabled": true,
-  "go.toolsManagement.autoUpdate": true
+  "go.toolsManagement.autoUpdate": true,
+  "eslint.experimental.useFlatConfig": true
 }

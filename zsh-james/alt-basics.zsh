@@ -25,13 +25,13 @@ fi
 # Use fd but without any excludes except .git
 alias fda="fd -IH --exclude .git"
 
-# exa: ls but nicer
-if ! hash exa 2> /dev/null; then
-	zinit ice wait from"gh-r" as"program" mv"bin/exa* -> exa" lucid
-	zinit light ogham/exa
+# eza: ls but nicer (maintained version of exa)
+if ! hash eza 2> /dev/null; then
+	zinit ice wait from"gh-r" as"program" lucid
+	zinit light eza-community/eza
 fi
-alias la="exa -la --git --sort=Name --color-scale"
-alias l="exa -l --git --sort=Name --color-scale"
+alias la="eza -la --git --sort=Name --color-scale"
+alias l="eza -l --git --sort=Name --color-scale"
 
 # llama: cd+ls+$EDITOR
 if ! hash llama 2> /dev/null; then

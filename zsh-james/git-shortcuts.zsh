@@ -134,14 +134,6 @@ function hi {
 	[[ -n "$project" ]] && cd "$(ghq list -p -e "$project")"
 }
 
-# Setup forgit - interactive (through fzf) git aliases
-forgit_diff="gdf"
-forgit_add="gai"
-forgit_reset_head="grh"
-forgit_ignore="gitignore"
-zinit ice wait"1" lucid
-zinit load wfxr/forgit
-
 # Add some git aliases. This includes aliases for some functions I've defined, so I'm unaliasing them so my function can be run instead
 zinit ice wait lucid atload"unalias gcl gpsup gco gsw"
 zinit snippet OMZ::plugins/git/git.plugin.zsh

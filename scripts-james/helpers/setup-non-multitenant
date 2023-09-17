@@ -30,11 +30,11 @@ else
 	# Next, install snaps (has to come after apt, because apt may need to install snap)
 	./list-snaps-installed > tmp
 	./install-and-uninstall ~/.config/snaps-installed tmp "sudo snap install" "sudo snap remove" "" -rL 1
+	# Next, since brew isn't used for linux, install VS Code extensions (has to come after apt, because apt may need to install code)
+	code --list-extensions > tmp
+	./install-and-uninstall ~/.config/Code/User/extensions tmp "code --install-extension" "code --uninstall-extension" "" -rL 1
+	rm tmp
 fi
-# Next, install VS Code extensions (has to come after apt, because apt may need to install code)
-code --list-extensions > tmp
-./install-and-uninstall ~/.config/Code/User/extensions tmp "code --install-extension" "code --uninstall-extension" "" -rL 1
-rm tmp
 # And now install everything else that has custom installers
 ./install-custom-packages
 
