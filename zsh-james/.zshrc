@@ -67,5 +67,6 @@ bindkey "^[[5~" backward-word
 bindkey "^[[3~" delete-char
 bindkey "^H" backward-kill-word
 bindkey "^U" backward-kill-line
+disable r # I never mean to type 'r', if I do it's probably a typo for 'rm', so 'r' always has unintended behavior
 
 # Benchmark with hyperfine --warmup 2 'zsh -i -c exit'
